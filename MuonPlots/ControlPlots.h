@@ -164,44 +164,44 @@ public:
 
 
 		//Same-Sign / Opposite Invariant Mass
-		//if( recolep1.charge != recolep2.charge )
-			//h_mass_OS->Fill( reco_M, GenWeight );
-		//else
-			//h_mass_SS->Fill( reco_M, GenWeight );
+		if( recolep1.charge != recolep2.charge )
+			h_mass_OS->Fill( reco_M, GenWeight );
+		else
+			h_mass_SS->Fill( reco_M, GenWeight );
 
-		////Pt plots for negative/positive charged muons
-		//if( recolep1.charge == -1 )
-			//h_Pt_minusCharge->Fill( recolep1.Pt, GenWeight );
-		//else if( recolep1.charge == 1 )
-			//h_Pt_plusCharge->Fill( recolep1.Pt, GenWeight );
+		Pt plots for negative/positive charged muons
+		if( recolep1.charge == -1 )
+			h_Pt_minusCharge->Fill( recolep1.Pt, GenWeight );
+		else if( recolep1.charge == 1 )
+			h_Pt_plusCharge->Fill( recolep1.Pt, GenWeight );
 
-		//if( recolep2.charge == -1 )
-			//h_Pt_minusCharge->Fill( recolep2.Pt, GenWeight );
-		//else if( recolep2.charge == 1 )
-			//h_Pt_plusCharge->Fill( recolep2.Pt, GenWeight );
+		if( recolep2.charge == -1 )
+			h_Pt_minusCharge->Fill( recolep2.Pt, GenWeight );
+		else if( recolep2.charge == 1 )
+			h_Pt_plusCharge->Fill( recolep2.Pt, GenWeight );
 
-		//Pt plots with respect to their pair mass
-		//if( reco_M < 70 )
-		//{
-			//h_Pt_M70->Fill( recolep1.Pt, GenWeight );
-			//h_Pt_M70->Fill( recolep2.Pt, GenWeight );
-		//}
-		//else if( reco_M > 70 && reco_M < 90 )
-		//{
-			//h_Pt_M70to90->Fill( recolep1.Pt, GenWeight );
-			//h_Pt_M70to90->Fill( recolep2.Pt, GenWeight );
+		Pt plots with respect to their pair mass
+		if( reco_M < 70 )
+		{
+			h_Pt_M70->Fill( recolep1.Pt, GenWeight );
+			h_Pt_M70->Fill( recolep2.Pt, GenWeight );
+		}
+		else if( reco_M > 70 && reco_M < 90 )
+		{
+			h_Pt_M70to90->Fill( recolep1.Pt, GenWeight );
+			h_Pt_M70to90->Fill( recolep2.Pt, GenWeight );
 
-		//}
-		//else if( reco_M > 90 && reco_M < 110 )
-		//{
-			//h_Pt_M90to110->Fill( recolep1.Pt, GenWeight );
-			//h_Pt_M90to110->Fill( recolep2.Pt, GenWeight );
-		//}
-		//else if( reco_M > 110 )
-		//{
-			//h_Pt_M110toInf->Fill( recolep1.Pt, GenWeight );
-			//h_Pt_M110toInf->Fill( recolep2.Pt, GenWeight );
-		//}
+		}
+		else if( reco_M > 90 && reco_M < 110 )
+		{
+			h_Pt_M90to110->Fill( recolep1.Pt, GenWeight );
+			h_Pt_M90to110->Fill( recolep2.Pt, GenWeight );
+		}
+		else if( reco_M > 110 )
+		{
+			h_Pt_M110toInf->Fill( recolep1.Pt, GenWeight );
+			h_Pt_M110toInf->Fill( recolep2.Pt, GenWeight );
+		}
 		if (reco_M > 60 && reco_M < 120)
 		{
 			h_Pt_M60to120->Fill( recolep1.Pt, GenWeight );
