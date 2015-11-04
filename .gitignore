@@ -32,3 +32,8 @@
 
 # setting files
 *.vscode
+
+# others
+*.d
+*.pcm
+*.nfs*

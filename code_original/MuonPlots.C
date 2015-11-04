@@ -50,17 +50,7 @@ void MuonPlots(TString HLTname = "IsoMu20")
 	cout << "===========================================================" << endl;
 
 
-	//TFile *f = new TFile("ROOTFile_Histogram_InvMass_"+HLTname+"_Data.root", "RECREATE");
-	//TFile *f = new TFile("ROOTFile_Histogram_InvMass_60to120_Data.root", "RECREATE");
-	TFile *fisGLB = new TFile("MuonCutIsGLB.root", "RECREATE");
-	//TFile *fisPF = new TFile("MuonCutIsPF.root", "RECREATE");
-	//TFile *fisChi2dof = new TFile("MuonCutChi2dof.root", "RECREATE");
-	//TFile *f = new TFile("MuonCutMuonHits.root", "RECREATE");
-	//TFile *f = new TFile("MuonCutNMatches.root", "RECREATE");
-	//TFile *f = new TFile("MuonCutDxyVTX.root", "RECREATE");
-	//TFile *f = new TFile("MuonCutDzVTX.root", "RECREATE");
-	//TFile *f = new TFile("MuonCutPixelHits.root", "RECREATE");
-	//TFile *f = new TFile("MuonCutTrackerLayers.root", "RECREATE");
+	TFile *f = new TFile("ROOTFile_Histogram_InvMass_"+HLTname+"_Data.root", "RECREATE");
 
 	TString BaseLocation = "/data4/Users/kplee/DYntuple";
 	//Each ntuple directory & corresponding Tags
@@ -78,13 +68,6 @@ void MuonPlots(TString HLTname = "IsoMu20")
 
 	//Data
 	ntupleDirectory.push_back( "Run2015C/GoldenJSON/SingleMuon_v3_Run246908to256869" ); Tag.push_back( "Data" ); // -- Run2015C -- //
-
-
-	//Histograms for cuts
-	TH1D *h_isGLB_Pt = new TH1D("h_isGLB_Pt", "", 250, 0, 500);
-	TH1D *h_isGLB_eta = new TH1D("h_isGLB_eta", "", 60, -3, 3);
-	TH1D *h_isGLB_phi = new TH1D("h_isGLB_phi", "", 80, -4, 4);
-	//TH1D *h_isGLB_mass = new TH1D("h_isGLB_mass", "", 500, 0, 1000);
 
 	//Loop for all samples
 	const Int_t Ntup = ntupleDirectory.size();
@@ -224,16 +207,11 @@ void MuonPlots(TString HLTname = "IsoMu20")
 				else if( Tag[i_tup] == "DYTauTau" )
 					GenMatching(HLTname, "fromTau", ntuple, &MuonCollection);
 
-
 				//Collect qualified muons among muons
 				vector< Muon > QMuonCollection;
 				for(Int_t j=0; j<(int)MuonCollection.size(); j++)
 				{
-					h_isGLB_Pt->Fill( MuonCollection[j].Pt, GenWeight );
-				    h_isGLB_eta->Fill( MuonCollection[j].eta, GenWeight);
-				    h_isGLB_phi->Fill( MuonCollection[j].phi, GenWeight);
-					//h_isGLB_mass->Fill( MuonCollection[j].mass, GenWeight);
-					if( MuonCollection[j].isTightMuon() && MuonCollection[j].trkiso < 0.10)
+				    if( MuonCollection[j].isTightMuon() && MuonCollection[j].trkiso < 0.10)
 				        QMuonCollection.push_back( MuonCollection[j] );
 				}
 
@@ -254,14 +232,12 @@ void MuonPlots(TString HLTname = "IsoMu20")
 					TLorentzVector reco_v2 = recolep2.Momentum;
 					Double_t reco_M = (reco_v1 + reco_v2).M();
 
-					if( reco_M > 60 && reco_M < 120 && isPassDimuonVertexCut(ntuple, recolep1.cktpT, recolep2.cktpT) )
+					if( reco_M > 20 && isPassDimuonVertexCut(ntuple, recolep1.cktpT, recolep2.cktpT) )
 					{
-						/*
-						 *Plots->FillHistograms(ntuple, HLT, recolep1, recolep2, GenWeight);
-						 */
+						Plots->FillHistograms(ntuple, HLT, recolep1, recolep2, GenWeight);
 
 						//Count # events in the Z-peak region for each sample
-						//if( reco_M > 60 && reco_M < 120 )
+						if( reco_M > 60 && reco_M < 120 )
 							count_Zpeak++;
 					}
 				}
@@ -278,14 +254,7 @@ void MuonPlots(TString HLTname = "IsoMu20")
 		// 		Plots->Histo[i_hist]->Scale( 2.49997e+10 / 4.48119e+11 );
 		// }
 
-		//Plots->WriteHistograms( fisGLB );
-		fisGLB->cd();
-		h_isGLB_Pt->Write();
-		h_isGLB_eta->Write();
-		h_isGLB_phi->Write();
-
-
-
+		Plots->WriteHistograms( f );
 
 		if(isNLO == 1)
 			cout << "\tTotal sum of weights: " << SumWeight << endl;

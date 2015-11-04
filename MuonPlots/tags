@@ -1,0 +1,249 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+AssignAccThreshold	MuonPlots.C	/^void AssignAccThreshold(TString HLTname, TString *HLT, Double_t *LeadPtCut, Double_t *SubPtCut, Double_t *LeadEtaCut, Double_t *SubEtaCut)$/;"	f
+CompareGenLepton	MuonPlots.C	/^void CompareGenLepton(GenLepton *genlep1, GenLepton *genlep2, GenLepton *leadgenlep, GenLepton *subgenlep)$/;"	f
+CompareMuon	MuonPlots.C	/^void CompareMuon(Muon *Mu1, Muon *Mu2, Muon *leadMu, Muon *subMu)$/;"	f
+ControlPlots	ControlPlots.h	/^	ControlPlots(TString Type)$/;"	f	class:ControlPlots
+ControlPlots	ControlPlots.h	/^class ControlPlots$/;"	c
+CosAngle	NtupleHandle.h	/^    std::vector<double> *CosAngle;$/;"	m	class:NtupleHandle
+Electron	Lepton.h	/^class Electron : public Lepton$/;"	c
+Electron_E	NtupleHandle.h	/^    Double_t Electron_E[MaxN];$/;"	m	class:NtupleHandle
+Electron_ECalib	NtupleHandle.h	/^    Double_t Electron_ECalib[MaxN];$/;"	m	class:NtupleHandle
+Electron_HoverE	NtupleHandle.h	/^	Double_t Electron_HoverE[MaxN];$/;"	m	class:NtupleHandle
+Electron_InvEminusInvP	NtupleHandle.h	/^	Double_t Electron_InvEminusInvP[MaxN];$/;"	m	class:NtupleHandle
+Electron_Px	NtupleHandle.h	/^    Double_t Electron_Px[MaxN];$/;"	m	class:NtupleHandle
+Electron_PxCalib	NtupleHandle.h	/^    Double_t Electron_PxCalib[MaxN];$/;"	m	class:NtupleHandle
+Electron_Py	NtupleHandle.h	/^    Double_t Electron_Py[MaxN];$/;"	m	class:NtupleHandle
+Electron_PyCalib	NtupleHandle.h	/^    Double_t Electron_PyCalib[MaxN];$/;"	m	class:NtupleHandle
+Electron_Pz	NtupleHandle.h	/^    Double_t Electron_Pz[MaxN];$/;"	m	class:NtupleHandle
+Electron_PzCalib	NtupleHandle.h	/^    Double_t Electron_PzCalib[MaxN];$/;"	m	class:NtupleHandle
+Electron_chIso03	NtupleHandle.h	/^    Double_t Electron_chIso03[MaxN];$/;"	m	class:NtupleHandle
+Electron_dEtaIn	NtupleHandle.h	/^	Double_t Electron_dEtaIn[MaxN];$/;"	m	class:NtupleHandle
+Electron_dPhiIn	NtupleHandle.h	/^	Double_t Electron_dPhiIn[MaxN];$/;"	m	class:NtupleHandle
+Electron_dxyVTX	NtupleHandle.h	/^	Double_t Electron_dxyVTX[MaxN];$/;"	m	class:NtupleHandle
+Electron_dzVTX	NtupleHandle.h	/^	Double_t Electron_dzVTX[MaxN];   $/;"	m	class:NtupleHandle
+Electron_ecalDriven	NtupleHandle.h	/^	Int_t Electron_ecalDriven[MaxN];$/;"	m	class:NtupleHandle
+Electron_et	NtupleHandle.h	/^	Double_t Electron_et[MaxN];$/;"	m	class:NtupleHandle
+Electron_etCalib	NtupleHandle.h	/^    Double_t Electron_etCalib[MaxN];$/;"	m	class:NtupleHandle
+Electron_eta	NtupleHandle.h	/^	Double_t Electron_eta[MaxN];$/;"	m	class:NtupleHandle
+Electron_etaSC	NtupleHandle.h	/^	Double_t Electron_etaSC[MaxN];$/;"	m	class:NtupleHandle
+Electron_mHits	NtupleHandle.h	/^	Int_t Electron_mHits[MaxN];$/;"	m	class:NtupleHandle
+Electron_nhIso03	NtupleHandle.h	/^    Double_t Electron_nhIso03[MaxN];$/;"	m	class:NtupleHandle
+Electron_pT	NtupleHandle.h	/^    Double_t Electron_pT[MaxN];$/;"	m	class:NtupleHandle
+Electron_pTCalib	NtupleHandle.h	/^    Double_t Electron_pTCalib[MaxN];$/;"	m	class:NtupleHandle
+Electron_phIso03	NtupleHandle.h	/^    Double_t Electron_phIso03[MaxN];$/;"	m	class:NtupleHandle
+Electron_phi	NtupleHandle.h	/^	Double_t Electron_phi[MaxN];$/;"	m	class:NtupleHandle
+Electron_sigmaIEtaIEta	NtupleHandle.h	/^	Double_t Electron_sigmaIEtaIEta[MaxN];$/;"	m	class:NtupleHandle
+Et	Lepton.h	/^	Double_t Et;$/;"	m	class:Lepton
+FillFromNtuple	Lepton.h	/^    void FillFromNtuple(NtupleHandle *nh, Int_t index)$/;"	f	class:Electron
+FillFromNtuple	Lepton.h	/^    void FillFromNtuple(NtupleHandle *nh, Int_t index)$/;"	f	class:GenLepton
+FillFromNtuple	Lepton.h	/^    void FillFromNtuple(NtupleHandle *nh, Int_t index)$/;"	f	class:Muon
+FillHistograms	ControlPlots.h	/^	void FillHistograms(NtupleHandle *ntuple, TString HLT, Muon recolep1, Muon recolep2, Double_t GenWeight)$/;"	f	class:ControlPlots
+GENEvt_weight	NtupleHandle.h	/^    Double_t GENEvt_weight;$/;"	m	class:NtupleHandle
+GENLepton_fromHardProcessBeforeFSR	NtupleHandle.h	/^    Int_t GENLepton_fromHardProcessBeforeFSR[MaxN];$/;"	m	class:NtupleHandle
+GENLepton_fromHardProcessDecayed	NtupleHandle.h	/^    Int_t GENLepton_fromHardProcessDecayed[MaxN];$/;"	m	class:NtupleHandle
+GENLepton_fromHardProcessFinalState	NtupleHandle.h	/^    Int_t GENLepton_fromHardProcessFinalState[MaxN];$/;"	m	class:NtupleHandle
+GENLepton_isDecayedLeptonHadron	NtupleHandle.h	/^    Int_t GENLepton_isDecayedLeptonHadron[MaxN];$/;"	m	class:NtupleHandle
+GENLepton_isDirectPromptTauDecayProductFinalState	NtupleHandle.h	/^    Int_t GENLepton_isDirectPromptTauDecayProductFinalState[MaxN];$/;"	m	class:NtupleHandle
+GENLepton_isHardProcess	NtupleHandle.h	/^    Int_t GENLepton_isHardProcess[MaxN];$/;"	m	class:NtupleHandle
+GENLepton_isLastCopy	NtupleHandle.h	/^    Int_t GENLepton_isLastCopy[MaxN];$/;"	m	class:NtupleHandle
+GENLepton_isLastCopyBeforeFSR	NtupleHandle.h	/^    Int_t GENLepton_isLastCopyBeforeFSR[MaxN];$/;"	m	class:NtupleHandle
+GENLepton_isPrompt	NtupleHandle.h	/^    Int_t GENLepton_isPrompt[MaxN];$/;"	m	class:NtupleHandle
+GENLepton_isPromptDecayed	NtupleHandle.h	/^    Int_t GENLepton_isPromptDecayed[MaxN];$/;"	m	class:NtupleHandle
+GENLepton_isPromptFinalState	NtupleHandle.h	/^    Int_t GENLepton_isPromptFinalState[MaxN];$/;"	m	class:NtupleHandle
+GENLepton_isPromptTauDecayProduct	NtupleHandle.h	/^    Int_t GENLepton_isPromptTauDecayProduct[MaxN];$/;"	m	class:NtupleHandle
+GENLepton_isTauDecayProduct	NtupleHandle.h	/^    Int_t GENLepton_isTauDecayProduct[MaxN];$/;"	m	class:NtupleHandle
+GenLepton	Lepton.h	/^class GenLepton : public Lepton$/;"	c
+GenMatching	MuonPlots.C	/^void GenMatching(TString HLTname, TString MuonType, NtupleHandle* ntuple, vector<Muon>* MuonCollection)$/;"	f
+GetEvent	NtupleHandle.h	/^    void GetEvent(Int_t i)$/;"	f	class:NtupleHandle
+HLT_ntrig	NtupleHandle.h	/^    Int_t HLT_ntrig;$/;"	m	class:NtupleHandle
+HLT_trigEta	NtupleHandle.h	/^    Double_t HLT_trigEta[MaxN];$/;"	m	class:NtupleHandle
+HLT_trigFired	NtupleHandle.h	/^    Int_t HLT_trigFired[MaxN];$/;"	m	class:NtupleHandle
+HLT_trigName	NtupleHandle.h	/^    vector<string> *HLT_trigName;$/;"	m	class:NtupleHandle
+HLT_trigPhi	NtupleHandle.h	/^    Double_t HLT_trigPhi[MaxN];$/;"	m	class:NtupleHandle
+Histo	ControlPlots.h	/^	std::vector<TH1D*> Histo;$/;"	m	class:ControlPlots
+HoverE	Lepton.h	/^    Double_t HoverE;$/;"	m	class:Electron
+ID	Lepton.h	/^    Double_t ID;$/;"	m	class:GenLepton
+InvEminusInvP	Lepton.h	/^    Double_t InvEminusInvP;$/;"	m	class:Electron
+Lepton	Lepton.h	/^class Lepton$/;"	c
+M_Mu	Lepton.h	9;"	d
+Mass	Lepton.h	/^    Double_t Mass;$/;"	m	class:GenLepton
+MaxN	NtupleHandle.h	4;"	d
+Momentum	Lepton.h	/^	TLorentzVector Momentum;$/;"	m	class:Lepton
+Mother	Lepton.h	/^    Double_t Mother;$/;"	m	class:GenLepton
+Muon	Lepton.h	/^class Muon : public Lepton$/;"	c
+MuonPlots	MuonPlots.C	/^void MuonPlots(TString HLTname = "IsoMu20")$/;"	f
+Muon_PfChargedHadronIsoR04	NtupleHandle.h	/^    Double_t Muon_PfChargedHadronIsoR04[MaxN];$/;"	m	class:NtupleHandle
+Muon_PfGammaIsoR04	NtupleHandle.h	/^    Double_t Muon_PfGammaIsoR04[MaxN];$/;"	m	class:NtupleHandle
+Muon_PfNeutralHadronIsoR04	NtupleHandle.h	/^    Double_t Muon_PfNeutralHadronIsoR04[MaxN];$/;"	m	class:NtupleHandle
+Muon_Px	NtupleHandle.h	/^    Double_t Muon_Px[MaxN];$/;"	m	class:NtupleHandle
+Muon_Py	NtupleHandle.h	/^    Double_t Muon_Py[MaxN];$/;"	m	class:NtupleHandle
+Muon_Pz	NtupleHandle.h	/^    Double_t Muon_Pz[MaxN];$/;"	m	class:NtupleHandle
+Muon_charge	NtupleHandle.h	/^    Int_t Muon_charge[MaxN];$/;"	m	class:NtupleHandle
+Muon_chi2dof	NtupleHandle.h	/^    Double_t Muon_chi2dof[MaxN];$/;"	m	class:NtupleHandle
+Muon_cktPx	NtupleHandle.h	/^    Double_t Muon_cktPx[MaxN];$/;"	m	class:NtupleHandle
+Muon_cktPy	NtupleHandle.h	/^    Double_t Muon_cktPy[MaxN];$/;"	m	class:NtupleHandle
+Muon_cktPz	NtupleHandle.h	/^    Double_t Muon_cktPz[MaxN];$/;"	m	class:NtupleHandle
+Muon_cktpT	NtupleHandle.h	/^    Double_t Muon_cktpT[MaxN];$/;"	m	class:NtupleHandle
+Muon_cktpTError	NtupleHandle.h	/^    Double_t Muon_cktpTError[MaxN];$/;"	m	class:NtupleHandle
+Muon_dxyVTX	NtupleHandle.h	/^    Double_t Muon_dxyVTX[MaxN];$/;"	m	class:NtupleHandle
+Muon_dxycktVTX	NtupleHandle.h	/^    Double_t Muon_dxycktVTX[MaxN];$/;"	m	class:NtupleHandle
+Muon_dzVTX	NtupleHandle.h	/^    Double_t Muon_dzVTX[MaxN];$/;"	m	class:NtupleHandle
+Muon_dzcktVTX	NtupleHandle.h	/^    Double_t Muon_dzcktVTX[MaxN];$/;"	m	class:NtupleHandle
+Muon_eta	NtupleHandle.h	/^    Double_t Muon_eta[MaxN];$/;"	m	class:NtupleHandle
+Muon_muonHits	NtupleHandle.h	/^    Int_t Muon_muonHits[MaxN];$/;"	m	class:NtupleHandle
+Muon_muonType	NtupleHandle.h	/^    Int_t Muon_muonType[MaxN];$/;"	m	class:NtupleHandle
+Muon_nMatches	NtupleHandle.h	/^    Int_t Muon_nMatches[MaxN];$/;"	m	class:NtupleHandle
+Muon_nSegments	NtupleHandle.h	/^    Int_t Muon_nSegments[MaxN];$/;"	m	class:NtupleHandle
+Muon_pT	NtupleHandle.h	/^    Double_t Muon_pT[MaxN];$/;"	m	class:NtupleHandle
+Muon_phi	NtupleHandle.h	/^    Double_t Muon_phi[MaxN];$/;"	m	class:NtupleHandle
+Muon_pixelHits	NtupleHandle.h	/^    Int_t Muon_pixelHits[MaxN];$/;"	m	class:NtupleHandle
+Muon_trackerLayers	NtupleHandle.h	/^    Int_t Muon_trackerLayers[MaxN];$/;"	m	class:NtupleHandle
+Muon_trkiso	NtupleHandle.h	/^    Double_t Muon_trkiso[MaxN];$/;"	m	class:NtupleHandle
+Nelectrons	NtupleHandle.h	/^	Int_t Nelectrons;$/;"	m	class:NtupleHandle
+NtupleHandle	NtupleHandle.h	/^    NtupleHandle(TChain *chainptr)$/;"	f	class:NtupleHandle
+NtupleHandle	NtupleHandle.h	/^class NtupleHandle$/;"	c
+Pt	Lepton.h	/^	Double_t Pt;$/;"	m	class:Lepton
+Px	Lepton.h	/^    Double_t Px;$/;"	m	class:GenLepton
+Py	Lepton.h	/^    Double_t Py;$/;"	m	class:GenLepton
+Pz	Lepton.h	/^    Double_t Pz;$/;"	m	class:GenLepton
+SigmaIEtaIEta	Lepton.h	/^    Double_t SigmaIEtaIEta;$/;"	m	class:Electron
+Status	Lepton.h	/^    Int_t Status;$/;"	m	class:GenLepton
+WriteHistograms	ControlPlots.h	/^	void WriteHistograms(TFile *fout)$/;"	f	class:ControlPlots
+chain	NtupleHandle.h	/^	TChain *chain;$/;"	m	class:NtupleHandle
+charge	Lepton.h	/^    Double_t charge;$/;"	m	class:GenLepton
+charge	Lepton.h	/^    Int_t charge;$/;"	m	class:Muon
+chi2dof	Lepton.h	/^    Double_t chi2dof;$/;"	m	class:Muon
+cktMomentum	Lepton.h	/^    TLorentzVector cktMomentum;$/;"	m	class:Muon
+cktpT	Lepton.h	/^    Double_t cktpT;$/;"	m	class:Muon
+cktpTError	Lepton.h	/^    Double_t cktpTError;$/;"	m	class:Muon
+dEta	Lepton.h	/^    Double_t dEta;$/;"	m	class:Electron
+dPhi	Lepton.h	/^    Double_t dPhi;$/;"	m	class:Electron
+dxyVTX	Lepton.h	/^    Double_t dxyVTX;$/;"	m	class:Electron
+dxyVTX	Lepton.h	/^    Double_t dxyVTX;$/;"	m	class:Muon
+dxycktVTX	Lepton.h	/^    Double_t dxycktVTX;$/;"	m	class:Muon
+dzVTX	Lepton.h	/^    Double_t dzVTX;$/;"	m	class:Electron
+dzVTX	Lepton.h	/^    Double_t dzVTX;$/;"	m	class:Muon
+dzcktVTX	Lepton.h	/^    Double_t dzcktVTX;$/;"	m	class:Muon
+eta	Lepton.h	/^	Double_t eta;$/;"	m	class:Lepton
+etaSC	Lepton.h	/^    Double_t etaSC;$/;"	m	class:Electron
+fromHardProcessBeforeFSR	Lepton.h	/^    Int_t fromHardProcessBeforeFSR;$/;"	m	class:GenLepton
+fromHardProcessDecayed	Lepton.h	/^    Int_t fromHardProcessDecayed;$/;"	m	class:GenLepton
+fromHardProcessFinalState	Lepton.h	/^    Int_t fromHardProcessFinalState;$/;"	m	class:GenLepton
+genLepton_ID	NtupleHandle.h	/^    Int_t genLepton_ID[MaxN];$/;"	m	class:NtupleHandle
+genLepton_charge	NtupleHandle.h	/^    Int_t genLepton_charge[MaxN];$/;"	m	class:NtupleHandle
+genLepton_eta	NtupleHandle.h	/^    Double_t genLepton_eta[MaxN];$/;"	m	class:NtupleHandle
+genLepton_mother	NtupleHandle.h	/^    Double_t genLepton_mother[MaxN];$/;"	m	class:NtupleHandle
+genLepton_pT	NtupleHandle.h	/^    Double_t genLepton_pT[MaxN];$/;"	m	class:NtupleHandle
+genLepton_phi	NtupleHandle.h	/^    Double_t genLepton_phi[MaxN];$/;"	m	class:NtupleHandle
+genLepton_px	NtupleHandle.h	/^    Double_t genLepton_px[MaxN];$/;"	m	class:NtupleHandle
+genLepton_py	NtupleHandle.h	/^    Double_t genLepton_py[MaxN];$/;"	m	class:NtupleHandle
+genLepton_pz	NtupleHandle.h	/^    Double_t genLepton_pz[MaxN];$/;"	m	class:NtupleHandle
+genLepton_status	NtupleHandle.h	/^    Int_t genLepton_status[MaxN];$/;"	m	class:NtupleHandle
+gnpair	NtupleHandle.h	/^    Int_t gnpair;$/;"	m	class:NtupleHandle
+h_Angle	ControlPlots.h	/^	TH1D *h_Angle;$/;"	m	class:ControlPlots
+h_Pt	ControlPlots.h	/^	TH1D *h_Pt;$/;"	m	class:ControlPlots
+h_Pt_M110toInf	ControlPlots.h	/^	TH1D *h_Pt_M110toInf;$/;"	m	class:ControlPlots
+h_Pt_M60to120	ControlPlots.h	/^	TH1D *h_Pt_M60to120;$/;"	m	class:ControlPlots
+h_Pt_M70	ControlPlots.h	/^	TH1D *h_Pt_M70;$/;"	m	class:ControlPlots
+h_Pt_M70to90	ControlPlots.h	/^	TH1D *h_Pt_M70to90;$/;"	m	class:ControlPlots
+h_Pt_M90to110	ControlPlots.h	/^	TH1D *h_Pt_M90to110;$/;"	m	class:ControlPlots
+h_Pt_OtherLeg	ControlPlots.h	/^	TH1D *h_Pt_OtherLeg;$/;"	m	class:ControlPlots
+h_Pt_TrigLeg	ControlPlots.h	/^	TH1D *h_Pt_TrigLeg;$/;"	m	class:ControlPlots
+h_Pt_minusCharge	ControlPlots.h	/^	TH1D *h_Pt_minusCharge;$/;"	m	class:ControlPlots
+h_Pt_plusCharge	ControlPlots.h	/^	TH1D *h_Pt_plusCharge;$/;"	m	class:ControlPlots
+h_barrel_Pt	ControlPlots.h	/^	TH1D *h_barrel_Pt;$/;"	m	class:ControlPlots
+h_barrel_eta	ControlPlots.h	/^	TH1D *h_barrel_eta;$/;"	m	class:ControlPlots
+h_barrel_phi	ControlPlots.h	/^	TH1D *h_barrel_phi;$/;"	m	class:ControlPlots
+h_diPt	ControlPlots.h	/^	TH1D *h_diPt;$/;"	m	class:ControlPlots
+h_diRap	ControlPlots.h	/^	TH1D *h_diRap;$/;"	m	class:ControlPlots
+h_eta	ControlPlots.h	/^	TH1D *h_eta;$/;"	m	class:ControlPlots
+h_eta_OtherLeg	ControlPlots.h	/^	TH1D *h_eta_OtherLeg;$/;"	m	class:ControlPlots
+h_eta_TrigLeg	ControlPlots.h	/^	TH1D *h_eta_TrigLeg;$/;"	m	class:ControlPlots
+h_lead_Pt	ControlPlots.h	/^	TH1D *h_lead_Pt;$/;"	m	class:ControlPlots
+h_lead_eta	ControlPlots.h	/^	TH1D *h_lead_eta;$/;"	m	class:ControlPlots
+h_lead_phi	ControlPlots.h	/^	TH1D *h_lead_phi;$/;"	m	class:ControlPlots
+h_mass	ControlPlots.h	/^	TH1D *h_mass;$/;"	m	class:ControlPlots
+h_mass_OS	ControlPlots.h	/^	TH1D *h_mass_OS;$/;"	m	class:ControlPlots
+h_mass_SS	ControlPlots.h	/^	TH1D *h_mass_SS;$/;"	m	class:ControlPlots
+h_mass_barrel	ControlPlots.h	/^	TH1D *h_mass_barrel;$/;"	m	class:ControlPlots
+h_phi	ControlPlots.h	/^	TH1D *h_phi;$/;"	m	class:ControlPlots
+h_phi_OtherLeg	ControlPlots.h	/^	TH1D *h_phi_OtherLeg;$/;"	m	class:ControlPlots
+h_phi_TrigLeg	ControlPlots.h	/^	TH1D *h_phi_TrigLeg;$/;"	m	class:ControlPlots
+h_sub_Pt	ControlPlots.h	/^	TH1D *h_sub_Pt;$/;"	m	class:ControlPlots
+h_sub_eta	ControlPlots.h	/^	TH1D *h_sub_eta;$/;"	m	class:ControlPlots
+h_sub_phi	ControlPlots.h	/^	TH1D *h_sub_phi;$/;"	m	class:ControlPlots
+isDecayedLeptonHadron	Lepton.h	/^    Int_t isDecayedLeptonHadron;$/;"	m	class:GenLepton
+isDirectPromptTauDecayProductFinalState	Lepton.h	/^    Int_t isDirectPromptTauDecayProductFinalState;$/;"	m	class:GenLepton
+isEcalDriven	Lepton.h	/^    Int_t isEcalDriven;$/;"	m	class:Electron
+isElectron	Lepton.h	/^    Bool_t isElectron()$/;"	f	class:GenLepton
+isGLB	Lepton.h	/^    Int_t isGLB;$/;"	m	class:Muon
+isGLBmuon	NtupleHandle.h	/^    Int_t isGLBmuon[MaxN];$/;"	m	class:NtupleHandle
+isHLT_DoubleEle33	NtupleHandle.h	/^    Bool_t isHLT_DoubleEle33()$/;"	f	class:NtupleHandle
+isHLT_Ele23_Ele12	NtupleHandle.h	/^    Bool_t isHLT_Ele23_Ele12()$/;"	f	class:NtupleHandle
+isHLT_IsoMu27	NtupleHandle.h	/^    Bool_t isHLT_IsoMu27()$/;"	f	class:NtupleHandle
+isHLT_MU40_eta2p1	NtupleHandle.h	/^    Bool_t isHLT_MU40_eta2p1()$/;"	f	class:NtupleHandle
+isHLT_Mu17_Mu8	NtupleHandle.h	/^    Bool_t isHLT_Mu17_Mu8()$/;"	f	class:NtupleHandle
+isHLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ	NtupleHandle.h	/^    Bool_t isHLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ()$/;"	f	class:NtupleHandle
+isHardProcess	Lepton.h	/^    Int_t isHardProcess;$/;"	m	class:GenLepton
+isLastCopy	Lepton.h	/^    Int_t isLastCopy;$/;"	m	class:GenLepton
+isLastCopyBeforeFSR	Lepton.h	/^    Int_t isLastCopyBeforeFSR;$/;"	m	class:GenLepton
+isMediumElectron	Lepton.h	/^    Bool_t isMediumElectron()$/;"	f	class:Electron
+isMotherZ	Lepton.h	/^    Bool_t isMotherZ()$/;"	f	class:GenLepton
+isMuon	Lepton.h	/^    Bool_t isMuon()$/;"	f	class:GenLepton
+isPF	Lepton.h	/^    Int_t isPF;$/;"	m	class:Muon
+isPFmuon	NtupleHandle.h	/^    Int_t isPFmuon[MaxN];$/;"	m	class:NtupleHandle
+isPassDimuonVertexCut	MuonPlots.C	/^Bool_t isPassDimuonVertexCut(NtupleHandle *ntuple, Double_t Pt1, Double_t Pt2)$/;"	f
+isPrompt	Lepton.h	/^    Int_t isPrompt;$/;"	m	class:GenLepton
+isPromptDecayed	Lepton.h	/^    Int_t isPromptDecayed;$/;"	m	class:GenLepton
+isPromptFinalState	Lepton.h	/^    Int_t isPromptFinalState;$/;"	m	class:GenLepton
+isPromptTauDecayProduct	Lepton.h	/^    Int_t isPromptTauDecayProduct;$/;"	m	class:GenLepton
+isSTA	Lepton.h	/^    Int_t isSTA;$/;"	m	class:Muon
+isTRK	Lepton.h	/^    Int_t isTRK;$/;"	m	class:Muon
+isTauDecayProduct	Lepton.h	/^    Int_t isTauDecayProduct;$/;"	m	class:GenLepton
+isTightMuon	Lepton.h	/^    Bool_t isTightMuon()$/;"	f	class:Muon
+isTightMuon_minus_chi2dof	Lepton.h	/^    Bool_t isTightMuon_minus_chi2dof()$/;"	f	class:Muon
+isTightMuon_minus_dxyVTX	Lepton.h	/^    Bool_t isTightMuon_minus_dxyVTX()$/;"	f	class:Muon
+isTightMuon_minus_dzVTX	Lepton.h	/^    Bool_t isTightMuon_minus_dzVTX()$/;"	f	class:Muon
+isTightMuon_minus_isGLB	Lepton.h	/^    Bool_t isTightMuon_minus_isGLB()$/;"	f	class:Muon
+isTightMuon_minus_isPF	Lepton.h	/^    Bool_t isTightMuon_minus_isPF()$/;"	f	class:Muon
+isTightMuon_minus_muonHits	Lepton.h	/^    Bool_t isTightMuon_minus_muonHits()$/;"	f	class:Muon
+isTightMuon_minus_nMatches	Lepton.h	/^    Bool_t isTightMuon_minus_nMatches()$/;"	f	class:Muon
+isTightMuon_minus_pixelHits	Lepton.h	/^    Bool_t isTightMuon_minus_pixelHits()$/;"	f	class:Muon
+isTightMuon_minus_trackerLayers	Lepton.h	/^    Bool_t isTightMuon_minus_trackerLayers()$/;"	f	class:Muon
+isTightMuon_minus_trkiso	Lepton.h	/^    Bool_t isTightMuon_minus_trkiso()$/;"	f	class:Muon
+isTrigMatched	Lepton.h	/^  Bool_t isTrigMatched(NtupleHandle *nh, TString HLT)$/;"	f	class:Muon
+isTriggered	NtupleHandle.h	/^    Bool_t isTriggered(TString HLT)$/;"	f	class:NtupleHandle
+loadBar	MuonPlots.C	/^static inline void loadBar(int x, int n, int r, int w)$/;"	f	file:
+mHits	Lepton.h	/^    Int_t mHits;$/;"	m	class:Electron
+muonHits	Lepton.h	/^    Int_t muonHits;$/;"	m	class:Muon
+nMatches	Lepton.h	/^    Int_t nMatches;$/;"	m	class:Muon
+nMuon	NtupleHandle.h	/^    Int_t nMuon;$/;"	m	class:NtupleHandle
+nSegments	Lepton.h	/^    Int_t nSegments;$/;"	m	class:Muon
+nVertices	NtupleHandle.h	/^    Int_t nVertices;$/;"	m	class:NtupleHandle
+phi	Lepton.h	/^	Double_t phi;$/;"	m	class:Lepton
+pixelHits	Lepton.h	/^    Int_t pixelHits;$/;"	m	class:Muon
+relPFiso	Lepton.h	/^    Double_t relPFiso;$/;"	m	class:Electron
+relPFiso	Lepton.h	/^    Double_t relPFiso;$/;"	m	class:Muon
+runNum	NtupleHandle.h	/^    Int_t runNum;$/;"	m	class:NtupleHandle
+trackerLayers	Lepton.h	/^    Int_t trackerLayers;$/;"	m	class:Muon
+trkiso	Lepton.h	/^    Double_t trkiso;$/;"	m	class:Muon
+vtxTrkChi2	NtupleHandle.h	/^    std::vector<double> *vtxTrkChi2;$/;"	m	class:NtupleHandle
+vtxTrkCkt1Pt	NtupleHandle.h	/^    std::vector<double> *vtxTrkCkt1Pt;$/;"	m	class:NtupleHandle
+vtxTrkCkt2Pt	NtupleHandle.h	/^    std::vector<double> *vtxTrkCkt2Pt;$/;"	m	class:NtupleHandle
+vtxTrkDiE1Pt	NtupleHandle.h	/^    std::vector<double> *vtxTrkDiE1Pt;$/;"	m	class:NtupleHandle
+vtxTrkDiE2Pt	NtupleHandle.h	/^    std::vector<double> *vtxTrkDiE2Pt;$/;"	m	class:NtupleHandle
+vtxTrkDiEChi2	NtupleHandle.h	/^    std::vector<double> *vtxTrkDiEChi2;$/;"	m	class:NtupleHandle
+vtxTrkDiENdof	NtupleHandle.h	/^    std::vector<double> *vtxTrkDiENdof;$/;"	m	class:NtupleHandle
+vtxTrkDiEProb	NtupleHandle.h	/^    std::vector<double> *vtxTrkDiEProb;$/;"	m	class:NtupleHandle
+vtxTrkEMu1Pt	NtupleHandle.h	/^    std::vector<double> *vtxTrkEMu1Pt;$/;"	m	class:NtupleHandle
+vtxTrkEMu2Pt	NtupleHandle.h	/^    std::vector<double> *vtxTrkEMu2Pt;$/;"	m	class:NtupleHandle
+vtxTrkEMuChi2	NtupleHandle.h	/^    std::vector<double> *vtxTrkEMuChi2;$/;"	m	class:NtupleHandle
+vtxTrkEMuNdof	NtupleHandle.h	/^    std::vector<double> *vtxTrkEMuNdof;$/;"	m	class:NtupleHandle
+vtxTrkEMuProb	NtupleHandle.h	/^    std::vector<double> *vtxTrkEMuProb;$/;"	m	class:NtupleHandle
+vtxTrkNdof	NtupleHandle.h	/^    std::vector<double> *vtxTrkNdof;$/;"	m	class:NtupleHandle
+vtxTrkProb	NtupleHandle.h	/^    std::vector<double> *vtxTrkProb;$/;"	m	class:NtupleHandle
