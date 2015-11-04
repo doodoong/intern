@@ -49,10 +49,11 @@ void MuonPlots(TString HLTname = "IsoMu20")
 	cout << "sub-leading lepton Eta Cut: " << SubEtaCut << endl;
 	cout << "===========================================================" << endl;
 
+	Double_t Factor = 569.0171*2008.4*3/4.5275/10;
 
 	//TFile *f = new TFile("ROOTFile_Histogram_InvMass_"+HLTname+"_Data.root", "RECREATE");
 	//TFile *f = new TFile("ROOTFile_Histogram_InvMass_60to120_Data.root", "RECREATE");
-	TFile *fisGLB = new TFile("MuonCutIsGLB.root", "RECREATE");
+	TFile *fcut = new TFile("MuonCut.root", "RECREATE");
 	//TFile *fisPF = new TFile("MuonCutIsPF.root", "RECREATE");
 	//TFile *fisChi2dof = new TFile("MuonCutChi2dof.root", "RECREATE");
 	//TFile *f = new TFile("MuonCutMuonHits.root", "RECREATE");
@@ -94,8 +95,30 @@ void MuonPlots(TString HLTname = "IsoMu20")
 		TH1D *h_isGLB_Pt = new TH1D("h_isGLB_Pt"+Tag[i_tup], "", 250, 0, 500);
 		TH1D *h_isGLB_eta = new TH1D("h_isGLB_eta"+Tag[i_tup], "", 60, -3, 3);
 		TH1D *h_isGLB_phi = new TH1D("h_isGLB_phi"+Tag[i_tup], "", 80, -4, 4);
-		//TH1D *h_isGLB_mass = new TH1D("h_isGLB_mass", "", 500, 0, 1000);
-
+		TH1D *h_isPF_Pt = new TH1D("h_isGLB_Pt"+Tag[i_tup], "", 250, 0, 500);
+		TH1D *h_isPF_eta = new TH1D("h_isGLB_eta"+Tag[i_tup], "", 60, -3, 3);
+		TH1D *h_isPF_phi = new TH1D("h_isGLB_phi"+Tag[i_tup], "", 80, -4, 4);
+		TH1D *h_chi2dof_Pt = new TH1D("h_isGLB_Pt"+Tag[i_tup], "", 250, 0, 500);
+		TH1D *h_chi2dof_eta = new TH1D("h_isGLB_eta"+Tag[i_tup], "", 60, -3, 3);
+		TH1D *h_chi2dof_phi = new TH1D("h_isGLB_phi"+Tag[i_tup], "", 80, -4, 4);
+		TH1D *h_muonHits_Pt = new TH1D("h_isGLB_Pt"+Tag[i_tup], "", 250, 0, 500);
+		TH1D *h_muonHits_eta = new TH1D("h_isGLB_eta"+Tag[i_tup], "", 60, -3, 3);
+		TH1D *h_muonHits_phi = new TH1D("h_isGLB_phi"+Tag[i_tup], "", 80, -4, 4);
+		TH1D *h_nMatches_Pt = new TH1D("h_isGLB_Pt"+Tag[i_tup], "", 250, 0, 500);
+		TH1D *h_nMatches_eta = new TH1D("h_isGLB_eta"+Tag[i_tup], "", 60, -3, 3);
+		TH1D *h_nMatches_phi = new TH1D("h_isGLB_phi"+Tag[i_tup], "", 80, -4, 4);
+		TH1D *h_dxyVTX_Pt = new TH1D("h_isGLB_Pt"+Tag[i_tup], "", 250, 0, 500);
+		TH1D *h_dxyVTX_eta = new TH1D("h_isGLB_eta"+Tag[i_tup], "", 60, -3, 3);
+		TH1D *h_dxyVTX_phi = new TH1D("h_isGLB_phi"+Tag[i_tup], "", 80, -4, 4);
+		TH1D *h_dzVTX_Pt = new TH1D("h_isGLB_Pt"+Tag[i_tup], "", 250, 0, 500);
+		TH1D *h_dzVTX_eta = new TH1D("h_isGLB_eta"+Tag[i_tup], "", 60, -3, 3);
+		TH1D *h_dzVTX_phi = new TH1D("h_isGLB_phi"+Tag[i_tup], "", 80, -4, 4);
+		TH1D *h_pixelHits_Pt = new TH1D("h_isGLB_Pt"+Tag[i_tup], "", 250, 0, 500);
+		TH1D *h_pixelHits_eta = new TH1D("h_isGLB_eta"+Tag[i_tup], "", 60, -3, 3);
+		TH1D *h_pixelHits_phi = new TH1D("h_isGLB_phi"+Tag[i_tup], "", 80, -4, 4);
+		TH1D *h_trackerLayers_Pt = new TH1D("h_isGLB_Pt"+Tag[i_tup], "", 250, 0, 500);
+		TH1D *h_trackerLayers_eta = new TH1D("h_isGLB_eta"+Tag[i_tup], "", 60, -3, 3);
+		TH1D *h_trackerLayers_phi = new TH1D("h_isGLB_phi"+Tag[i_tup], "", 80, -4, 4);
 
 		TChain *chain = new TChain("recoTree/DYTree");
 		chain->Add(BaseLocation+"/"+ntupleDirectory[i_tup]+"/ntuple_*.root");
@@ -233,10 +256,61 @@ void MuonPlots(TString HLTname = "IsoMu20")
 				vector< Muon > QMuonCollection;
 				for(Int_t j=0; j<(int)MuonCollection.size(); j++)
 				{
-					h_isGLB_Pt->Fill( MuonCollection[j].Pt, GenWeight );
-				    h_isGLB_eta->Fill( MuonCollection[j].eta, GenWeight);
-				    h_isGLB_phi->Fill( MuonCollection[j].phi, GenWeight);
-					//h_isGLB_mass->Fill( MuonCollection[j].mass, GenWeight);
+					if( MuonCollection[j]->isGLB == 1)
+					{
+						h_isGLB_Pt->Fill( MuonCollection[j].Pt, GenWeight );
+						h_isGLB_eta->Fill( MuonCollection[j].eta, GenWeight);
+						h_isGLB_phi->Fill( MuonCollection[j].phi, GenWeight);
+					}
+					if( MuonCollection[j]->isPF == 1)
+					{
+						h_isPF_Pt->Fill( MuonCollection[j].Pt, GenWeight );
+						h_isPF_eta->Fill( MuonCollection[j].eta, GenWeight);
+						h_isPF_phi->Fill( MuonCollection[j].phi, GenWeight);
+					}
+					if( MuonCollection[j]->chi2dof < 10)
+					{
+						h_ischi2dof_Pt->Fill( MuonCollection[j].Pt, GenWeight );
+						h_ischi2dof_eta->Fill( MuonCollection[j].eta, GenWeight);
+						h_ischi2dof_phi->Fill( MuonCollection[j].phi, GenWeight);
+					}
+					if( MuonCollection[j]->muonHits > 0)
+					{
+						h_is_muonHits_Pt->Fill( MuonCollection[j].Pt, GenWeight );
+						h_is_muonHits_eta->Fill( MuonCollection[j].eta, GenWeight);
+						h_is_muonHits_phi->Fill( MuonCollection[j].phi, GenWeight);
+					}
+					if( MuonCollection[j]->nMatches > 1)
+					{
+						h_nMatches_Pt->Fill( MuonCollection[j].Pt, GenWeight );
+						h_nMatches_eta->Fill( MuonCollection[j].eta, GenWeight);
+						h_nMatches_phi->Fill( MuonCollection[j].phi, GenWeight);
+					}
+					if( fabs(MuonCollection[j]->dxyVTX) < 0.2)
+					{
+						h_dxyVTX_Pt->Fill( MuonCollection[j].Pt, GenWeight );
+						h_dxyVTX_eta->Fill( MuonCollection[j].eta, GenWeight);
+						h_dxyVTX_phi->Fill( MuonCollection[j].phi, GenWeight);
+					}
+					if( fabs(MuonCollection[j]->dzVTX) < 0.5 )
+					{
+						h_dzVTX_Pt->Fill( MuonCollection[j].Pt, GenWeight );
+						h_dzVTX_eta->Fill( MuonCollection[j].eta, GenWeight);
+						h_dzVTX_phi->Fill( MuonCollection[j].phi, GenWeight);
+					}
+					if( MuonCollection[j]->pixelHits > 0 )
+					{
+						h_pixelHits_Pt->Fill( MuonCollection[j].Pt, GenWeight );
+						h_pixelHits_eta->Fill( MuonCollection[j].eta, GenWeight);
+						h_pixelHits_phi->Fill( MuonCollection[j].phi, GenWeight);
+					}
+					if( MuonCollection[j]->trackerLayers > 5)
+					{
+						h_trackerLayers_Pt->Fill( MuonCollection[j].Pt, GenWeight );
+						h_trackerLayers_eta->Fill( MuonCollection[j].eta, GenWeight);
+						h_trackerLayers_phi->Fill( MuonCollection[j].phi, GenWeight);
+					}
+
 					//if( MuonCollection[j].isTightMuon() && MuonCollection[j].trkiso < 0.10)
 						//QMuonCollection.push_back( MuonCollection[j] );
 				}
@@ -284,12 +358,39 @@ void MuonPlots(TString HLTname = "IsoMu20")
 		// 		Plots->Histo[i_hist]->Scale( 2.49997e+10 / 4.48119e+11 );
 		// }
 
+
+
+
 		//Plots->WriteHistograms( fisGLB );
 		fisGLB->cd();
 		h_isGLB_Pt->Write();
 		h_isGLB_eta->Write();
 		h_isGLB_phi->Write();
-
+		h_isPF_Pt->Write();
+		h_isPF_eta->Write();
+		h_isPF_phi->Write();
+		h_chi2dof_Pt->Write();
+		h_chi2dof_eta->Write();
+		h_chi2dof_phi->Write();
+		h_muonHits_Pt->Write();
+		h_muonHits_eta->Write();
+		h_muonHits_phi->Write();
+		h_nMatches_Pt->Write();
+		h_nMatches_eta->Write();
+		h_nMatches_phi->Write();
+		h_dxyVTX_Pt->Write();
+		h_dxyVTX_eta->Write();
+		h_dxyVTX_phi->Write();
+		h_dzVTX_Pt->Write();
+		h_dzVTX_eta->Write();
+		h_dzVTX_phi->Write();
+		h_pixelHits_Pt->Write();
+		h_pixelHits_eta->Write();
+		h_pixelHits_phi->Write();
+		h_trackerLayers_Pt->Write();
+		h_trackerLayers_eta->Write();
+		h_trackerLayers_phi->Write();
+		
 
 
 
