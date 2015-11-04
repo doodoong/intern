@@ -52,7 +52,7 @@ public:
  *    TH1D *h_Pt_M90to110;
  *    TH1D *h_Pt_M110toInf;
  */
-	TH1D *h_Pt_M60to120;
+	//TH1D *h_Pt_M60to120;
 
 	TH1D *h_Angle;
 
@@ -66,15 +66,17 @@ public:
  *    TH1D *h_phi_OtherLeg;
  */
 
-	ControlPlots(TString Type)
+	ControlPlots(TString Type, TString Cut)
 	{
-		h_Pt = new TH1D("h_Pt_"+Type, "", 250, 0, 500); Histo.push_back( h_Pt );
-		h_eta = new TH1D("h_eta_"+Type, "", 60, -3, 3); Histo.push_back( h_eta );
-		h_phi = new TH1D("h_phi_"+Type, "", 80, -4, 4); Histo.push_back( h_phi );
-		h_mass = new TH1D("h_mass_"+Type, "", 500, 0, 1000); Histo.push_back( h_mass );
-		h_diPt = new TH1D("h_diPt_"+Type, "", 250, 0, 500); Histo.push_back( h_diPt );
-		h_diRap = new TH1D("h_diRap_"+Type, "", 60, -3, 3); Histo.push_back( h_diRap );
-
+		h_Pt = new TH1D("h_Pt_"+Cut"_"+Type, "", 250, 0, 500); Histo.push_back( h_Pt );
+		h_eta = new TH1D("h_eta_"+Cut"_"+Type, "", 60, -3, 3); Histo.push_back( h_eta );
+		h_phi = new TH1D("h_phi_"+Cut"_"+Type, "", 80, -4, 4); Histo.push_back( h_phi );
+/*
+ *        h_mass = new TH1D("h_mass_"+Type, "", 500, 0, 1000); Histo.push_back( h_mass );
+ *        h_diPt = new TH1D("h_diPt_"+Type, "", 250, 0, 500); Histo.push_back( h_diPt );
+ *        h_diRap = new TH1D("h_diRap_"+Type, "", 60, -3, 3); Histo.push_back( h_diRap );
+ *
+ */
 /*
  *        h_lead_Pt = new TH1D("h_lead_Pt_"+Type, "", 250, 0, 500); Histo.push_back( h_lead_Pt );
  *        h_sub_Pt = new TH1D("h_sub_Pt_"+Type, "", 250, 0, 500); Histo.push_back( h_sub_Pt );
@@ -105,7 +107,7 @@ public:
 		 *h_Pt_M60to120 = new TH1D("h_Pt_M60to120_"+Type, "", 250, 0, 500); Histo.push_back( h_Pt_M60to120 );
 		 */
 
-		h_Angle = new TH1D("h_Angle_"+Type, "", 80, -4, 4); Histo.push_back( h_Angle );
+		//h_Angle = new TH1D("h_Angle_"+Type, "", 80, -4, 4); Histo.push_back( h_Angle );
 
 /*
  *        h_Pt_TrigLeg = new TH1D("h_Pt_TrigLeg_"+Type, "", 250, 0, 500); Histo.push_back( h_Pt_TrigLeg );
@@ -259,6 +261,13 @@ public:
  *            h_phi_OtherLeg->Fill( recolep2.phi, GenWeight );
  *        }
  */
+	}
+
+	void FillHisto_Cut(NtupleHandle *ntuple, TString Cut, Double_t GenWeight)
+	{
+		//pt, eta, phi
+		h_Pt->Fill( recolep1.Pt, GenWeight );
+		
 	}
 
 	void WriteHistograms(TFile *fout)
