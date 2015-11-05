@@ -29,6 +29,7 @@
 
 # swap files
 *.swp
+*.swo
 
 # setting files
 *.vscode
