@@ -112,22 +112,22 @@ void MuonPlots(TString HLTname = "IsoMu20")
 		TH1D *h_trackerLayers_Pt = new TH1D("h_trackerLayers_Pt"+Tag[i_tup], "", 250, 0, 500);
 		TH1D *h_trackerLayers_eta = new TH1D("h_trackerLayers_eta"+Tag[i_tup], "", 60, -3, 3);
 		TH1D *h_trackerLayers_phi = new TH1D("h_trackerLayers_phi"+Tag[i_tup], "", 80, -4, 4);
-		
+
 		TH1D *h_trkiso_Pt = new TH1D("h_trkiso_Pt"+Tag[i_tup], "", 250, 0, 500);
 		TH1D *h_trkiso_eta = new TH1D("h_trkiso_eta"+Tag[i_tup], "", 60, -3, 3);
 		TH1D *h_trkiso_phi = new TH1D("h_trkiso_phi"+Tag[i_tup], "", 80, -4, 4);
 
-		
+
 		TChain *chain = new TChain("recoTree/DYTree");
 		chain->Add(BaseLocation+"/"+ntupleDirectory[i_tup]+"/ntuple_*.root");
 		if( Tag[i_tup] == "Data" )
 		{
-			// -- Run2015D -- // 
+			// -- Run2015D -- //
 			chain->Add("/data4/Users/kplee/DYntuple/Run2015D/GoldenJSON/v20151016_v3JSON_Run2015D_SingleMuon_Run246908to256869/*.root");
 			chain->Add("/data4/Users/kplee/DYntuple/Run2015D/GoldenJSON/v20151010_v2JSON_SingleMuon_Run256870to257599/*.root");
 			chain->Add("/data4/Users/kplee/DYntuple/Run2015D/GoldenJSON/v20151009_SingleMuon_Run257600toRun258159/*.root");
 		}
-		
+
 		NtupleHandle *ntuple = new NtupleHandle( chain );
 
 		Bool_t isNLO = 0;
@@ -147,7 +147,7 @@ void MuonPlots(TString HLTname = "IsoMu20")
 		for(Int_t i=0; i<NEvents; i++)
 		{
 			loadBar(i+1, NEvents, 100, 100);
-			
+
 			ntuple->GetEvent(i);
 
 			//Bring weights for NLO MC events
@@ -189,7 +189,7 @@ void MuonPlots(TString HLTname = "IsoMu20")
  *                    {
  *                        GenMassFlag = 1;
  *                        SumWeight_DYMuMu_M20to50 += GenWeight;
- *                    }		
+ *                    }
  *                }
  *            }
  *            else if( Tag[i_tup] == "DYTauTau_M20to50" )
@@ -219,7 +219,7 @@ void MuonPlots(TString HLTname = "IsoMu20")
  *                    {
  *                        GenMassFlag = 1;
  *                        SumWeight_DYTauTau_M20to50 += GenWeight;
- *                    }	
+ *                    }
  *                }
  *            }
  *            else
@@ -227,7 +227,7 @@ void MuonPlots(TString HLTname = "IsoMu20")
 				GenMassFlag = 1; // -- other cases: pass
 
 
-			
+
 			if( ntuple->isTriggered( HLT ) && GenMassFlag)
 			{
 				//Collect Reconstruction level information
@@ -313,8 +313,8 @@ void MuonPlots(TString HLTname = "IsoMu20")
 						h_trkiso_Pt->Fill( MuonCollection[j].Pt, GenWeight );
 						h_trkiso_eta->Fill( MuonCollection[j].eta, GenWeight);
 						h_trkiso_phi->Fill( MuonCollection[j].phi, GenWeight);
-
 					}
+
 					//if( MuonCollection[j].isTightMuon() && MuonCollection[j].trkiso < 0.10)
 						//QMuonCollection.push_back( MuonCollection[j] );
 				}
@@ -394,9 +394,9 @@ void MuonPlots(TString HLTname = "IsoMu20")
 		h_trackerLayers_Pt->Write();
 		h_trackerLayers_eta->Write();
 		h_trackerLayers_phi->Write();
-		h_trkiso_Pt->Write();	
-		h_trkiso_eta->Write();	
-		h_trkiso_phi->Write();	
+		h_trkiso_Pt->Write();
+		h_trkiso_eta->Write();
+		h_trkiso_phi->Write();
 
 
 		if(isNLO == 1)
@@ -415,7 +415,7 @@ void MuonPlots(TString HLTname = "IsoMu20")
 //	TH1D *h_isGLB_Pt_Scaled = (TH1D *) h_isGLB_PtDYMuMu->Clone();
 //	h_isGLB_Pt_Scaled->Scale(1/Factor);
 //	h_isGLB_Pt_Scaled->Write();
-	
+
 
 	Double_t TotalRunTime = totaltime.CpuTime();
 	cout << "Total RunTime: " << TotalRunTime << " seconds" << endl;
@@ -443,9 +443,9 @@ void AssignAccThreshold(TString HLTname, TString *HLT, Double_t *LeadPtCut, Doub
 		*SubEtaCut = 2.4;
 	}
 	else
-	{ 
+	{
 		cout << "Wrong HLT name!: " << HLTname << endl;
-		return; 
+		return;
 	}
 
 }
@@ -538,7 +538,7 @@ void GenMatching(TString HLTname, TString MuonType, NtupleHandle* ntuple, vector
 	}
 
 
-	
+
 	Int_t NMuons = (Int_t)MuonCollection->size();
 	vector<Muon> RecoMuonCollection;
 	//Copy all muons in MuonCollection into RecoMuonCollection
@@ -593,7 +593,7 @@ Bool_t isPassDimuonVertexCut(NtupleHandle *ntuple, Double_t Pt1, Double_t Pt2)
 	Int_t NPt2 = (Int_t)PtCollection2->size();
 	Int_t NProb = (Int_t)VtxProbCollection->size();
 
-	if( NPt1 != NPt2 || NPt2 != NProb || NPt1 != NProb ) 
+	if( NPt1 != NPt2 || NPt2 != NProb || NPt1 != NProb )
 		cout << "NPt1: " << NPt1 << " NPt2: " << NPt2 << " Nprob: " << NProb << endl;
 
 	// cout << "Pt1: " << Pt1 << " Pt2: " << Pt2 << endl;
@@ -624,22 +624,21 @@ static inline void loadBar(int x, int n, int r, int w)
 
     if ( x % (n/r +1) != 0 ) return;
 
- 
+
     // Calculuate the ratio of complete-to-incomplete.
     float ratio = x/(float)n;
     int   c     = ratio * w;
- 
+
     // Show the percentage complete.
     printf("%3d%% [", (int)(ratio*100) );
- 
+
     // Show the load bar.
     for (int x=0; x<c; x++) cout << "=";
- 
+
     for (int x=c; x<w; x++) cout << " ";
- 
+
     // ANSI Control codes to go back to the
     // previous line and clear it.
 	cout << "]\r" << flush;
 
 }
-
