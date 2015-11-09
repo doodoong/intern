@@ -85,40 +85,42 @@ void MuonPlots(TString HLTname = "IsoMu20")
 
 		//ControlPlots *Plots = new ControlPlots( Tag[i_tup] );
 		//Histograms for cuts
-		TH1D *h_isGLB_Pt = new TH1D("h_isGLB_Pt"+Tag[i_tup], "", 250, 0, 500);
-		TH1D *h_isGLB_eta = new TH1D("h_isGLB_eta"+Tag[i_tup], "", 60, -3, 3);
-		TH1D *h_isGLB_phi = new TH1D("h_isGLB_phi"+Tag[i_tup], "", 80, -4, 4);
-		TH1D *h_isPF_Pt = new TH1D("h_isPF_Pt"+Tag[i_tup], "", 250, 0, 500);
-		TH1D *h_isPF_eta = new TH1D("h_isPF_eta"+Tag[i_tup], "", 60, -3, 3);
-		TH1D *h_isPF_phi = new TH1D("h_isPF_phi"+Tag[i_tup], "", 80, -4, 4);
-		TH1D *h_chi2dof_Pt = new TH1D("h_chi2dof_Pt"+Tag[i_tup], "", 250, 0, 500);
-		TH1D *h_chi2dof_eta = new TH1D("h_chi2dof_eta"+Tag[i_tup], "", 60, -3, 3);
-		TH1D *h_chi2dof_phi = new TH1D("h_chi2dof_phi"+Tag[i_tup], "", 80, -4, 4);
-		TH1D *h_muonHits_Pt = new TH1D("h_muonHits_Pt"+Tag[i_tup], "", 250, 0, 500);
-		TH1D *h_muonHits_eta = new TH1D("h_muonHits_eta"+Tag[i_tup], "", 60, -3, 3);
-		TH1D *h_muonHits_phi = new TH1D("h_muonHits_phi"+Tag[i_tup], "", 80, -4, 4);
-		TH1D *h_nMatches_Pt = new TH1D("h_nMatches_Pt"+Tag[i_tup], "", 250, 0, 500);
-		TH1D *h_nMatches_eta = new TH1D("h_nMatches_eta"+Tag[i_tup], "", 60, -3, 3);
-		TH1D *h_nMatches_phi = new TH1D("h_nMatches_phi"+Tag[i_tup], "", 80, -4, 4);
-		TH1D *h_dxyVTX_Pt = new TH1D("h_dxyVTX_Pt"+Tag[i_tup], "", 250, 0, 500);
-		TH1D *h_dxyVTX_eta = new TH1D("h_dxyVTX_eta"+Tag[i_tup], "", 60, -3, 3);
-		TH1D *h_dxyVTX_phi = new TH1D("h_dxyVTX_phi"+Tag[i_tup], "", 80, -4, 4);
-		TH1D *h_dzVTX_Pt = new TH1D("h_dzVTX_Pt"+Tag[i_tup], "", 250, 0, 500);
-		TH1D *h_dzVTX_eta = new TH1D("h_dzVTX_eta"+Tag[i_tup], "", 60, -3, 3);
-		TH1D *h_dzVTX_phi = new TH1D("h_dzVTX_phi"+Tag[i_tup], "", 80, -4, 4);
-		TH1D *h_pixelHits_Pt = new TH1D("h_pixelHits_Pt"+Tag[i_tup], "", 250, 0, 500);
-		TH1D *h_pixelHits_eta = new TH1D("h_pixelHits_eta"+Tag[i_tup], "", 60, -3, 3);
-		TH1D *h_pixelHits_phi = new TH1D("h_pixelHits_phi"+Tag[i_tup], "", 80, -4, 4);
-		TH1D *h_trackerLayers_Pt = new TH1D("h_trackerLayers_Pt"+Tag[i_tup], "", 250, 0, 500);
-		TH1D *h_trackerLayers_eta = new TH1D("h_trackerLayers_eta"+Tag[i_tup], "", 60, -3, 3);
-		TH1D *h_trackerLayers_phi = new TH1D("h_trackerLayers_phi"+Tag[i_tup], "", 80, -4, 4);
-
-		TH1D *h_trkiso_Pt = new TH1D("h_trkiso_Pt"+Tag[i_tup], "", 250, 0, 500);
-		TH1D *h_trkiso_eta = new TH1D("h_trkiso_eta"+Tag[i_tup], "", 60, -3, 3);
-		TH1D *h_trkiso_phi = new TH1D("h_trkiso_phi"+Tag[i_tup], "", 80, -4, 4);
-		TH1D *h_cut_Pt = new TH1D("h_trkiso_Pt"+Tag[i_tup], "", 250, 0, 500);
-		TH1D *h_cut_eta = new TH1D("h_trkiso_eta"+Tag[i_tup], "", 60, -3, 3);
-		TH1D *h_cut_phi = new TH1D("h_trkiso_phi"+Tag[i_tup], "", 80, -4, 4);
+/*
+ *        TH1D *h_isGLB_Pt = new TH1D("h_isGLB_Pt"+Tag[i_tup], "", 250, 0, 500);
+ *        TH1D *h_isGLB_eta = new TH1D("h_isGLB_eta"+Tag[i_tup], "", 60, -3, 3);
+ *        TH1D *h_isGLB_phi = new TH1D("h_isGLB_phi"+Tag[i_tup], "", 80, -4, 4);
+ *        TH1D *h_isPF_Pt = new TH1D("h_isPF_Pt"+Tag[i_tup], "", 250, 0, 500);
+ *        TH1D *h_isPF_eta = new TH1D("h_isPF_eta"+Tag[i_tup], "", 60, -3, 3);
+ *        TH1D *h_isPF_phi = new TH1D("h_isPF_phi"+Tag[i_tup], "", 80, -4, 4);
+ *        TH1D *h_chi2dof_Pt = new TH1D("h_chi2dof_Pt"+Tag[i_tup], "", 250, 0, 500);
+ *        TH1D *h_chi2dof_eta = new TH1D("h_chi2dof_eta"+Tag[i_tup], "", 60, -3, 3);
+ *        TH1D *h_chi2dof_phi = new TH1D("h_chi2dof_phi"+Tag[i_tup], "", 80, -4, 4);
+ *        TH1D *h_muonHits_Pt = new TH1D("h_muonHits_Pt"+Tag[i_tup], "", 250, 0, 500);
+ *        TH1D *h_muonHits_eta = new TH1D("h_muonHits_eta"+Tag[i_tup], "", 60, -3, 3);
+ *        TH1D *h_muonHits_phi = new TH1D("h_muonHits_phi"+Tag[i_tup], "", 80, -4, 4);
+ *        TH1D *h_nMatches_Pt = new TH1D("h_nMatches_Pt"+Tag[i_tup], "", 250, 0, 500);
+ *        TH1D *h_nMatches_eta = new TH1D("h_nMatches_eta"+Tag[i_tup], "", 60, -3, 3);
+ *        TH1D *h_nMatches_phi = new TH1D("h_nMatches_phi"+Tag[i_tup], "", 80, -4, 4);
+ *        TH1D *h_dxyVTX_Pt = new TH1D("h_dxyVTX_Pt"+Tag[i_tup], "", 250, 0, 500);
+ *        TH1D *h_dxyVTX_eta = new TH1D("h_dxyVTX_eta"+Tag[i_tup], "", 60, -3, 3);
+ *        TH1D *h_dxyVTX_phi = new TH1D("h_dxyVTX_phi"+Tag[i_tup], "", 80, -4, 4);
+ *        TH1D *h_dzVTX_Pt = new TH1D("h_dzVTX_Pt"+Tag[i_tup], "", 250, 0, 500);
+ *        TH1D *h_dzVTX_eta = new TH1D("h_dzVTX_eta"+Tag[i_tup], "", 60, -3, 3);
+ *        TH1D *h_dzVTX_phi = new TH1D("h_dzVTX_phi"+Tag[i_tup], "", 80, -4, 4);
+ *        TH1D *h_pixelHits_Pt = new TH1D("h_pixelHits_Pt"+Tag[i_tup], "", 250, 0, 500);
+ *        TH1D *h_pixelHits_eta = new TH1D("h_pixelHits_eta"+Tag[i_tup], "", 60, -3, 3);
+ *        TH1D *h_pixelHits_phi = new TH1D("h_pixelHits_phi"+Tag[i_tup], "", 80, -4, 4);
+ *        TH1D *h_trackerLayers_Pt = new TH1D("h_trackerLayers_Pt"+Tag[i_tup], "", 250, 0, 500);
+ *        TH1D *h_trackerLayers_eta = new TH1D("h_trackerLayers_eta"+Tag[i_tup], "", 60, -3, 3);
+ *        TH1D *h_trackerLayers_phi = new TH1D("h_trackerLayers_phi"+Tag[i_tup], "", 80, -4, 4);
+ *
+ *        TH1D *h_trkiso_Pt = new TH1D("h_trkiso_Pt"+Tag[i_tup], "", 250, 0, 500);
+ *        TH1D *h_trkiso_eta = new TH1D("h_trkiso_eta"+Tag[i_tup], "", 60, -3, 3);
+ *        TH1D *h_trkiso_phi = new TH1D("h_trkiso_phi"+Tag[i_tup], "", 80, -4, 4);
+ */
+		TH1D *h_cut_Pt = new TH1D("h_cut_Pt"+Tag[i_tup], "", 250, 0, 500);
+		TH1D *h_cut_eta = new TH1D("h_cut_eta"+Tag[i_tup], "", 60, -3, 3);
+		TH1D *h_cut_phi = new TH1D("h_cut_phi"+Tag[i_tup], "", 80, -4, 4);
 
 
 
@@ -258,67 +260,69 @@ void MuonPlots(TString HLTname = "IsoMu20")
 				vector< Muon > QMuonCollection;
 				for(Int_t j=0; j<(int)MuonCollection.size(); j++)
 				{
-					if( MuonCollection[j].isGLB == 1)
-					{
-						h_isGLB_Pt->Fill( MuonCollection[j].Pt, GenWeight );
-						h_isGLB_eta->Fill( MuonCollection[j].eta, GenWeight);
-						h_isGLB_phi->Fill( MuonCollection[j].phi, GenWeight);
-					}
-					if( MuonCollection[j].isPF == 1)
-					{
-						h_isPF_Pt->Fill( MuonCollection[j].Pt, GenWeight );
-						h_isPF_eta->Fill( MuonCollection[j].eta, GenWeight);
-						h_isPF_phi->Fill( MuonCollection[j].phi, GenWeight);
-					}
-					if( MuonCollection[j].chi2dof < 10)
-					{
-						h_chi2dof_Pt->Fill( MuonCollection[j].Pt, GenWeight );
-						h_chi2dof_eta->Fill( MuonCollection[j].eta, GenWeight);
-						h_chi2dof_phi->Fill( MuonCollection[j].phi, GenWeight);
-					}
-					if( MuonCollection[j].muonHits > 0)
-					{
-						h_muonHits_Pt->Fill( MuonCollection[j].Pt, GenWeight );
-						h_muonHits_eta->Fill( MuonCollection[j].eta, GenWeight);
-						h_muonHits_phi->Fill( MuonCollection[j].phi, GenWeight);
-					}
-					if( MuonCollection[j].nMatches > 1)
-					{
-						h_nMatches_Pt->Fill( MuonCollection[j].Pt, GenWeight );
-						h_nMatches_eta->Fill( MuonCollection[j].eta, GenWeight);
-						h_nMatches_phi->Fill( MuonCollection[j].phi, GenWeight);
-					}
-					if( fabs(MuonCollection[j].dxyVTX) < 0.2)
-					{
-						h_dxyVTX_Pt->Fill( MuonCollection[j].Pt, GenWeight );
-						h_dxyVTX_eta->Fill( MuonCollection[j].eta, GenWeight);
-						h_dxyVTX_phi->Fill( MuonCollection[j].phi, GenWeight);
-					}
-					if( fabs(MuonCollection[j].dzVTX) < 0.5 )
-					{
-						h_dzVTX_Pt->Fill( MuonCollection[j].Pt, GenWeight );
-						h_dzVTX_eta->Fill( MuonCollection[j].eta, GenWeight);
-						h_dzVTX_phi->Fill( MuonCollection[j].phi, GenWeight);
-					}
-					if( MuonCollection[j].pixelHits > 0 )
-					{
-						h_pixelHits_Pt->Fill( MuonCollection[j].Pt, GenWeight );
-						h_pixelHits_eta->Fill( MuonCollection[j].eta, GenWeight);
-						h_pixelHits_phi->Fill( MuonCollection[j].phi, GenWeight);
-					}
-					if( MuonCollection[j].trackerLayers > 5)
-					{
-						h_trackerLayers_Pt->Fill( MuonCollection[j].Pt, GenWeight );
-						h_trackerLayers_eta->Fill( MuonCollection[j].eta, GenWeight);
-						h_trackerLayers_phi->Fill( MuonCollection[j].phi, GenWeight);
-					}
-					if( MuonCollection[j].trkiso < 0.10)
-					{
-						h_trkiso_Pt->Fill( MuonCollection[j].Pt, GenWeight );
-						h_trkiso_eta->Fill( MuonCollection[j].eta, GenWeight);
-						h_trkiso_phi->Fill( MuonCollection[j].phi, GenWeight);
-
-					}
+/*
+ *                    if( MuonCollection[j].isGLB == 1)
+ *                    {
+ *                        h_isGLB_Pt->Fill( MuonCollection[j].Pt, GenWeight );
+ *                        h_isGLB_eta->Fill( MuonCollection[j].eta, GenWeight);
+ *                        h_isGLB_phi->Fill( MuonCollection[j].phi, GenWeight);
+ *                    }
+ *                    if( MuonCollection[j].isPF == 1)
+ *                    {
+ *                        h_isPF_Pt->Fill( MuonCollection[j].Pt, GenWeight );
+ *                        h_isPF_eta->Fill( MuonCollection[j].eta, GenWeight);
+ *                        h_isPF_phi->Fill( MuonCollection[j].phi, GenWeight);
+ *                    }
+ *                    if( MuonCollection[j].chi2dof < 10)
+ *                    {
+ *                        h_chi2dof_Pt->Fill( MuonCollection[j].Pt, GenWeight );
+ *                        h_chi2dof_eta->Fill( MuonCollection[j].eta, GenWeight);
+ *                        h_chi2dof_phi->Fill( MuonCollection[j].phi, GenWeight);
+ *                    }
+ *                    if( MuonCollection[j].muonHits > 0)
+ *                    {
+ *                        h_muonHits_Pt->Fill( MuonCollection[j].Pt, GenWeight );
+ *                        h_muonHits_eta->Fill( MuonCollection[j].eta, GenWeight);
+ *                        h_muonHits_phi->Fill( MuonCollection[j].phi, GenWeight);
+ *                    }
+ *                    if( MuonCollection[j].nMatches > 1)
+ *                    {
+ *                        h_nMatches_Pt->Fill( MuonCollection[j].Pt, GenWeight );
+ *                        h_nMatches_eta->Fill( MuonCollection[j].eta, GenWeight);
+ *                        h_nMatches_phi->Fill( MuonCollection[j].phi, GenWeight);
+ *                    }
+ *                    if( fabs(MuonCollection[j].dxyVTX) < 0.2)
+ *                    {
+ *                        h_dxyVTX_Pt->Fill( MuonCollection[j].Pt, GenWeight );
+ *                        h_dxyVTX_eta->Fill( MuonCollection[j].eta, GenWeight);
+ *                        h_dxyVTX_phi->Fill( MuonCollection[j].phi, GenWeight);
+ *                    }
+ *                    if( fabs(MuonCollection[j].dzVTX) < 0.5 )
+ *                    {
+ *                        h_dzVTX_Pt->Fill( MuonCollection[j].Pt, GenWeight );
+ *                        h_dzVTX_eta->Fill( MuonCollection[j].eta, GenWeight);
+ *                        h_dzVTX_phi->Fill( MuonCollection[j].phi, GenWeight);
+ *                    }
+ *                    if( MuonCollection[j].pixelHits > 0 )
+ *                    {
+ *                        h_pixelHits_Pt->Fill( MuonCollection[j].Pt, GenWeight );
+ *                        h_pixelHits_eta->Fill( MuonCollection[j].eta, GenWeight);
+ *                        h_pixelHits_phi->Fill( MuonCollection[j].phi, GenWeight);
+ *                    }
+ *                    if( MuonCollection[j].trackerLayers > 5)
+ *                    {
+ *                        h_trackerLayers_Pt->Fill( MuonCollection[j].Pt, GenWeight );
+ *                        h_trackerLayers_eta->Fill( MuonCollection[j].eta, GenWeight);
+ *                        h_trackerLayers_phi->Fill( MuonCollection[j].phi, GenWeight);
+ *                    }
+ *                    if( MuonCollection[j].trkiso < 0.10)
+ *                    {
+ *                        h_trkiso_Pt->Fill( MuonCollection[j].Pt, GenWeight );
+ *                        h_trkiso_eta->Fill( MuonCollection[j].eta, GenWeight);
+ *                        h_trkiso_phi->Fill( MuonCollection[j].phi, GenWeight);
+ *
+ *                    }
+ */
 					if ( MuonCollection[j].isTightMuon() && MuonCollection[j].trkiso < 0.10 )
 					{
 						h_cut_Pt->Fill( MuonCollection[j].Pt, GenWeight );
