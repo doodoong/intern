@@ -46,11 +46,13 @@ public:
 	TH1D *h_Pt_minusCharge;
 	TH1D *h_Pt_plusCharge;
 
-	TH1D *h_Pt_M70;
-	TH1D *h_Pt_M70to90;
-	TH1D *h_Pt_M90to110;
-	TH1D *h_Pt_M110toInf;
-	//TH1D *h_Pt_M60to120;
+	/*
+	 *TH1D *h_Pt_M70;
+	 *TH1D *h_Pt_M70to90;
+	 *TH1D *h_Pt_M90to110;
+	 *TH1D *h_Pt_M110toInf;
+	 */
+	TH1D *h_Pt_M60to120;
 
 	TH1D *h_Angle;
 
@@ -64,9 +66,9 @@ public:
 
 	ControlPlots(TString Type)
 	{
-		h_Pt = new TH1D("h_Pt_"+Cut"_"+Type, "", 250, 0, 500); Histo.push_back( h_Pt );
-		h_eta = new TH1D("h_eta_"+Cut"_"+Type, "", 60, -3, 3); Histo.push_back( h_eta );
-		h_phi = new TH1D("h_phi_"+Cut"_"+Type, "", 80, -4, 4); Histo.push_back( h_phi );
+		h_Pt = new TH1D("h_Pt__"+Type, "", 250, 0, 500); Histo.push_back( h_Pt );
+		h_eta = new TH1D("h_eta_"+Type, "", 60, -3, 3); Histo.push_back( h_eta );
+		h_phi = new TH1D("h_phi_"+Type, "", 80, -4, 4); Histo.push_back( h_phi );
 		h_mass = new TH1D("h_mass_"+Type, "", 500, 0, 1000); Histo.push_back( h_mass );
 		h_diPt = new TH1D("h_diPt_"+Type, "", 250, 0, 500); Histo.push_back( h_diPt );
 		h_diRap = new TH1D("h_diRap_"+Type, "", 60, -3, 3); Histo.push_back( h_diRap );
@@ -249,12 +251,14 @@ public:
 		}
 	}
 
-	void FillHisto_Cut(NtupleHandle *ntuple, Double_t GenWeight)
-	{
-		//pt, eta, phi
-		h_Pt->Fill( recolep1.Pt, GenWeight );
-		
-	}
+	/*
+	 *void FillHisto_Cut(NtupleHandle *ntuple, Double_t GenWeight)
+	 *{
+	 *    //pt, eta, phi
+	 *    h_Pt->Fill( recolep1.Pt, GenWeight );
+	 *    
+	 *}
+	 */
 
 	void WriteHistograms(TFile *fout)
 	{

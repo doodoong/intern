@@ -100,7 +100,7 @@ for(Int_t i_cut = 0; i_cut < 10; i_cut++)
 
 		cout << "\t<" << Tag[i_tup] << ">" << endl;
 
-		//ControlPlots *Plots = new ControlPlots( Tag[i_tup] );
+		ControlPlots *Plots = new ControlPlots( Tag[i_tup] );
 		//Histograms for cuts
 /*
  *        TH1D *h_isGLB_Pt = new TH1D("h_isGLB_Pt"+Tag[i_tup], "", 250, 0, 500);
