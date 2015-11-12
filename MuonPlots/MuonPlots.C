@@ -50,7 +50,8 @@ void MuonPlots(TString HLTname = "IsoMu20")
 	cout << "sub-leading lepton Eta Cut: " << SubEtaCut << endl;
 	cout << "===========================================================" << endl;
 
-	Double_t Factor = 569.0171*2008.4*3/4.5275/10;
+	//Double_t Factor = (((569.0171*2008.4)*3)/(4.5275*10**11));
+	Double_t Factor = ((569.0171*2008.4)*3)/(4.5275*(1e11));
 
 	//TFile *f = new TFile("ROOTFile_Histogram_InvMass_"+HLTname+"_Data.root", "RECREATE");
 	//TFile *f = new TFile("ROOTFile_Histogram_InvMass_60to120_Data.root", "RECREATE");
@@ -86,11 +87,11 @@ void MuonPlots(TString HLTname = "IsoMu20")
 	CutName.push_back( "trackerLayers" );
 	CutName.push_back( "trkiso" );
 
-for(Int_t i_cut = 0; i_cut < 10; i_cut++)
+//for(Int_t i_cut = 0; i_cut < 10; i_cut++)
 {
-	Cut = CutName[i_cut];
-	TFile *f = new TFile("MuonTight_"+Cut+".root", "RECREATE");
-	cout << "TightMuon minus " << Cut << endl;
+	//Cut = CutName[i_cut];
+	TFile *f = new TFile("MuonTightM60to120.root", "RECREATE");
+	//cout << "TightMuon minus " << Cut << endl;
 	//Loop for all samples
 	const Int_t Ntup = ntupleDirectory.size();
 	for(Int_t i_tup = 0; i_tup<Ntup; i_tup++)
@@ -348,49 +349,49 @@ for(Int_t i_cut = 0; i_cut < 10; i_cut++)
 					 *    h_cut_phi->Fill( MuonCollection[j].Pt, GenWeight );
 					 *}
 					 */
-					//if( MuonCollection[j].isTightMuon() && MuonCollection[j].trkiso < 0.10)
-						//QMuonCollection.push_back( MuonCollection[j] );
-					if( Cut == "isGLB")
-					{	
-						if( MuonCollection[j].isTightMuon_minus_isGLB())
-							QMuonCollection.push_back( MuonCollection[j] );
-					} else if( Cut == "isPF")
-					{
-						if( MuonCollection[j].isTightMuon_minus_isPF())
-							QMuonCollection.push_back( MuonCollection[j] );
-					} else if( Cut == "chi2dof")
-					{
-						if( MuonCollection[j].isTightMuon_minus_chi2dof())
-							QMuonCollection.push_back( MuonCollection[j] );
-					} else if( Cut == "muonHits")
-					{
-						if( MuonCollection[j].isTightMuon_minus_muonHits())
-							QMuonCollection.push_back( MuonCollection[j] );
-					} else if( Cut == "nMatches")
-					{
-						if( MuonCollection[j].isTightMuon_minus_nMatches())
-							QMuonCollection.push_back( MuonCollection[j] );
-					} else if( Cut == "dxyVTX")
-					{
-						if( MuonCollection[j].isTightMuon_minus_dxyVTX())
-							QMuonCollection.push_back( MuonCollection[j] );
-					} else if( Cut == "dzVTX")
-					{
-						if( MuonCollection[j].isTightMuon_minus_dzVTX())
-							QMuonCollection.push_back( MuonCollection[j] );
-					} else if( Cut == "pixelHits")
-					{
-						if( MuonCollection[j].isTightMuon_minus_pixelHits())
-							QMuonCollection.push_back( MuonCollection[j] );
-					} else if( Cut == "trackerLayers")
-					{
-						if( MuonCollection[j].isTightMuon_minus_trackerLayers())
-							QMuonCollection.push_back( MuonCollection[j] );
-					} else if( Cut == "trkiso")
-					{
-						if( MuonCollection[j].isTightMuon_minus_trkiso())
-							QMuonCollection.push_back( MuonCollection[j] );
-					}
+					if( MuonCollection[j].isTightMuon() && MuonCollection[j].trkiso < 0.10)
+						QMuonCollection.push_back( MuonCollection[j] );
+					//if( Cut == "isGLB")
+					//{	
+						//if( MuonCollection[j].isTightMuon_minus_isGLB())
+							//QMuonCollection.push_back( MuonCollection[j] );
+					//} else if( Cut == "isPF")
+					//{
+						//if( MuonCollection[j].isTightMuon_minus_isPF())
+							//QMuonCollection.push_back( MuonCollection[j] );
+					//} else if( Cut == "chi2dof")
+					//{
+						//if( MuonCollection[j].isTightMuon_minus_chi2dof())
+							//QMuonCollection.push_back( MuonCollection[j] );
+					//} else if( Cut == "muonHits")
+					//{
+						//if( MuonCollection[j].isTightMuon_minus_muonHits())
+							//QMuonCollection.push_back( MuonCollection[j] );
+					//} else if( Cut == "nMatches")
+					//{
+						//if( MuonCollection[j].isTightMuon_minus_nMatches())
+							//QMuonCollection.push_back( MuonCollection[j] );
+					//} else if( Cut == "dxyVTX")
+					//{
+						//if( MuonCollection[j].isTightMuon_minus_dxyVTX())
+							//QMuonCollection.push_back( MuonCollection[j] );
+					//} else if( Cut == "dzVTX")
+					//{
+						//if( MuonCollection[j].isTightMuon_minus_dzVTX())
+							//QMuonCollection.push_back( MuonCollection[j] );
+					//} else if( Cut == "pixelHits")
+					//{
+						//if( MuonCollection[j].isTightMuon_minus_pixelHits())
+							//QMuonCollection.push_back( MuonCollection[j] );
+					//} else if( Cut == "trackerLayers")
+					//{
+						//if( MuonCollection[j].isTightMuon_minus_trackerLayers())
+							//QMuonCollection.push_back( MuonCollection[j] );
+					//} else if( Cut == "trkiso")
+					//{
+						//if( MuonCollection[j].isTightMuon_minus_trkiso())
+							//QMuonCollection.push_back( MuonCollection[j] );
+					//}
 				}
 
 				//Give Acceptance cuts
