@@ -27,7 +27,7 @@ void CompareGenLepton(GenLepton *genlep1, GenLepton *genlep2, GenLepton *leadgen
 void GenMatching(TString HLTname, TString MuonType, NtupleHandle* ntuple, vector<Muon>* MuonCollection);
 Bool_t isPassDimuonVertexCut(NtupleHandle *ntuple, Double_t Pt1, Double_t Pt2);
 static inline void loadBar(int x, int n, int r, int w);
-void MuonPlots(TString HLTname = "IsoMu20")
+void MuonPlots1(TString HLTname = "IsoMu20")
 {
 	TTimeStamp ts_start;
 	cout << "[Start Time(local time): " << ts_start.AsString("l") << "]" << endl;
@@ -51,7 +51,7 @@ void MuonPlots(TString HLTname = "IsoMu20")
 
 
 //	TFile *f = new TFile("ROOTFile_Histogram_InvMass_"+HLTname+"_Data.root", "RECREATE");
-	TFile *f = new TFile("ROOTFile_Histogram_InvMass_60to120_Data.root", "RECREATE");
+	TFile *f = new TFile("Muon_isGLB_reco.root", "RECREATE");
 
 	TString BaseLocation = "/data4/Users/kplee/DYntuple";
 	//Each ntuple directory & corresponding Tags
@@ -102,8 +102,10 @@ void MuonPlots(TString HLTname = "IsoMu20")
 
 		Int_t count_Zpeak = 0;
 		Double_t SumWeight = 0;
-		Double_t SumWeight_DYMuMu_M20to50 = 0;
-		Double_t SumWeight_DYTauTau_M20to50 = 0;
+		/*
+		 *Double_t SumWeight_DYMuMu_M20to50 = 0;
+		 *Double_t SumWeight_DYTauTau_M20to50 = 0;
+		 */
 
 		Int_t NEvents = chain->GetEntries();
 		cout << "\t[Total Events: " << NEvents << "]" << endl;
@@ -123,68 +125,70 @@ void MuonPlots(TString HLTname = "IsoMu20")
 			SumWeight += GenWeight;
 
 			Int_t GenMassFlag = -1;
-			//Take the events within 20<M<50 in gen-level
-			if( Tag[i_tup] == "DYMuMu_M20to50" )
-			{
-				GenMassFlag = 0;
-				vector<GenLepton> GenLeptonCollection;
-				Int_t NGenLeptons = ntuple->gnpair;
-				for(Int_t i_gen=0; i_gen<NGenLeptons; i_gen++)
-				{
-					GenLepton genlep;
-					genlep.FillFromNtuple(ntuple, i_gen);
-					if( genlep.isMuon() && genlep.fromHardProcessFinalState )
-						GenLeptonCollection.push_back( genlep );
-				}
-
-				if( GenLeptonCollection.size() == 2 )
-				{
-					GenLepton genlep1 = GenLeptonCollection[0];
-					GenLepton genlep2 = GenLeptonCollection[1];
-
-					TLorentzVector gen_v1 = genlep1.Momentum;
-					TLorentzVector gen_v2 = genlep2.Momentum;
-					TLorentzVector gen_vtot = gen_v1 + gen_v2;
-					Double_t gen_M = gen_vtot.M();
-
-					if( gen_M > 20 && gen_M < 50 ) //Take the events within 20<M<50 in gen-level
-					{
-						GenMassFlag = 1;
-						SumWeight_DYMuMu_M20to50 += GenWeight;
-					}		
-				}
-			}
-			else if( Tag[i_tup] == "DYTauTau_M20to50" )
-			{
-				GenMassFlag = 0;
-				vector<GenLepton> GenLeptonCollection;
-				Int_t NGenLeptons = ntuple->gnpair;
-				for(Int_t i_gen=0; i_gen<NGenLeptons; i_gen++)
-				{
-					GenLepton genlep;
-					genlep.FillFromNtuple(ntuple, i_gen);
-					if( abs(genlep.ID) == 15 && genlep.fromHardProcessDecayed )
-						GenLeptonCollection.push_back( genlep );
-				}
-
-				if( GenLeptonCollection.size() == 2 )
-				{
-					GenLepton genlep1 = GenLeptonCollection[0];
-					GenLepton genlep2 = GenLeptonCollection[1];
-
-					TLorentzVector gen_v1 = genlep1.Momentum;
-					TLorentzVector gen_v2 = genlep2.Momentum;
-					TLorentzVector gen_vtot = gen_v1 + gen_v2;
-					Double_t gen_M = gen_vtot.M();
-
-					if( gen_M > 20 && gen_M < 50 ) //Take the events within 20<M<50 in gen-level
-					{
-						GenMassFlag = 1;
-						SumWeight_DYTauTau_M20to50 += GenWeight;
-					}	
-				}
-			}
-			else
+/*
+ *            //Take the events within 20<M<50 in gen-level
+ *            if( Tag[i_tup] == "DYMuMu_M20to50" )
+ *            {
+ *                GenMassFlag = 0;
+ *                vector<GenLepton> GenLeptonCollection;
+ *                Int_t NGenLeptons = ntuple->gnpair;
+ *                for(Int_t i_gen=0; i_gen<NGenLeptons; i_gen++)
+ *                {
+ *                    GenLepton genlep;
+ *                    genlep.FillFromNtuple(ntuple, i_gen);
+ *                    if( genlep.isMuon() && genlep.fromHardProcessFinalState )
+ *                        GenLeptonCollection.push_back( genlep );
+ *                }
+ *
+ *                if( GenLeptonCollection.size() == 2 )
+ *                {
+ *                    GenLepton genlep1 = GenLeptonCollection[0];
+ *                    GenLepton genlep2 = GenLeptonCollection[1];
+ *
+ *                    TLorentzVector gen_v1 = genlep1.Momentum;
+ *                    TLorentzVector gen_v2 = genlep2.Momentum;
+ *                    TLorentzVector gen_vtot = gen_v1 + gen_v2;
+ *                    Double_t gen_M = gen_vtot.M();
+ *
+ *                    if( gen_M > 20 && gen_M < 50 ) //Take the events within 20<M<50 in gen-level
+ *                    {
+ *                        GenMassFlag = 1;
+ *                        SumWeight_DYMuMu_M20to50 += GenWeight;
+ *                    }		
+ *                }
+ *            }
+ *            else if( Tag[i_tup] == "DYTauTau_M20to50" )
+ *            {
+ *                GenMassFlag = 0;
+ *                vector<GenLepton> GenLeptonCollection;
+ *                Int_t NGenLeptons = ntuple->gnpair;
+ *                for(Int_t i_gen=0; i_gen<NGenLeptons; i_gen++)
+ *                {
+ *                    GenLepton genlep;
+ *                    genlep.FillFromNtuple(ntuple, i_gen);
+ *                    if( abs(genlep.ID) == 15 && genlep.fromHardProcessDecayed )
+ *                        GenLeptonCollection.push_back( genlep );
+ *                }
+ *
+ *                if( GenLeptonCollection.size() == 2 )
+ *                {
+ *                    GenLepton genlep1 = GenLeptonCollection[0];
+ *                    GenLepton genlep2 = GenLeptonCollection[1];
+ *
+ *                    TLorentzVector gen_v1 = genlep1.Momentum;
+ *                    TLorentzVector gen_v2 = genlep2.Momentum;
+ *                    TLorentzVector gen_vtot = gen_v1 + gen_v2;
+ *                    Double_t gen_M = gen_vtot.M();
+ *
+ *                    if( gen_M > 20 && gen_M < 50 ) //Take the events within 20<M<50 in gen-level
+ *                    {
+ *                        GenMassFlag = 1;
+ *                        SumWeight_DYTauTau_M20to50 += GenWeight;
+ *                    }	
+ *                }
+ *            }
+ *            else
+ */
 				GenMassFlag = 1; // -- other cases: pass
 
 
@@ -205,15 +209,19 @@ void MuonPlots(TString HLTname = "IsoMu20")
 				if( Tag[i_tup] == "DYMuMu" )
 					GenMatching(HLTname, "fromHardProcess", ntuple, &MuonCollection);
 				//Select muons directly from tau by matching with gen-level final state muons from prompt tau
-				else if( Tag[i_tup] == "DYTauTau" )
-					GenMatching(HLTname, "fromTau", ntuple, &MuonCollection);
+				/*
+				 *else if( Tag[i_tup] == "DYTauTau" )
+				 *    GenMatching(HLTname, "fromTau", ntuple, &MuonCollection);
+				 */
 
 				//Collect qualified muons among muons
 				vector< Muon > QMuonCollection;
 				for(Int_t j=0; j<(int)MuonCollection.size(); j++)
 				{
-				    if( MuonCollection[j].isTightMuon() && MuonCollection[j].trkiso < 0.10)
-				        QMuonCollection.push_back( MuonCollection[j] );
+					//if( MuonCollection[j].isTightMuon() && MuonCollection[j].trkiso < 0.10)
+
+					if( MuonCollection[j].isGLB == 1)
+						QMuonCollection.push_back( MuonCollection[j] );
 				}
 
 				//Give Acceptance cuts
@@ -233,12 +241,12 @@ void MuonPlots(TString HLTname = "IsoMu20")
 					TLorentzVector reco_v2 = recolep2.Momentum;
 					Double_t reco_M = (reco_v1 + reco_v2).M();
 
-	//				if( reco_M > 20 && isPassDimuonVertexCut(ntuple, recolep1.cktpT, recolep2.cktpT) )
+					if( reco_M > 60 && reco_M < 120 && isPassDimuonVertexCut(ntuple, recolep1.cktpT, recolep2.cktpT) )
 					{
 						Plots->FillHistograms(ntuple, HLT, recolep1, recolep2, GenWeight);
 
 						//Count # events in the Z-peak region for each sample
-						if( reco_M > 60 && reco_M < 120 )
+						//if( reco_M > 60 && reco_M < 120 )
 							count_Zpeak++;
 					}
 				}
@@ -260,11 +268,13 @@ void MuonPlots(TString HLTname = "IsoMu20")
 		if(isNLO == 1)
 			cout << "\tTotal sum of weights: " << SumWeight << endl;
 
-		if( Tag[i_tup] == "DYMuMu_M20to50" )
-			cout << "\tSum of weights in 20<M<50 for DYMuMu events: " << SumWeight_DYMuMu_M20to50 << endl;
-
-		if( Tag[i_tup] == "DYTauTau_M20to50" )
-			cout << "\tSum of weights in 20<M<50 for DYTauTau events: " << SumWeight_DYTauTau_M20to50 << endl;
+/*
+ *        if( Tag[i_tup] == "DYMuMu_M20to50" )
+ *            cout << "\tSum of weights in 20<M<50 for DYMuMu events: " << SumWeight_DYMuMu_M20to50 << endl;
+ *
+ *        if( Tag[i_tup] == "DYTauTau_M20to50" )
+ *            cout << "\tSum of weights in 20<M<50 for DYTauTau events: " << SumWeight_DYTauTau_M20to50 << endl;
+ */
 
 		Double_t LoopRunTime = looptime.CpuTime();
 		cout << "\tLoop RunTime(" << Tag[i_tup] << "): " << LoopRunTime << " seconds\n" << endl;

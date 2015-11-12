@@ -19,7 +19,7 @@
 
 //Customized header files
 #include <Lepton.h>
-//#include <ControlPlots.h>
+#include <ControlPlots.h>
 
 void AssignAccThreshold(TString HLTname, TString *HLT, Double_t *LeadPtCut, Double_t *SubPtCut, Double_t *LeadEtaCut, Double_t *SubEtaCut);
 void CompareMuon(Muon *Mu1, Muon *Mu2, Muon *leadMu, Muon *subMu);
@@ -35,6 +35,7 @@ void MuonPlots(TString HLTname = "IsoMu20")
 	TStopwatch totaltime;
 	totaltime.Start();
 
+	TString Cut;
 	TString HLT;
 	Double_t LeadPtCut = 9999;
 	Double_t SubPtCut = 9999;
@@ -49,12 +50,13 @@ void MuonPlots(TString HLTname = "IsoMu20")
 	cout << "sub-leading lepton Eta Cut: " << SubEtaCut << endl;
 	cout << "===========================================================" << endl;
 
-	Double_t Factor = 569.0171*2008.4*3/4.5275/10;
+	//Double_t Factor = (((569.0171*2008.4)*3)/(4.5275*10**11));
+	Double_t Factor = ((569.0171*2008.4)*3)/(4.5275*(1e11));
 
 	//TFile *f = new TFile("ROOTFile_Histogram_InvMass_"+HLTname+"_Data.root", "RECREATE");
 	//TFile *f = new TFile("ROOTFile_Histogram_InvMass_60to120_Data.root", "RECREATE");
 	//TFile *fcut = new TFile("MuonCut.root", "RECREATE");
-	TFile *fallcut = new TFile("MuonCutAll.root", "RECREATE");
+	//TFile *fallcut = new TFile("MuonCutAll.root", "RECREATE");
 
 	TString BaseLocation = "/data4/Users/kplee/DYntuple";
 	//Each ntuple directory & corresponding Tags
@@ -73,7 +75,23 @@ void MuonPlots(TString HLTname = "IsoMu20")
 	//Data
 	ntupleDirectory.push_back( "Run2015C/GoldenJSON/SingleMuon_v3_Run246908to256869" ); Tag.push_back( "Data" ); // -- Run2015C -- //
 
+	vector< TString > CutName;
+	CutName.push_back( "isGLB" );
+	CutName.push_back( "isPF" );
+	CutName.push_back( "chi2dof" );
+	CutName.push_back( "muonHits" );
+	CutName.push_back( "nMatches" );
+	CutName.push_back( "dxyVTX" );
+	CutName.push_back( "dzVTX" );
+	CutName.push_back( "pixelHits" );
+	CutName.push_back( "trackerLayers" );
+	CutName.push_back( "trkiso" );
 
+//for(Int_t i_cut = 0; i_cut < 10; i_cut++)
+{
+	//Cut = CutName[i_cut];
+	TFile *f = new TFile("MuonTightM60to120.root", "RECREATE");
+	//cout << "TightMuon minus " << Cut << endl;
 	//Loop for all samples
 	const Int_t Ntup = ntupleDirectory.size();
 	for(Int_t i_tup = 0; i_tup<Ntup; i_tup++)
@@ -83,41 +101,8 @@ void MuonPlots(TString HLTname = "IsoMu20")
 
 		cout << "\t<" << Tag[i_tup] << ">" << endl;
 
-		//ControlPlots *Plots = new ControlPlots( Tag[i_tup] );
+		ControlPlots *Plots = new ControlPlots( Tag[i_tup] );
 		//Histograms for cuts
-<<<<<<< HEAD
-		TH1D *h_isGLB_Pt = new TH1D("h_isGLB_Pt"+Tag[i_tup], "", 250, 0, 500);
-		TH1D *h_isGLB_eta = new TH1D("h_isGLB_eta"+Tag[i_tup], "", 60, -3, 3);
-		TH1D *h_isGLB_phi = new TH1D("h_isGLB_phi"+Tag[i_tup], "", 80, -4, 4);
-		TH1D *h_isPF_Pt = new TH1D("h_isPF_Pt"+Tag[i_tup], "", 250, 0, 500);
-		TH1D *h_isPF_eta = new TH1D("h_isPF_eta"+Tag[i_tup], "", 60, -3, 3);
-		TH1D *h_isPF_phi = new TH1D("h_isPF_phi"+Tag[i_tup], "", 80, -4, 4);
-		TH1D *h_chi2dof_Pt = new TH1D("h_chi2dof_Pt"+Tag[i_tup], "", 250, 0, 500);
-		TH1D *h_chi2dof_eta = new TH1D("h_chi2dof_eta"+Tag[i_tup], "", 60, -3, 3);
-		TH1D *h_chi2dof_phi = new TH1D("h_chi2dof_phi"+Tag[i_tup], "", 80, -4, 4);
-		TH1D *h_muonHits_Pt = new TH1D("h_muonHits_Pt"+Tag[i_tup], "", 250, 0, 500);
-		TH1D *h_muonHits_eta = new TH1D("h_muonHits_eta"+Tag[i_tup], "", 60, -3, 3);
-		TH1D *h_muonHits_phi = new TH1D("h_muonHits_phi"+Tag[i_tup], "", 80, -4, 4);
-		TH1D *h_nMatches_Pt = new TH1D("h_nMatches_Pt"+Tag[i_tup], "", 250, 0, 500);
-		TH1D *h_nMatches_eta = new TH1D("h_nMatches_eta"+Tag[i_tup], "", 60, -3, 3);
-		TH1D *h_nMatches_phi = new TH1D("h_nMatches_phi"+Tag[i_tup], "", 80, -4, 4);
-		TH1D *h_dxyVTX_Pt = new TH1D("h_dxyVTX_Pt"+Tag[i_tup], "", 250, 0, 500);
-		TH1D *h_dxyVTX_eta = new TH1D("h_dxyVTX_eta"+Tag[i_tup], "", 60, -3, 3);
-		TH1D *h_dxyVTX_phi = new TH1D("h_dxyVTX_phi"+Tag[i_tup], "", 80, -4, 4);
-		TH1D *h_dzVTX_Pt = new TH1D("h_dzVTX_Pt"+Tag[i_tup], "", 250, 0, 500);
-		TH1D *h_dzVTX_eta = new TH1D("h_dzVTX_eta"+Tag[i_tup], "", 60, -3, 3);
-		TH1D *h_dzVTX_phi = new TH1D("h_dzVTX_phi"+Tag[i_tup], "", 80, -4, 4);
-		TH1D *h_pixelHits_Pt = new TH1D("h_pixelHits_Pt"+Tag[i_tup], "", 250, 0, 500);
-		TH1D *h_pixelHits_eta = new TH1D("h_pixelHits_eta"+Tag[i_tup], "", 60, -3, 3);
-		TH1D *h_pixelHits_phi = new TH1D("h_pixelHits_phi"+Tag[i_tup], "", 80, -4, 4);
-		TH1D *h_trackerLayers_Pt = new TH1D("h_trackerLayers_Pt"+Tag[i_tup], "", 250, 0, 500);
-		TH1D *h_trackerLayers_eta = new TH1D("h_trackerLayers_eta"+Tag[i_tup], "", 60, -3, 3);
-		TH1D *h_trackerLayers_phi = new TH1D("h_trackerLayers_phi"+Tag[i_tup], "", 80, -4, 4);
-
-		TH1D *h_trkiso_Pt = new TH1D("h_trkiso_Pt"+Tag[i_tup], "", 250, 0, 500);
-		TH1D *h_trkiso_eta = new TH1D("h_trkiso_eta"+Tag[i_tup], "", 60, -3, 3);
-		TH1D *h_trkiso_phi = new TH1D("h_trkiso_phi"+Tag[i_tup], "", 80, -4, 4);
-=======
 /*
  *        TH1D *h_isGLB_Pt = new TH1D("h_isGLB_Pt"+Tag[i_tup], "", 250, 0, 500);
  *        TH1D *h_isGLB_eta = new TH1D("h_isGLB_eta"+Tag[i_tup], "", 60, -3, 3);
@@ -151,12 +136,9 @@ void MuonPlots(TString HLTname = "IsoMu20")
  *        TH1D *h_trkiso_eta = new TH1D("h_trkiso_eta"+Tag[i_tup], "", 60, -3, 3);
  *        TH1D *h_trkiso_phi = new TH1D("h_trkiso_phi"+Tag[i_tup], "", 80, -4, 4);
  */
-		TH1D *h_cut_Pt = new TH1D("h_cut_Pt"+Tag[i_tup], "", 250, 0, 500);
-		TH1D *h_cut_eta = new TH1D("h_cut_eta"+Tag[i_tup], "", 60, -3, 3);
-		TH1D *h_cut_phi = new TH1D("h_cut_phi"+Tag[i_tup], "", 80, -4, 4);
-
->>>>>>> 1b75fd55c1db5751a7370d840922126968a6703f
-
+		//TH1D *h_cut_Pt = new TH1D("h_cut_Pt"+Tag[i_tup], "", 250, 0, 500);
+		//TH1D *h_cut_eta = new TH1D("h_cut_eta"+Tag[i_tup], "", 60, -3, 3);
+		//TH1D *h_cut_phi = new TH1D("h_cut_phi"+Tag[i_tup], "", 80, -4, 4);
 
 		TChain *chain = new TChain("recoTree/DYTree");
 		chain->Add(BaseLocation+"/"+ntupleDirectory[i_tup]+"/ntuple_*.root");
@@ -180,7 +162,7 @@ void MuonPlots(TString HLTname = "IsoMu20")
 		Int_t count_Zpeak = 0;
 		Double_t SumWeight = 0;
 		Double_t SumWeight_DYMuMu_M20to50 = 0;
-		Double_t SumWeight_DYTauTau_M20to50 = 0;
+		//Double_t SumWeight_DYTauTau_M20to50 = 0;
 
 		Int_t NEvents = chain->GetEntries();
 		cout << "\t[Total Events: " << NEvents << "]" << endl;
@@ -357,59 +339,91 @@ void MuonPlots(TString HLTname = "IsoMu20")
  *
  *                    }
  */
-					if ( MuonCollection[j].isTightMuon() && MuonCollection[j].trkiso < 0.10 )
-					{
-<<<<<<< HEAD
-						h_trkiso_Pt->Fill( MuonCollection[j].Pt, GenWeight );
-						h_trkiso_eta->Fill( MuonCollection[j].eta, GenWeight);
-						h_trkiso_phi->Fill( MuonCollection[j].phi, GenWeight);
-=======
-						h_cut_Pt->Fill( MuonCollection[j].Pt, GenWeight );
-						h_cut_eta->Fill( MuonCollection[j].Pt, GenWeight );
-						h_cut_phi->Fill( MuonCollection[j].Pt, GenWeight );
->>>>>>> 1b75fd55c1db5751a7370d840922126968a6703f
-					}
-
-					//if( MuonCollection[j].isTightMuon() && MuonCollection[j].trkiso < 0.10)
-						//QMuonCollection.push_back( MuonCollection[j] );
+					/*
+					 *if ( MuonCollection[j].isTightMuon() && MuonCollection[j].trkiso < 0.10 )
+					 *{
+					 *    h_cut_Pt->Fill( MuonCollection[j].Pt, GenWeight );
+					 *    h_cut_eta->Fill( MuonCollection[j].Pt, GenWeight );
+					 *    h_cut_phi->Fill( MuonCollection[j].Pt, GenWeight );
+					 *}
+					 */
+					if( MuonCollection[j].isTightMuon() && MuonCollection[j].trkiso < 0.10)
+						QMuonCollection.push_back( MuonCollection[j] );
+					//if( Cut == "isGLB")
+					//{
+						//if( MuonCollection[j].isTightMuon_minus_isGLB())
+							//QMuonCollection.push_back( MuonCollection[j] );
+					//} else if( Cut == "isPF")
+					//{
+						//if( MuonCollection[j].isTightMuon_minus_isPF())
+							//QMuonCollection.push_back( MuonCollection[j] );
+					//} else if( Cut == "chi2dof")
+					//{
+						//if( MuonCollection[j].isTightMuon_minus_chi2dof())
+							//QMuonCollection.push_back( MuonCollection[j] );
+					//} else if( Cut == "muonHits")
+					//{
+						//if( MuonCollection[j].isTightMuon_minus_muonHits())
+							//QMuonCollection.push_back( MuonCollection[j] );
+					//} else if( Cut == "nMatches")
+					//{
+						//if( MuonCollection[j].isTightMuon_minus_nMatches())
+							//QMuonCollection.push_back( MuonCollection[j] );
+					//} else if( Cut == "dxyVTX")
+					//{
+						//if( MuonCollection[j].isTightMuon_minus_dxyVTX())
+							//QMuonCollection.push_back( MuonCollection[j] );
+					//} else if( Cut == "dzVTX")
+					//{
+						//if( MuonCollection[j].isTightMuon_minus_dzVTX())
+							//QMuonCollection.push_back( MuonCollection[j] );
+					//} else if( Cut == "pixelHits")
+					//{
+						//if( MuonCollection[j].isTightMuon_minus_pixelHits())
+							//QMuonCollection.push_back( MuonCollection[j] );
+					//} else if( Cut == "trackerLayers")
+					//{
+						//if( MuonCollection[j].isTightMuon_minus_trackerLayers())
+							//QMuonCollection.push_back( MuonCollection[j] );
+					//} else if( Cut == "trkiso")
+					//{
+						//if( MuonCollection[j].isTightMuon_minus_trkiso())
+							//QMuonCollection.push_back( MuonCollection[j] );
+					//}
 				}
 
-/*
- *                //Give Acceptance cuts
- *                if( QMuonCollection.size() >= 2)
- *                {
- *                    Muon leadMu, subMu;
- *                    CompareMuon(&QMuonCollection[0], &QMuonCollection[1], &leadMu, &subMu);
- *                    if( !(leadMu.Pt > LeadPtCut && subMu.Pt > SubPtCut && abs(leadMu.eta) < LeadEtaCut && abs(subMu.eta) < SubEtaCut) )
- *                        QMuonCollection.clear();
- *                }
- *
- *                if( QMuonCollection.size() == 2)
- *                {
- *                    Muon recolep1 = QMuonCollection[0];
- *                    Muon recolep2 = QMuonCollection[1];
- *                    TLorentzVector reco_v1 = recolep1.Momentum;
- *                    TLorentzVector reco_v2 = recolep2.Momentum;
- *                    Double_t reco_M = (reco_v1 + reco_v2).M();
- *
- *                    if( reco_M > 60 && reco_M < 120 && isPassDimuonVertexCut(ntuple, recolep1.cktpT, recolep2.cktpT) )
- *                    {
- *                        Plots->FillHistograms(ntuple, HLT, recolep1, recolep2, GenWeight);
- *
- *                        //Count # events in the Z-peak region for each sample
- *                        //if( reco_M > 60 && reco_M < 120 )
- *                            count_Zpeak++;
- *                    }
- *                }
- *
- */
+				//Give Acceptance cuts
+				if( QMuonCollection.size() >= 2)
+				{
+					Muon leadMu, subMu;
+					CompareMuon(&QMuonCollection[0], &QMuonCollection[1], &leadMu, &subMu);
+					if( !(leadMu.Pt > LeadPtCut && subMu.Pt > SubPtCut && abs(leadMu.eta) < LeadEtaCut && abs(subMu.eta) < SubEtaCut) )
+						QMuonCollection.clear();
+				}
+
+				if( QMuonCollection.size() == 2)
+				{
+					Muon recolep1 = QMuonCollection[0];
+					Muon recolep2 = QMuonCollection[1];
+					TLorentzVector reco_v1 = recolep1.Momentum;
+					TLorentzVector reco_v2 = recolep2.Momentum;
+					Double_t reco_M = (reco_v1 + reco_v2).M();
+
+					if( reco_M > 60 && reco_M < 120 && isPassDimuonVertexCut(ntuple, recolep1.cktpT, recolep2.cktpT) )
+					{
+						Plots->FillHistograms(ntuple, HLT, recolep1, recolep2, GenWeight);
+
+						//Count # events in the Z-peak region for each sample
+						//if( reco_M > 60 && reco_M < 120 )
+							count_Zpeak++;
+					}
+				}
+
 			} //End of if( isTriggered )
 
 		} //End of event iteration
 
-		/*
-		 *cout << "\tcount_Zpeak(" << Tag[i_tup] << "): " << count_Zpeak << endl;
-		 */
+		cout << "\tcount_Zpeak(" << Tag[i_tup] << "): " << count_Zpeak << endl;
 
 		// if( Tag[i_tup] == "DYTauTau_M20to50" )
 		// {
@@ -420,40 +434,7 @@ void MuonPlots(TString HLTname = "IsoMu20")
 
 
 
-		//Plots->WriteHistograms( fisGLB );
-<<<<<<< HEAD
-		fcut->cd();
-		h_isGLB_Pt->Write();
-		h_isGLB_eta->Write();
-		h_isGLB_phi->Write();
-		h_isPF_Pt->Write();
-		h_isPF_eta->Write();
-		h_isPF_phi->Write();
-		h_chi2dof_Pt->Write();
-		h_chi2dof_eta->Write();
-		h_chi2dof_phi->Write();
-		h_muonHits_Pt->Write();
-		h_muonHits_eta->Write();
-		h_muonHits_phi->Write();
-		h_nMatches_Pt->Write();
-		h_nMatches_eta->Write();
-		h_nMatches_phi->Write();
-		h_dxyVTX_Pt->Write();
-		h_dxyVTX_eta->Write();
-		h_dxyVTX_phi->Write();
-		h_dzVTX_Pt->Write();
-		h_dzVTX_eta->Write();
-		h_dzVTX_phi->Write();
-		h_pixelHits_Pt->Write();
-		h_pixelHits_eta->Write();
-		h_pixelHits_phi->Write();
-		h_trackerLayers_Pt->Write();
-		h_trackerLayers_eta->Write();
-		h_trackerLayers_phi->Write();
-		h_trkiso_Pt->Write();
-		h_trkiso_eta->Write();
-		h_trkiso_phi->Write();
-=======
+		Plots->WriteHistograms( f );
 		//fcut->cd();
 		//h_isGLB_Pt->Write();
 		//h_isGLB_eta->Write();
@@ -485,26 +466,26 @@ void MuonPlots(TString HLTname = "IsoMu20")
 		//h_trkiso_Pt->Write();
 		//h_trkiso_eta->Write();
 		//h_trkiso_phi->Write();
-		fallcut->cd();
-		h_cut_Pt->Write();
-		h_cut_eta->Write();
-		h_cut_phi->Write();
-
->>>>>>> 1b75fd55c1db5751a7370d840922126968a6703f
-
+		//fallcut->cd();
+		//h_cut_Pt->Write();
+		//h_cut_eta->Write();
+		//h_cut_phi->Write();
 
 		if(isNLO == 1)
 			cout << "\tTotal sum of weights: " << SumWeight << endl;
 
-		if( Tag[i_tup] == "DYMuMu_M20to50" )
-			cout << "\tSum of weights in 20<M<50 for DYMuMu events: " << SumWeight_DYMuMu_M20to50 << endl;
-
-		if( Tag[i_tup] == "DYTauTau_M20to50" )
-			cout << "\tSum of weights in 20<M<50 for DYTauTau events: " << SumWeight_DYTauTau_M20to50 << endl;
-
+/*
+ *        if( Tag[i_tup] == "DYMuMu_M20to50" )
+ *            cout << "\tSum of weights in 20<M<50 for DYMuMu events: " << SumWeight_DYMuMu_M20to50 << endl;
+ *
+ *        if( Tag[i_tup] == "DYTauTau_M20to50" )
+ *            cout << "\tSum of weights in 20<M<50 for DYTauTau events: " << SumWeight_DYTauTau_M20to50 << endl;
+ *
+ */
 		Double_t LoopRunTime = looptime.CpuTime();
 		cout << "\tLoop RunTime(" << Tag[i_tup] << "): " << LoopRunTime << " seconds\n" << endl;
 	} //end of i_tup iteration
+}//end of i_cut iteration
 
 //	TH1D *h_isGLB_Pt_Scaled = (TH1D *) h_isGLB_PtDYMuMu->Clone();
 //	h_isGLB_Pt_Scaled->Scale(1/Factor);
