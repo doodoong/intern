@@ -8,7 +8,7 @@
 
 // Example displaying two histograms and their ratio.
 // Author: Olivier Couet
-void ratioplot2 () {
+void ratioplot () {
    // Define two gaussian histograms. Note the X and Y title are defined
    // at booking time using the convention "Hist_title ; X_title ; Y_title"
    /*
@@ -29,10 +29,10 @@ void ratioplot2 () {
 	//Cut.push_back("trackerLayers");
 	//Cut.push_back("trkiso");
 
-	//vector<TString> Type;
-	//Type.push_back("Pt_");
-	//Type.push_back("eta");
-	//Type.push_back("mass");
+	vector<TString> Type;
+	Type.push_back("Pt_");
+	Type.push_back("eta");
+	Type.push_back("mass");
 
 	//Double_t Factor = 569.0171*2008.4*3/4.5275/10; // Wrong value;
 	Double_t Factor = ((569.0171*2008.4)*3)/(4.5275*(1e11));
@@ -49,9 +49,9 @@ void ratioplot2 () {
 	//Int_t j = 1;
 	//for (Int_t i = 0; i < 10; i++)
 	{	
-		f1 = new TFile (".root");
+		f1 = new TFile ("MuonTightM60to120.root");
 
-		//for (Int_t j = 0; j < 3; j++)
+		for (Int_t j = 0; j < 3; j++)
 		{
 
 			c = new TCanvas("c", "canvas", 800, 800);
@@ -144,9 +144,9 @@ void ratioplot2 () {
 			//TImage *img = TImage::Create();
 
 			img->FromPad(c);
-			img->WriteImage(Type[j]+"_Tightminus_"+Cut[i]+".png");
+			img->WriteImage(Type[j]+"_TightM60to120.png");
 
-			cout << Type[j] << "_Tightminus_" << Cut[i] << ".png output" << endl;
+			cout << Type[j] << "_TightM60to120.png output" << endl;
 			//delete h3;
 			//delete h2;
 			//delete h1;
