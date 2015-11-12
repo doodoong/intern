@@ -8,7 +8,7 @@
 
 // Example displaying two histograms and their ratio.
 // Author: Olivier Couet
-void ratioplot2 () {
+void ratioplot () {
    // Define two gaussian histograms. Note the X and Y title are defined
    // at booking time using the convention "Hist_title ; X_title ; Y_title"
    /*
@@ -17,25 +17,22 @@ void ratioplot2 () {
     *h1->FillRandom("gaus");
     *h2->FillRandom("gaus");
 	*/
-	vector<TString> Cut;
-	Cut.push_back("isGLB");
-	Cut.push_back("isPF");
-	Cut.push_back("chi2dof");
-	Cut.push_back("muonHits");
-	Cut.push_back("nMatches");
-	Cut.push_back("dxyVTX");
-	Cut.push_back("dzVTX");
-	Cut.push_back("pixelHits");
-	Cut.push_back("trackerLayers");
-	Cut.push_back("trkiso");
+	//vector<TString> Cut;
+	//Cut.push_back("isGLB");
+	//Cut.push_back("isPF");
+	//Cut.push_back("chi2dof");
+	//Cut.push_back("muonHits");
+	//Cut.push_back("nMatches");
+	//Cut.push_back("dxyVTX");
+	//Cut.push_back("dzVTX");
+	//Cut.push_back("pixelHits");
+	//Cut.push_back("trackerLayers");
+	//Cut.push_back("trkiso");
 
 	vector<TString> Type;
 	Type.push_back("Pt_");
 	Type.push_back("eta");
 	Type.push_back("mass");
-
-	
-	
 
 	//Double_t Factor = 569.0171*2008.4*3/4.5275/10; // Wrong value;
 	Double_t Factor = ((569.0171*2008.4)*3)/(4.5275*(1e11));
@@ -43,17 +40,16 @@ void ratioplot2 () {
 	TFile *f1;
 	TH1D *h1, *h2;
 	TH1F *h3;
-	//TCanvas *c;
 	TCanvas *c = new TCanvas("c", "canvas", 800,800);
 	TPad *pad1 = new TPad("pad1", "pad1", 0, 0.3, 1, 1.0);
 	TPad *pad2 = new TPad("pad2", "pad2", 0, 0.05, 1, 0.3);
 	TImage *img = TImage::Create();
 	
-	Int_t i = 0;
-	Int_t j = 1;
-	for (Int_t i = 0; i < 10; i++)
+	//Int_t i = 0;
+	//Int_t j = 1;
+	//for (Int_t i = 0; i < 10; i++)
 	{	
-		f1 = new TFile ("MuonTight_"+Cut[i]+".root");
+		f1 = new TFile ("MuonTightM60to120.root");
 
 		for (Int_t j = 0; j < 3; j++)
 		{
@@ -148,9 +144,9 @@ void ratioplot2 () {
 			//TImage *img = TImage::Create();
 
 			img->FromPad(c);
-			img->WriteImage(Type[j]+"_Tightminus_"+Cut[i]+".png");
+			img->WriteImage(Type[j]+"_TightM60to120.png");
 
-			cout << Type[j] << "_Tightminus_" << Cut[i] << ".png output" << endl;
+			cout << Type[j] << "_TightM60to120.png output" << endl;
 			//delete h3;
 			//delete h2;
 			//delete h1;

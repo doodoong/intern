@@ -66,7 +66,7 @@ public:
 
 	ControlPlots(TString Type)
 	{
-		h_Pt = new TH1D("h_Pt__"+Type, "", 250, 0, 500); Histo.push_back( h_Pt );
+		h_Pt = new TH1D("h_Pt_"+Type, "", 250, 0, 500); Histo.push_back( h_Pt );
 		h_eta = new TH1D("h_eta_"+Type, "", 60, -3, 3); Histo.push_back( h_eta );
 		h_phi = new TH1D("h_phi_"+Type, "", 80, -4, 4); Histo.push_back( h_phi );
 		h_mass = new TH1D("h_mass_"+Type, "", 500, 0, 1000); Histo.push_back( h_mass );
