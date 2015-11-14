@@ -44,11 +44,11 @@ void ratioplot () {
 	TPad *pad1 = new TPad("pad1", "pad1", 0, 0.3, 1, 1.0);
 	TPad *pad2 = new TPad("pad2", "pad2", 0, 0.05, 1, 0.3);
 	TImage *img = TImage::Create();
-	
+
 	//Int_t i = 0;
 	//Int_t j = 1;
 	//for (Int_t i = 0; i < 10; i++)
-	{	
+	{
 		f1 = new TFile ("MuonTightM60to120.root");
 
 		for (Int_t j = 0; j < 3; j++)
@@ -78,7 +78,7 @@ void ratioplot () {
 			cout << "h1, h2 before draw" << endl;
 			h2->Draw();               // Draw h1
 			h1->Draw("same");         // Draw h2 on top of h1
-			
+
 			cout << "h1, h2 draw.." << endl;
 			// Do not draw the Y axis label on the upper plot and redraw a small
 			// axis instead, in order to avoid the first label (0) to be clipped.
@@ -143,8 +143,8 @@ void ratioplot () {
 
 			//TImage *img = TImage::Create();
 
-			img->FromPad(c);
-			img->WriteImage(Type[j]+"_TightM60to120.png");
+			// img->FromPad(c);
+			// img->WriteImage(Type[j]+"_TightM60to120.png");
 
 			cout << Type[j] << "_TightM60to120.png output" << endl;
 			//delete h3;
@@ -161,4 +161,3 @@ void ratioplot () {
 		} // iteration Type end
 	} // iteration Cut end
 }
-

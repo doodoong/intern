@@ -34,7 +34,7 @@ void MuonPlots(TString HLTname = "IsoMu20")
 
 	TStopwatch totaltime;
 	totaltime.Start();
-	
+
 	TString Cut;
 	TString HLT;
 	Double_t LeadPtCut = 9999;
@@ -139,8 +139,6 @@ void MuonPlots(TString HLTname = "IsoMu20")
 		//TH1D *h_cut_Pt = new TH1D("h_cut_Pt"+Tag[i_tup], "", 250, 0, 500);
 		//TH1D *h_cut_eta = new TH1D("h_cut_eta"+Tag[i_tup], "", 60, -3, 3);
 		//TH1D *h_cut_phi = new TH1D("h_cut_phi"+Tag[i_tup], "", 80, -4, 4);
-
-
 
 		TChain *chain = new TChain("recoTree/DYTree");
 		chain->Add(BaseLocation+"/"+ntupleDirectory[i_tup]+"/ntuple_*.root");
@@ -352,7 +350,7 @@ void MuonPlots(TString HLTname = "IsoMu20")
 					if( MuonCollection[j].isTightMuon() && MuonCollection[j].trkiso < 0.10)
 						QMuonCollection.push_back( MuonCollection[j] );
 					//if( Cut == "isGLB")
-					//{	
+					//{
 						//if( MuonCollection[j].isTightMuon_minus_isGLB())
 							//QMuonCollection.push_back( MuonCollection[j] );
 					//} else if( Cut == "isPF")
@@ -472,8 +470,6 @@ void MuonPlots(TString HLTname = "IsoMu20")
 		//h_cut_Pt->Write();
 		//h_cut_eta->Write();
 		//h_cut_phi->Write();
-
-
 
 		if(isNLO == 1)
 			cout << "\tTotal sum of weights: " << SumWeight << endl;
