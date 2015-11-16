@@ -29,10 +29,12 @@ void ratioplot () {
 	//Cut.push_back("trackerLayers");
 	//Cut.push_back("trkiso");
 
-	vector<TString> Type;
-	Type.push_back("Pt_");
-	Type.push_back("eta");
-	Type.push_back("mass");
+	vector<TString> Type;	vector<TString> XDim;								vector<TString> YDim;
+	Type.push_back("Pt");	XDim.push_back("p_{T}[GeV/c]");			YDim.push_back("Number of Muons");
+	Type.push_back("eta");	XDim.push_back("eta");						YDim.push_back("Number of Muons");
+	Type.push_back("mass");	XDim.push_back("M_{{mumu}[GeV/c^{2}]");	YDim.push_back("Number of Events");
+	Type.push_back("diPt");	XDim.push_back("Dimuon p_{T}[GeV/c]");				YDim.push_back("Number of Events");
+	Type.push_back("diRap");XDim.push_back("Dimuon Rapidity");					YDim.push_back("Number of Events");
 
 	//Double_t Factor = 569.0171*2008.4*3/4.5275/10; // Wrong value;
 	Double_t Factor = ((569.0171*2008.4)*3)/(4.5275*(1e11));
@@ -40,21 +42,22 @@ void ratioplot () {
 	TFile *f1;
 	TH1D *h1, *h2;
 	TH1F *h3;
-	TCanvas *c = new TCanvas("c", "canvas", 800,800);
-	TPad *pad1 = new TPad("pad1", "pad1", 0, 0.3, 1, 1.0);
-	TPad *pad2 = new TPad("pad2", "pad2", 0, 0.05, 1, 0.3);
+	TCanvas *c;
+	TPad *pad1;
+	TPad *pad2;
+	TLegend *leg;
 	TImage *img = TImage::Create();
 
 	//Int_t i = 0;
-	//Int_t j = 1;
-	//for (Int_t i = 0; i < 10; i++)
+	Int_t j = 4;
+	// for (Int_t i = 0; i < 10; i++)
 	{
 		f1 = new TFile ("MuonTightM60to120.root");
 
-		for (Int_t j = 0; j < 3; j++)
+		// for (Int_t j = 0; j < 4; j++)
 		{
 
-			c = new TCanvas("c", "canvas", 800, 800);
+			c = new TCanvas("c", "canvas", 900, 900);
 			cout << Type[j] << " drawing.." <<  endl;
 
 			h1 = (TH1D *)f1->Get("h_"+Type[j]+"_Data");
@@ -73,11 +76,15 @@ void ratioplot () {
 			pad1->SetGridx();         // Vertical grid
 			pad1->Draw();             // Draw the upper pad: pad1
 			pad1->cd();               // pad1 becomes the current pad
-			//h1->SetStats(0);          // No statistics on upper plot
+			pad1->SetTitle();
+			h2->SetStats(0);
+			h1->SetStats(0); // No statistics on upper plot
 
 			cout << "h1, h2 before draw" << endl;
-			h2->Draw();               // Draw h1
-			h1->Draw("same");         // Draw h2 on top of h1
+
+			//h1->Draw("E1");    // Draw Data
+			h2->Draw("hist"); // Draw DYMuMu
+			h1->Draw("E1same");
 
 			cout << "h1, h2 draw.." << endl;
 			// Do not draw the Y axis label on the upper plot and redraw a small
@@ -89,44 +96,61 @@ void ratioplot () {
 			//axis->SetLabelSize(15);
 			//axis->Draw();
 
+			leg = new TLegend (.80, .85, 1, 1);
+			leg->AddEntry(h1, "Data");
+			leg->AddEntry(h2, "DYMuMu");
+			leg->Draw();
+
 			// lower plot will be in pad
 			c->cd();          // Go back to the main canvas before defining pad2
-			pad2 = new TPad("pad2", "pad2", 0, 0.05, 1, 0.3);
-			pad2->SetTopMargin(0.01);
-			pad2->SetBottomMargin(0.2);
+			pad2 = new TPad("pad2", "pad2", 0, 0.1, 1, 0.3);
+			pad2->SetTopMargin(0);
+			pad2->SetBottomMargin(0.02);
 			pad2->SetGridx(); // vertical grid
 			pad2->Draw();
 			pad2->cd();       // pad2 becomes the current pad
 
 			// Define the ratio plot
-			h3 = (TH1F*)h1->Clone("h3");
+			h3 = (TH1F*)h2->Clone("h3");
 			h3->SetLineColor(kBlack);
-			h3->SetMinimum(0);  // Define Y ..
-			h3->SetMaximum(2); // .. range
+			h3->SetMinimum(0.5);  // Define Y ..
+			h3->SetMaximum(1.5); // .. range
 			h3->Sumw2();
 			h3->SetStats(0);      // No statistics on lower plot
-			h3->Divide(h2);
-			h3->SetMarkerStyle(21);
+			h3->Divide(h1);
+			// h3->SetMarkerStyle(21);
 			h3->Draw("ep");       // Draw the ratio plot
 
 			// h1 settings
-			h1->SetLineColor(kBlue+1);
+			h1->SetLineColor(kBlack);
+			h1->SetTitle("CMS Preliminary L=569.017pb^{-1}");
+			h2->SetTitle("CMS Preliminary L=569.017pb^{-1}");
+			// h1->SetMarkerStyle(21);
 			h1->SetLineWidth(2);
 
+			if (Type[j] == "mass")
+			{
+				h1->GetXaxis()->SetRangeUser(60,120);
+				h2->GetXaxis()->SetRangeUser(60,120);
+				h3->GetXaxis()->SetRangeUser(60,120);
+			}
+
 			// Y axis h1 plot settings
+			h1->GetYaxis()->SetTitle(YDim[j]);
+			h2->GetYaxis()->SetTitle(YDim[j]);
 			h1->GetYaxis()->SetTitleSize(20);
 			h1->GetYaxis()->SetTitleFont(43);
 			h1->GetYaxis()->SetTitleOffset(1.55);
 
 			// h2 settings
-			h2->SetLineColor(kRed);
-			h2->SetLineWidth(2);
+			h2->SetFillColor(kYellow);
+			h2->SetLineWidth(0);
 
 			// Ratio plot (h3) settings
 			h3->SetTitle(""); // Remove the ratio title
 
 			// Y axis ratio plot settings
-			//h3->GetYaxis()->SetTitle("ratio h1/h2 ");
+			h3->GetYaxis()->SetTitle("DY/Data");
 			h3->GetYaxis()->SetNdivisions(505);
 			h3->GetYaxis()->SetTitleSize(20);
 			h3->GetYaxis()->SetTitleFont(43);
@@ -135,29 +159,31 @@ void ratioplot () {
 			h3->GetYaxis()->SetLabelSize(15);
 
 			// X axis ratio plot settings
+			h3->GetXaxis()->SetTitle(XDim[j]);
 			h3->GetXaxis()->SetTitleSize(20);
 			h3->GetXaxis()->SetTitleFont(43);
 			h3->GetXaxis()->SetTitleOffset(4.);
 			h3->GetXaxis()->SetLabelFont(43); // Absolute font size in pixel (precision 3)
 			h3->GetXaxis()->SetLabelSize(15);
 
-			//TImage *img = TImage::Create();
 
-			// img->FromPad(c);
-			// img->WriteImage(Type[j]+"_TightM60to120.png");
 
+			img->FromPad(c);
+			img->WriteImage("./pictures/TightM60to120"+Type[j]+".png");
 			cout << Type[j] << "_TightM60to120.png output" << endl;
-			//delete h3;
-			//delete h2;
-			//delete h1;
-			//delete pad1;
-			//delete pad2;
-			delete c;
 
+			// delete h3;
+			// delete h2;
+			// delete h1;
+			// delete pad1;
+			// delete pad2;
+			// delete c;
+
+			// f1->Close();
 
 			//delete f1;
 
-			cout << "file closed" << endl;
+			// cout << "file closed" << endl;
 		} // iteration Type end
 	} // iteration Cut end
 }

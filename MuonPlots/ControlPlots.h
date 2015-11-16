@@ -28,7 +28,7 @@ public:
 
 	TH1D *h_lead_Pt;
 	TH1D *h_sub_Pt;
-	
+
 	TH1D *h_lead_eta;
 	TH1D *h_sub_eta;
 
@@ -52,7 +52,7 @@ public:
 	 *TH1D *h_Pt_M90to110;
 	 *TH1D *h_Pt_M110toInf;
 	 */
-	TH1D *h_Pt_M60to120;
+	// TH1D *h_Pt_M60to120;
 
 	TH1D *h_Angle;
 
@@ -75,7 +75,7 @@ public:
 
 		h_lead_Pt = new TH1D("h_lead_Pt_"+Type, "", 250, 0, 500); Histo.push_back( h_lead_Pt );
 		h_sub_Pt = new TH1D("h_sub_Pt_"+Type, "", 250, 0, 500); Histo.push_back( h_sub_Pt );
-		
+
 		h_lead_eta = new TH1D("h_lead_eta_"+Type, "", 60, -3, 3); Histo.push_back( h_lead_eta );
 		h_sub_eta = new TH1D("h_sub_eta_"+Type, "", 60, -3, 3); Histo.push_back( h_sub_eta );
 
@@ -99,7 +99,7 @@ public:
 		 *h_Pt_M90to110 = new TH1D("h_Pt_M90to110_"+Type, "", 250, 0, 500); Histo.push_back( h_Pt_M90to110 );
 		 *h_Pt_M110toInf = new TH1D("h_Pt_M110toInf_"+Type, "", 250, 0, 500); Histo.push_back( h_Pt_M110toInf );
 		 */
-		h_Pt_M60to120 = new TH1D("h_Pt_M60to120_"+Type, "", 250, 0, 500); Histo.push_back( h_Pt_M60to120 );
+		// h_Pt_M60to120 = new TH1D("h_Pt_M60to120_"+Type, "", 250, 0, 500); Histo.push_back( h_Pt_M60to120 );
 
 		h_Angle = new TH1D("h_Angle_"+Type, "", 80, -4, 4); Histo.push_back( h_Angle );
 
@@ -213,16 +213,16 @@ public:
 			//h_Pt_M110toInf->Fill( recolep1.Pt, GenWeight );
 			//h_Pt_M110toInf->Fill( recolep2.Pt, GenWeight );
 		//}
-		if (reco_M > 60 && reco_M < 120)
-		{
-			h_Pt_M60to120->Fill( recolep1.Pt, GenWeight );
-			h_Pt_M60to120->Fill( recolep2.Pt, GenWeight );
-		}
+		// if (reco_M > 60 && reco_M < 120)
+		// {
+		// 	h_Pt_M60to120->Fill( recolep1.Pt, GenWeight );
+		// 	h_Pt_M60to120->Fill( recolep2.Pt, GenWeight );
+		// }
 
 
 		//Angle between two muons
 		h_Angle->Fill( reco_v1.Angle( reco_v2.Vect() ), GenWeight );
-		
+
 		//Trigger Matched objects
 		if( recolep1.isTrigMatched(ntuple, HLT) )
 		{
@@ -256,7 +256,7 @@ public:
 	 *{
 	 *    //pt, eta, phi
 	 *    h_Pt->Fill( recolep1.Pt, GenWeight );
-	 *    
+	 *
 	 *}
 	 */
 
@@ -267,41 +267,3 @@ public:
 			Histo[i_hist]->Write();
 	}
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
