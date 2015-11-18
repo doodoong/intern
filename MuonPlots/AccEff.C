@@ -112,7 +112,7 @@ void AccEff(TString HLTname = "IsoMu20")
 
 		Int_t NEvents = chain->GetEntries();
 		cout << "\t[Total Events: " << NEvents << "]" << endl;
-		for(Int_t i=0; i<NEvents; i++)
+		for(Int_t i=0; i<10000; i++)
 		{
 			loadBar(i+1, NEvents, 100, 100);
 
@@ -175,9 +175,9 @@ void AccEff(TString HLTname = "IsoMu20")
 					}
 					count_gen_acc += GenLeptonCollection.size()/2;
 					
-					if (!(ntuple->isTriggered (HLT)))
-						MuonCollection.clear();
-					GenMatching(HLTname, "fromHardProcess", ntuple, &MuonCollection);
+					//if (!(ntuple->isTriggered (HLT)))
+						//MuonCollection.clear();
+					//GenMatching(HLTname, "fromHardProcess", ntuple, &MuonCollection);
 
 					vector<Muon> QMuonCollection;
 					for (Int_t j=0; j < (int)MuonCollection.size(); j++)

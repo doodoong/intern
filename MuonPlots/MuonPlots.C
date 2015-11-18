@@ -74,23 +74,25 @@ void MuonPlots(TString HLTname = "IsoMu20")
 
 	//Data
 	ntupleDirectory.push_back( "Run2015C/GoldenJSON/SingleMuon_v3_Run246908to256869" ); Tag.push_back( "Data" ); // -- Run2015C -- //
-
-	vector< TString > CutName;
-	CutName.push_back( "isGLB" );
-	CutName.push_back( "isPF" );
-	CutName.push_back( "chi2dof" );
-	CutName.push_back( "muonHits" );
-	CutName.push_back( "nMatches" );
-	CutName.push_back( "dxyVTX" );
-	CutName.push_back( "dzVTX" );
-	CutName.push_back( "pixelHits" );
-	CutName.push_back( "trackerLayers" );
-	CutName.push_back( "trkiso" );
-
+/*
+ *
+ *    vector< TString > CutName;
+ *    CutName.push_back( "isGLB" );
+ *    CutName.push_back( "isPF" );
+ *    CutName.push_back( "chi2dof" );
+ *    CutName.push_back( "muonHits" );
+ *    CutName.push_back( "nMatches" );
+ *    CutName.push_back( "dxyVTX" );
+ *    CutName.push_back( "dzVTX" );
+ *    CutName.push_back( "pixelHits" );
+ *    CutName.push_back( "trackerLayers" );
+ *    CutName.push_back( "trkiso" );
+ *
+ */
 //for(Int_t i_cut = 0; i_cut < 10; i_cut++)
 {
 	//Cut = CutName[i_cut];
-	TFile *f = new TFile("MuonTightM60to120.root", "RECREATE");
+	TFile *f = new TFile("MuonTightM60to120Pt25.root", "RECREATE");
 	//cout << "TightMuon minus " << Cut << endl;
 	//Loop for all samples
 	const Int_t Ntup = ntupleDirectory.size();
@@ -425,6 +427,11 @@ void MuonPlots(TString HLTname = "IsoMu20")
 
 		cout << "\tcount_Zpeak(" << Tag[i_tup] << "): " << count_Zpeak << endl;
 
+		if (Tag[i_tup] == "DYMuMu")
+		{
+			for (Int_t i_hist = 0; i_hist < (Int_t)Plots->Histo.size(); i_hist++)
+				Plots->Histo[i_hist]->Scale (Factor);
+		}
 		// if( Tag[i_tup] == "DYTauTau_M20to50" )
 		// {
 		// 	for(Int_t i_hist=0; i_hist < (Int_t)Plots->Histo.size(); i_hist++)
@@ -504,8 +511,8 @@ void AssignAccThreshold(TString HLTname, TString *HLT, Double_t *LeadPtCut, Doub
 	if( HLTname == "IsoMu20" )
 	{
 		*HLT = "HLT_IsoMu20_v*";
-		*LeadPtCut = 21;
-		*SubPtCut = 10;
+		*LeadPtCut = 25;
+		*SubPtCut = 25;
 		*LeadEtaCut = 2.4;
 		*SubEtaCut = 2.4;
 	}

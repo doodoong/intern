@@ -42,34 +42,51 @@ void ratioplot () {
 	TFile *f1;
 	TH1D *h1, *h2;
 	TH1F *h3;
-	TCanvas *c;
+	TCanvas *c, *c0, *c1, *c2, *c3, *c4;
 	TPad *pad1;
 	TPad *pad2;
 	TLegend *leg;
 	TImage *img = TImage::Create();
 
+	//c0 = new TCanvas("c0", "canvas", 900, 900);
+	//c1 = new TCanvas("c1", "canvas", 900, 900);
+	//c2 = new TCanvas("c2", "canvas", 900, 900);
+	//c3 = new TCanvas("c3", "canvas", 900, 900);
+	//c4 = new TCanvas("c4", "canvas", 900, 900);
+	// vector<TCanvas> c;
+	// c.push_back(c0);	c.push_back(c1);	c.push_back(c2);	c.push_back(c3);	c.push_back(c4);
 	//Int_t i = 0;
-	Int_t j = 4;
+	 //Int_t j = 3;
 	// for (Int_t i = 0; i < 10; i++)
 	{
-		f1 = new TFile ("MuonTightM60to120.root");
+		f1 = new TFile ("MuonTightM60to120Pt25.root");
 
-		// for (Int_t j = 0; j < 4; j++)
+		for (Int_t j = 0; j < 5; j++)
 		{
 
-			c = new TCanvas("c", "canvas", 900, 900);
+			 c = new TCanvas("c", "canvas", 900, 900);
 			cout << Type[j] << " drawing.." <<  endl;
 
 			h1 = (TH1D *)f1->Get("h_"+Type[j]+"_Data");
 			h2 = (TH1D *)f1->Get("h_"+Type[j]+"_DYMuMu");
-			h2->Scale(Factor);
+			//h2->Scale(Factor);
 
 			cout << Type[j] << " h1, h2 constructed" << endl;
 
 			//h1->
 			// Define the Canvas
 			//TCanvas *c = new TCanvas("c", "canvas", 800, 800);
-
+			//if (j == 0)
+				//c0->cd();          // Go back to the main canvas before defining pad2
+			//if (j == 1)
+				//c1->cd();
+			//if (j == 2)
+				//c2->cd();
+			//if (j == 3)
+				//c3->cd();
+			//if (j == 4)
+				//c4->cd();
+			c->cd();
 			// Upper plot will be in pad1
 			pad1 = new TPad("pad1", "pad1", 0, 0.3, 1, 1.0);
 			pad1->SetBottomMargin(0); // Upper and lower plot are joined
@@ -79,6 +96,8 @@ void ratioplot () {
 			pad1->SetTitle();
 			h2->SetStats(0);
 			h1->SetStats(0); // No statistics on upper plot
+			// if (Type[j] == "Pt" || Type[j] == "diPt")
+				pad1->SetLogy();
 
 			cout << "h1, h2 before draw" << endl;
 
@@ -102,22 +121,33 @@ void ratioplot () {
 			leg->Draw();
 
 			// lower plot will be in pad
-			c->cd();          // Go back to the main canvas before defining pad2
+			//if (j == 0)
+				//c0->cd();          // Go back to the main canvas before defining pad2
+			//if (j == 1)
+				//c1->cd();
+			//if (j == 2)
+				//c2->cd();
+			//if (j == 3)
+				//c3->cd();
+			//if (j == 4)
+				//c4->cd();
+			
+			c->cd();
 			pad2 = new TPad("pad2", "pad2", 0, 0.1, 1, 0.3);
-			pad2->SetTopMargin(0);
-			pad2->SetBottomMargin(0.02);
+			pad2->SetTopMargin(0.0001);
+			pad2->SetBottomMargin(0.3);
 			pad2->SetGridx(); // vertical grid
 			pad2->Draw();
 			pad2->cd();       // pad2 becomes the current pad
 
 			// Define the ratio plot
-			h3 = (TH1F*)h2->Clone("h3");
+			h3 = (TH1F*)h1->Clone("h3");
 			h3->SetLineColor(kBlack);
-			h3->SetMinimum(0.5);  // Define Y ..
-			h3->SetMaximum(1.5); // .. range
+			h3->SetMinimum(0.7);  // Define Y ..
+			h3->SetMaximum(1.2); // .. range
 			h3->Sumw2();
 			h3->SetStats(0);      // No statistics on lower plot
-			h3->Divide(h1);
+			h3->Divide(h2);
 			// h3->SetMarkerStyle(21);
 			h3->Draw("ep");       // Draw the ratio plot
 
@@ -150,13 +180,14 @@ void ratioplot () {
 			h3->SetTitle(""); // Remove the ratio title
 
 			// Y axis ratio plot settings
-			h3->GetYaxis()->SetTitle("DY/Data");
+			h3->GetYaxis()->SetTitle("Data/DY");
 			h3->GetYaxis()->SetNdivisions(505);
 			h3->GetYaxis()->SetTitleSize(20);
 			h3->GetYaxis()->SetTitleFont(43);
 			h3->GetYaxis()->SetTitleOffset(1.55);
 			h3->GetYaxis()->SetLabelFont(43); // Absolute font size in pixel (precision 3)
 			h3->GetYaxis()->SetLabelSize(15);
+			h3->GetYaxis()->CenterTitle();
 
 			// X axis ratio plot settings
 			h3->GetXaxis()->SetTitle(XDim[j]);
@@ -168,18 +199,30 @@ void ratioplot () {
 
 
 
+			//img = TImage::Create();
+			//if (j == 0)
+				//img->FromPad(c0);
+			//if (j == 1)
+				//img->FromPad(c1);
+			//if (j == 2)
+				//img->FromPad(c2);
+			//if (j == 3)
+				//img->FromPad(c3);
+			//if (j == 4)
+				//img->FromPad(c4);
+
 			img->FromPad(c);
-			img->WriteImage("./pictures/TightM60to120"+Type[j]+".png");
-			cout << Type[j] << "_TightM60to120.png output" << endl;
+			img->WriteImage("./pictures/TightM60to120_"+Type[j]+"_log.png");
+			cout << Type[j] << "_TightM60to120_log.png output" << endl;
 
 			// delete h3;
 			// delete h2;
 			// delete h1;
 			// delete pad1;
 			// delete pad2;
-			// delete c;
+			delete c;
 
-			// f1->Close();
+			//f1->Close();
 
 			//delete f1;
 
