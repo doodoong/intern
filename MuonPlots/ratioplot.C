@@ -56,12 +56,12 @@ void ratioplot () {
 	// vector<TCanvas> c;
 	// c.push_back(c0);	c.push_back(c1);	c.push_back(c2);	c.push_back(c3);	c.push_back(c4);
 	//Int_t i = 0;
-	 //Int_t j = 3;
+	 Int_t j = 3;
 	// for (Int_t i = 0; i < 10; i++)
 	{
 		f1 = new TFile ("MuonTightM60to120Pt25.root");
 
-		for (Int_t j = 0; j < 5; j++)
+		//for (Int_t j = 0; j < 5; j++)
 		{
 
 			 c = new TCanvas("c", "canvas", 900, 900);
@@ -137,6 +137,7 @@ void ratioplot () {
 			pad2->SetTopMargin(0.0001);
 			pad2->SetBottomMargin(0.3);
 			pad2->SetGridx(); // vertical grid
+			pad2->SetGridy();
 			pad2->Draw();
 			pad2->cd();       // pad2 becomes the current pad
 
@@ -212,7 +213,7 @@ void ratioplot () {
 				//img->FromPad(c4);
 
 			img->FromPad(c);
-			img->WriteImage("./pictures/TightM60to120_"+Type[j]+"_log.png");
+			img->WriteImage("./pictures/TightM60to120_"+Type[j]+"_log.pdf");
 			cout << Type[j] << "_TightM60to120_log.png output" << endl;
 
 			// delete h3;
@@ -220,7 +221,7 @@ void ratioplot () {
 			// delete h1;
 			// delete pad1;
 			// delete pad2;
-			delete c;
+			//delete c;
 
 			//f1->Close();
 

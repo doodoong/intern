@@ -92,7 +92,8 @@ void MuonPlots(TString HLTname = "IsoMu20")
 //for(Int_t i_cut = 0; i_cut < 10; i_cut++)
 {
 	//Cut = CutName[i_cut];
-	TFile *f = new TFile("MuonTightM60to120Pt25.root", "RECREATE");
+	//TFile *f = new TFile("MuonTightM60to120Pt25.root", "RECREATE");
+	TFile *f = new TFile ("test.root", "RECREATE");
 	//cout << "TightMuon minus " << Cut << endl;
 	//Loop for all samples
 	const Int_t Ntup = ntupleDirectory.size();

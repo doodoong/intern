@@ -143,7 +143,7 @@ void AccEff(TString HLTname = "IsoMu20")
 				genlep.FillFromNtuple (ntuple, i_gen);
 				mu.FillFromNtuple (ntuple, i_gen);
 							
-				if (genlep.isMuon() && genlep.fromHardProcessFinalState)
+				if (genlep.isMuon() && genlep.fromHardProcessFinalState)	// no need genmatching
 				{
 					GenLeptonCollection.push_back (genlep);
 					MuonCollection.push_back (mu);
