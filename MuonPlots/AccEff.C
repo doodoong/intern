@@ -134,78 +134,73 @@ void AccEff(TString HLTname = "IsoMu20")
 			vector<GenLepton> GenLeptonCollection;
 			vector<Muon> MuonCollection;
 			Int_t NGenLeptons = ntuple->gnpair;
+			Int_t NMuons = ntuple->nMuon;
 
-			Int_t Nmuons = 0;
 			for (Int_t i_gen = 0; i_gen < NGenLeptons; i_gen++)
 			{
 				GenLepton genlep;
-				Muon mu;
 				genlep.FillFromNtuple (ntuple, i_gen);
-				mu.FillFromNtuple (ntuple, i_gen);
+				//mu.FillFromNtuple (ntuple, i_gen); // NGenLeptons != Nmuons !!!
 							
 				if (genlep.isMuon() && genlep.fromHardProcessFinalState)	// no need genmatching
 				{
 					GenLeptonCollection.push_back (genlep);
-					MuonCollection.push_back (mu);
-					Nmuons++;
-				}
 
-				if (GenLeptonCollection.size() == 2)
-				{
-					GenLepton genmu1;
-					GenLepton genmu2;
-					CompareGenLepton (&GenLeptonCollection[0], &GenLeptonCollection[1], &genmu1, &genmu2);
-					TLorentzVector gen_v1 = genmu1.Momentum;
-					TLorentzVector gen_v2 = genmu2.Momentum;
-					Double_t gen_M = (gen_v1 + gen_v2).M();
-
-					if (!(gen_M > 60 && gen_M < 120))
+					if (GenLeptonCollection.size() == 2)
 					{
-						GenLeptonCollection.clear();
-						MuonCollection.clear();
-					}
-					count_gen_M60to120 += GenLeptonCollection.size()/2;
+						GenLepton genmu1;
+						GenLepton genmu2;
+						CompareGenLepton (&GenLeptonCollection[0], &GenLeptonCollection[1], &genmu1, &genmu2);
+						TLorentzVector gen_v1 = genmu1.Momentum;
+						TLorentzVector gen_v2 = genmu2.Momentum;
+						Double_t gen_M = (gen_v1 + gen_v2).M();
 
-					//if ((genmu1.Pt > 2.5 && genmu2.Pt > 2.5 && abs(genmu1.eta) < 2.4 && abs(genmu2.eta) < 2.4))
+						if (!(gen_M > 60 && gen_M < 120))
+						{
+							GenLeptonCollection.clear();
+						}
+						count_gen_M60to120 += GenLeptonCollection.size()/2;
+
+						//if ((genmu1.Pt > 2.5 && genmu2.Pt > 2.5 && abs(genmu1.eta) < 2.4 && abs(genmu2.eta) < 2.4))
 						//count_gen_acc++;
-					if (!(genmu1.Pt > 2.5 && genmu2.Pt > 2.5 && abs(genmu1.eta) < 2.4 && abs(genmu2.eta) < 2.4))
-					{
-						GenLeptonCollection.clear();
-						MuonCollection.clear();
-					}
-					count_gen_acc += GenLeptonCollection.size()/2;
-					
-					//if (!(ntuple->isTriggered (HLT)))
+						if (!(genmu1.Pt > 25 && genmu2.Pt > 25 && abs(genmu1.eta) < 2.4 && abs(genmu2.eta) < 2.4))
+						{
+							GenLeptonCollection.clear();
+							MuonCollection.clear();
+						}
+						count_gen_acc += GenLeptonCollection.size()/2;
+
+						//if (!(ntuple->isTriggered (HLT)))
 						//MuonCollection.clear();
-					//GenMatching(HLTname, "fromHardProcess", ntuple, &MuonCollection);
+						//GenMatching(HLTname, "fromHardProcess", ntuple, &MuonCollection);
 
-					vector<Muon> QMuonCollection;
-					for (Int_t j=0; j < (int)MuonCollection.size(); j++)
-					{
-						if (MuonCollection[j].isTightMuon() && MuonCollection[j].trkiso < 0.10)
-							QMuonCollection.push_back (MuonCollection[j]);
-						if (QMuonCollection.size() >= 2)
-						{
-							Muon leadMu, subMu;
-							CompareMuon (&QMuonCollection[0], &QMuonCollection[1], &leadMu, &subMu);
-							if (!(leadMu.Pt > 2.5 && subMu.Pt > 2.5 && abs(leadMu.eta) < 2.4 && abs(subMu.eta) <2.4))
-								QMuonCollection.clear();
-						}
-						if (QMuonCollection.size() == 2)
-						{
-							Muon recolep1 = QMuonCollection[0];
-							Muon recolep2 = QMuonCollection[1];
-							TLorentzVector reco_v1 = recolep1.Momentum;
-							TLorentzVector reco_v2 = recolep2.Momentum;
-							Double_t reco_M = (reco_v1 + reco_v2).M();
+						//vector<Muon> QMuonCollection;
+						//for (Int_t j=0; j < (int)MuonCollection.size(); j++)
+						//{
+						//if (MuonCollection[j].isTightMuon() && MuonCollection[j].trkiso < 0.10)
+						//QMuonCollection.push_back (MuonCollection[j]);
+						//if (QMuonCollection.size() >= 2)
+						//{
+						//Muon leadMu, subMu;
+						//CompareMuon (&QMuonCollection[0], &QMuonCollection[1], &leadMu, &subMu);
+						//if (!(leadMu.Pt > 2.5 && subMu.Pt > 2.5 && abs(leadMu.eta) < 2.4 && abs(subMu.eta) <2.4))
+						//QMuonCollection.clear();
+						//}
+						//if (QMuonCollection.size() == 2)
+						//{
+						//Muon recolep1 = QMuonCollection[0];
+						//Muon recolep2 = QMuonCollection[1];
+						//TLorentzVector reco_v1 = recolep1.Momentum;
+						//TLorentzVector reco_v2 = recolep2.Momentum;
+						//Double_t reco_M = (reco_v1 + reco_v2).M();
 
-							if (reco_M > 60 && reco_M <120 && isPassDimuonVertexCut (ntuple, recolep1.cktpT, recolep2.cktpT))
-								count_reco_sel += QMuonCollection.size()/2;
-						}
-					}
-				}
-
-			}
+						//if (reco_M > 60 && reco_M <120 && isPassDimuonVertexCut (ntuple, recolep1.cktpT, recolep2.cktpT))
+						//count_reco_sel += QMuonCollection.size()/2;
+						//}
+						//}
+					} // genlepton# = 2
+				} // end isMuon && fromHardProcessFinalState
+			} // end iteration i_gen
 			//cout << "Nmuons: " << Nmuons << endl;
 			if (!((Nmuons == 0) || (Nmuons == 2)))
 				cout << "no mumu" << endl;

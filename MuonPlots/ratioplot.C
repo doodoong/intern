@@ -212,8 +212,8 @@ void ratioplot () {
 			//if (j == 4)
 				//img->FromPad(c4);
 
-			img->FromPad(c);
-			img->WriteImage("./pictures/TightM60to120_"+Type[j]+"_log.pdf");
+			//img->FromPad(c);
+			//img->WriteImage("./pictures/TightM60to120_"+Type[j]+"_log.png");
 			cout << Type[j] << "_TightM60to120_log.png output" << endl;
 
 			// delete h3;
