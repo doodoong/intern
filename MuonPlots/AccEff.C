@@ -132,15 +132,19 @@ void AccEff(TString HLTname = "IsoMu20")
 
 			// total gen muons
 			vector<GenLepton> GenLeptonCollection;
-			vector<Muon> MuonCollection;
 			Int_t NGenLeptons = ntuple->gnpair;
-			Int_t NMuons = ntuple->nMuon;
+			Bool_t isDY = false;
 
+			//cout << "---------------Event #" << i << "--NGenLeptons: " << NGenLeptons << "---------------------" <<  endl;
 			for (Int_t i_gen = 0; i_gen < NGenLeptons; i_gen++)
 			{
 				GenLepton genlep;
 				genlep.FillFromNtuple (ntuple, i_gen);
 				//mu.FillFromNtuple (ntuple, i_gen); // NGenLeptons != Nmuons !!!
+
+				
+				//cout << "i_gen: " <<i_gen << " isMuon: " <<  genlep.isMuon() << " fromH: " << genlep.fromHardProcessFinalState << " ";
+				//cout << "Pt: " << genlep.Pt << " eta: " << genlep.eta << " " << endl;
 							
 				if (genlep.isMuon() && genlep.fromHardProcessFinalState)	// no need genmatching
 				{
@@ -148,6 +152,7 @@ void AccEff(TString HLTname = "IsoMu20")
 
 					if (GenLeptonCollection.size() == 2)
 					{
+						//cout << "DY event!" << endl;
 						GenLepton genmu1;
 						GenLepton genmu2;
 						CompareGenLepton (&GenLeptonCollection[0], &GenLeptonCollection[1], &genmu1, &genmu2);
@@ -155,120 +160,64 @@ void AccEff(TString HLTname = "IsoMu20")
 						TLorentzVector gen_v2 = genmu2.Momentum;
 						Double_t gen_M = (gen_v1 + gen_v2).M();
 
+						cout << "gen_M: " << gen_M << endl;
+
 						if (!(gen_M > 60 && gen_M < 120))
 						{
 							GenLeptonCollection.clear();
-						}
-						count_gen_M60to120 += GenLeptonCollection.size()/2;
+						} else
+							cout << "Z!";
+						
 
+						count_gen_M60to120 += GenLeptonCollection.size()/2;
+						//cout << "genlapcollection size: " << GenLeptonCollection.size() << endl;
+
+						cout << count_gen_M60to120 << endl;
 						//if ((genmu1.Pt > 2.5 && genmu2.Pt > 2.5 && abs(genmu1.eta) < 2.4 && abs(genmu2.eta) < 2.4))
 						//count_gen_acc++;
 						if (!(genmu1.Pt > 25 && genmu2.Pt > 25 && abs(genmu1.eta) < 2.4 && abs(genmu2.eta) < 2.4))
 						{
 							GenLeptonCollection.clear();
-							MuonCollection.clear();
 						}
 						count_gen_acc += GenLeptonCollection.size()/2;
 
-						//if (!(ntuple->isTriggered (HLT)))
-						//MuonCollection.clear();
-						//GenMatching(HLTname, "fromHardProcess", ntuple, &MuonCollection);
+						if (ntuple->isTriggered (HLT))
+						{
+							vector<Muon> MuonCollection;
+							Int_t NLeptons = ntuple->nMuon;
+							for (Int_t i_reco = 0; i_reco < NLeptons; i_reco++)
+							{
+								Muon mu;
+								mu.FillFromNtuple (ntuple, i_reco);
+								MuonCollection.push_back (mu);
+							}
 
-						//vector<Muon> QMuonCollection;
-						//for (Int_t j=0; j < (int)MuonCollection.size(); j++)
-						//{
-						//if (MuonCollection[j].isTightMuon() && MuonCollection[j].trkiso < 0.10)
-						//QMuonCollection.push_back (MuonCollection[j]);
-						//if (QMuonCollection.size() >= 2)
-						//{
-						//Muon leadMu, subMu;
-						//CompareMuon (&QMuonCollection[0], &QMuonCollection[1], &leadMu, &subMu);
-						//if (!(leadMu.Pt > 2.5 && subMu.Pt > 2.5 && abs(leadMu.eta) < 2.4 && abs(subMu.eta) <2.4))
-						//QMuonCollection.clear();
-						//}
-						//if (QMuonCollection.size() == 2)
-						//{
-						//Muon recolep1 = QMuonCollection[0];
-						//Muon recolep2 = QMuonCollection[1];
-						//TLorentzVector reco_v1 = recolep1.Momentum;
-						//TLorentzVector reco_v2 = recolep2.Momentum;
-						//Double_t reco_M = (reco_v1 + reco_v2).M();
+							vector <Muon> QMuonCollection;
+							for (Int_t j = 0; j < (Int_t) MuonCollection.size(); j++)
+								if (MuonCollection[j].isTightMuon() && MuonCollection[j].trkiso < 0.10)
+									QMuonCollection.push_back(MuonCollection[j]);
 
-						//if (reco_M > 60 && reco_M <120 && isPassDimuonVertexCut (ntuple, recolep1.cktpT, recolep2.cktpT))
-						//count_reco_sel += QMuonCollection.size()/2;
-						//}
-						//}
+							if (QMuonCollection.size() == 2)
+							{
+								if (!(QMuonCollection[0].Pt > 25 && QMuonCollection[1].Pt > 25 && abs(QMuonCollection[0].eta) < 2.4 && abs(QMuonCollection[1].eta) < 2.4))
+									QMuonCollection.clear();
+								Muon recolep1 = QMuonCollection[0];
+								Muon recolep2 = QMuonCollection[1];
+								TLorentzVector reco_v1 = recolep1.Momentum;
+								TLorentzVector reco_v2 = recolep2.Momentum;
+								Double_t reco_M = (reco_v1 + reco_v2).M();
+
+								if (reco_M > 60 && reco_M < 120 && isPassDimuonVertexCut (ntuple, recolep1.cktpT, recolep2.cktpT))
+									count_reco_sel++;
+							}
+
+
+						}
+						//break;
 					} // genlepton# = 2
 				} // end isMuon && fromHardProcessFinalState
 			} // end iteration i_gen
-			//cout << "Nmuons: " << Nmuons << endl;
-			if (!((Nmuons == 0) || (Nmuons == 2)))
-				cout << "no mumu" << endl;
 			
-
-
-
-
-
-
-
-
-
-			
-/*
- *            //if( ntuple->isTriggered( HLT ) && GenMassFlag)
- *            {
- *                //Collect Reconstruction level information
- *                vector< Muon > MuonCollection;
- *                Int_t NLeptons = ntuple->nMuon;
- *                for(Int_t i_reco=0; i_reco<NLeptons; i_reco++)
- *                {
- *                    Muon mu;
- *                    mu.FillFromNtuple(ntuple, i_reco);
- *                        MuonCollection.push_back( mu );
- *                }
- *
- *                //Select muons directly from Z/gamma by matching with gen-level final state muons from hard process
- *                if( Tag[i_tup] == "DYMuMu" )
- *                    GenMatching(HLTname, "fromHardProcess", ntuple, &MuonCollection);
- *
- *                //Collect qualified muons among muons
- *                vector< Muon > QMuonCollection;
- *                for(Int_t j=0; j<(int)MuonCollection.size(); j++)
- *                {
- *                    if( MuonCollection[j].isTightMuon() && MuonCollection[j].trkiso < 0.10)
- *                        QMuonCollection.push_back( MuonCollection[j] );
- *                }
- *
- *                //Give Acceptance cuts
- *                if( QMuonCollection.size() >= 2)
- *                {
- *                    Muon leadMu, subMu;
- *                    CompareMuon(&QMuonCollection[0], &QMuonCollection[1], &leadMu, &subMu);
- *                    if( !(leadMu.Pt > LeadPtCut && subMu.Pt > SubPtCut && abs(leadMu.eta) < LeadEtaCut && abs(subMu.eta) < SubEtaCut) )
- *                        QMuonCollection.clear();
- *                }
- *
- *                if( QMuonCollection.size() == 2)
- *                {
- *                    Muon recolep1 = QMuonCollection[0];
- *                    Muon recolep2 = QMuonCollection[1];
- *                    TLorentzVector reco_v1 = recolep1.Momentum;
- *                    TLorentzVector reco_v2 = recolep2.Momentum;
- *                    Double_t reco_M = (reco_v1 + reco_v2).M();
- *
- *                    if( reco_M > 60 && reco_M < 120 && isPassDimuonVertexCut(ntuple, recolep1.cktpT, recolep2.cktpT) )
- *                    {
- *                        //Plots->FillHistograms(ntuple, HLT, recolep1, recolep2, GenWeight);
- *
- *                        //Count # events in the Z-peak region for each sample
- *                        //count_Zpeak++;
- *                    }
- *                }
- *
- *            } //End of if( isTriggered )
- *
- */
 		} //End of event iteration
 
 		//cout << "\tcount_Zpeak(" << Tag[i_tup] << "): " << count_Zpeak << endl;
