@@ -1,9 +1,0 @@
-60to120
-<DYMuMu>
-count_Zpeak(DYMuMu): 3699803
-Total sum of weights: 4.5275e+11
-Loop RunTime(DYMuMu): 744.92 seconds
-<Data>
-[Total Events: 18822813]
-count_Zpeak(Data):	444892
-Loop RunTime(Data):	332.2	seconds     
