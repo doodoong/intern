@@ -71,7 +71,7 @@ void AccEff(TString HLTname = "IsoMu20")
 	ntupleDirectory.push_back( "Run2015C/GoldenJSON/SingleMuon_v3_Run246908to256869" ); Tag.push_back( "Data" ); // -- Run2015C -- //
 
 
-	TFile *f = new TFile("AccEff.root", "RECREATE");
+	//TFile *f = new TFile("AccEff.root", "RECREATE");
 	//Loop for all samples
 	const Int_t Ntup = ntupleDirectory.size();
 	Int_t i_tup = 0;	// only for DY MC
@@ -83,7 +83,7 @@ void AccEff(TString HLTname = "IsoMu20")
 		cout << "\t<" << Tag[i_tup] << ">" << endl;
 
 		ControlPlots *Plots = new ControlPlots( Tag[i_tup] );
-	
+
 		TChain *chain = new TChain("recoTree/DYTree");
 		chain->Add(BaseLocation+"/"+ntupleDirectory[i_tup]+"/ntuple_*.root");
 		if( Tag[i_tup] == "Data" )
@@ -142,10 +142,10 @@ void AccEff(TString HLTname = "IsoMu20")
 				genlep.FillFromNtuple (ntuple, i_gen);
 				//mu.FillFromNtuple (ntuple, i_gen); // NGenLeptons != Nmuons !!!
 
-				
+
 				//cout << "i_gen: " <<i_gen << " isMuon: " <<  genlep.isMuon() << " fromH: " << genlep.fromHardProcessFinalState << " ";
 				//cout << "Pt: " << genlep.Pt << " eta: " << genlep.eta << " " << endl;
-							
+
 				if (genlep.isMuon() && genlep.fromHardProcessFinalState)	// no need genmatching
 				{
 					GenLeptonCollection.push_back (genlep);
@@ -165,59 +165,65 @@ void AccEff(TString HLTname = "IsoMu20")
 						if (!(gen_M > 60 && gen_M < 120))
 						{
 							GenLeptonCollection.clear();
-						} else
-							cout << "Z!";
-						
-
-						count_gen_M60to120 += GenLeptonCollection.size()/2;
-						//cout << "genlapcollection size: " << GenLeptonCollection.size() << endl;
-
-						cout << count_gen_M60to120 << endl;
-						//if ((genmu1.Pt > 2.5 && genmu2.Pt > 2.5 && abs(genmu1.eta) < 2.4 && abs(genmu2.eta) < 2.4))
-						//count_gen_acc++;
-						if (!(genmu1.Pt > 25 && genmu2.Pt > 25 && abs(genmu1.eta) < 2.4 && abs(genmu2.eta) < 2.4))
+						} 
+						else
 						{
-							GenLeptonCollection.clear();
-						}
-						count_gen_acc += GenLeptonCollection.size()/2;
+							count_gen_M60to120 += GenLeptonCollection.size()/2;
+							//cout << "genlapcollection size: " << GenLeptonCollection.size() << endl;
 
-						if (ntuple->isTriggered (HLT))
-						{
-							vector<Muon> MuonCollection;
-							Int_t NLeptons = ntuple->nMuon;
-							for (Int_t i_reco = 0; i_reco < NLeptons; i_reco++)
+							cout << count_gen_M60to120 << endl;
+							//if ((genmu1.Pt > 2.5 && genmu2.Pt > 2.5 && abs(genmu1.eta) < 2.4 && abs(genmu2.eta) < 2.4))
+							//count_gen_acc++;
+							if (!(genmu1.Pt > 25 && genmu2.Pt > 25 && abs(genmu1.eta) < 2.4 && abs(genmu2.eta) < 2.4))
 							{
-								Muon mu;
-								mu.FillFromNtuple (ntuple, i_reco);
-								MuonCollection.push_back (mu);
-							}
-
-							vector <Muon> QMuonCollection;
-							for (Int_t j = 0; j < (Int_t) MuonCollection.size(); j++)
-								if (MuonCollection[j].isTightMuon() && MuonCollection[j].trkiso < 0.10)
-									QMuonCollection.push_back(MuonCollection[j]);
-
-							if (QMuonCollection.size() == 2)
+								GenLeptonCollection.clear();
+							} 
+							else
 							{
-								if (!(QMuonCollection[0].Pt > 25 && QMuonCollection[1].Pt > 25 && abs(QMuonCollection[0].eta) < 2.4 && abs(QMuonCollection[1].eta) < 2.4))
-									QMuonCollection.clear();
-								Muon recolep1 = QMuonCollection[0];
-								Muon recolep2 = QMuonCollection[1];
-								TLorentzVector reco_v1 = recolep1.Momentum;
-								TLorentzVector reco_v2 = recolep2.Momentum;
-								Double_t reco_M = (reco_v1 + reco_v2).M();
+								count_gen_acc += GenLeptonCollection.size()/2;
+								if (ntuple->isTriggered (HLT))
+								{
+									vector<Muon> MuonCollection;
+									Int_t NLeptons = ntuple->nMuon;
+									for (Int_t i_reco = 0; i_reco < NLeptons; i_reco++)
+									{
+										Muon mu;
+										mu.FillFromNtuple (ntuple, i_reco);
+										MuonCollection.push_back (mu);
+									}
 
-								if (reco_M > 60 && reco_M < 120 && isPassDimuonVertexCut (ntuple, recolep1.cktpT, recolep2.cktpT))
-									count_reco_sel++;
+									vector <Muon> QMuonCollection;
+									for (Int_t j = 0; j < (Int_t) MuonCollection.size(); j++)
+										if (MuonCollection[j].isTightMuon() && MuonCollection[j].trkiso < 0.10)
+											QMuonCollection.push_back(MuonCollection[j]);
+
+									if (QMuonCollection.size() >= 2)
+									{
+										if (!(QMuonCollection[0].Pt > 25 && QMuonCollection[1].Pt > 25 && abs(QMuonCollection[0].eta) < 2.4 && abs(QMuonCollection[1].eta) < 2.4))
+											QMuonCollection.clear();
+									}
+
+									if (QMuonCollection.size() == 2)
+									{
+										Muon recolep1 = QMuonCollection[0];
+										Muon recolep2 = QMuonCollection[1];
+										TLorentzVector reco_v1 = recolep1.Momentum;
+										TLorentzVector reco_v2 = recolep2.Momentum;
+										Double_t reco_M = (reco_v1 + reco_v2).M();
+
+										if (reco_M > 60 && reco_M < 120 && isPassDimuonVertexCut (ntuple, recolep1.cktpT, recolep2.cktpT))
+											count_reco_sel++;
+									}
+
+								}
 							}
-
 
 						}
 						//break;
 					} // genlepton# = 2
 				} // end isMuon && fromHardProcessFinalState
 			} // end iteration i_gen
-			
+
 		} //End of event iteration
 
 		//cout << "\tcount_Zpeak(" << Tag[i_tup] << "): " << count_Zpeak << endl;
@@ -230,8 +236,8 @@ void AccEff(TString HLTname = "IsoMu20")
 
 		//if (Tag[i_tpu] == "DYMuMu" )
 		//{
-			//for (Int_t i_hist = 0; i_hist < (Int_t)Plots->Histo.size(); i_hist++)
-				//Plots->Histo[i_hist]->Scale (Factor);
+		//for (Int_t i_hist = 0; i_hist < (Int_t)Plots->Histo.size(); i_hist++)
+		//Plots->Histo[i_hist]->Scale (Factor);
 		//}
 
 
@@ -280,16 +286,16 @@ void AssignAccThreshold(TString HLTname, TString *HLT, Double_t *LeadPtCut, Doub
 
 void CompareMuon(Muon *Mu1, Muon *Mu2, Muon *leadMu, Muon *subMu)
 {
-    if( Mu1->Pt > Mu2->Pt )
-    {
-        *leadMu = *Mu1;
-        *subMu = *Mu2;
-    }
-    else
-    {
-        *leadMu = *Mu2;
-        *subMu = *Mu1;
-    }
+	if( Mu1->Pt > Mu2->Pt )
+	{
+		*leadMu = *Mu1;
+		*subMu = *Mu2;
+	}
+	else
+	{
+		*leadMu = *Mu2;
+		*subMu = *Mu1;
+	}
 }
 
 void CompareGenLepton(GenLepton *genlep1, GenLepton *genlep2, GenLepton *leadgenlep, GenLepton *subgenlep)
@@ -357,7 +363,7 @@ void GenMatching(TString HLTname, TString MuonType, NtupleHandle* ntuple, vector
 	}
 
 	//if (GenLeptonCollection.size() != 0 && GenLeptonCollection.size() != 2)
-		//cout << "something wrong!" << endl;
+	//cout << "something wrong!" << endl;
 	//Give Acceptance Cuts
 	if( GenLeptonCollection.size() >= 2 )
 	{
@@ -448,27 +454,27 @@ Bool_t isPassDimuonVertexCut(NtupleHandle *ntuple, Double_t Pt1, Double_t Pt2)
 
 static inline void loadBar(int x, int n, int r, int w)
 {
-    // Only update r times.
-    if( x == n )
-    	cout << endl;
+	// Only update r times.
+	if( x == n )
+		cout << endl;
 
-    if ( x % (n/r +1) != 0 ) return;
+	if ( x % (n/r +1) != 0 ) return;
 
 
-    // Calculuate the ratio of complete-to-incomplete.
-    float ratio = x/(float)n;
-    int   c     = ratio * w;
+	// Calculuate the ratio of complete-to-incomplete.
+	float ratio = x/(float)n;
+	int   c     = ratio * w;
 
-    // Show the percentage complete.
-    printf("%3d%% [", (int)(ratio*100) );
+	// Show the percentage complete.
+	printf("%3d%% [", (int)(ratio*100) );
 
-    // Show the load bar.
-    for (int x=0; x<c; x++) cout << "=";
+	// Show the load bar.
+	for (int x=0; x<c; x++) cout << "=";
 
-    for (int x=c; x<w; x++) cout << " ";
+	for (int x=c; x<w; x++) cout << " ";
 
-    // ANSI Control codes to go back to the
-    // previous line and clear it.
+	// ANSI Control codes to go back to the
+	// previous line and clear it.
 	cout << "]\r" << flush;
 
 }
