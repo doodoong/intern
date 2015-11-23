@@ -71,7 +71,7 @@ void AccEff(TString HLTname = "IsoMu20")
 	ntupleDirectory.push_back( "Run2015C/GoldenJSON/SingleMuon_v3_Run246908to256869" ); Tag.push_back( "Data" ); // -- Run2015C -- //
 
 
-	//TFile *f = new TFile("AccEff.root", "RECREATE");
+	TFile *f = new TFile("AccEff.root", "RECREATE");
 	//Loop for all samples
 	const Int_t Ntup = ntupleDirectory.size();
 	Int_t i_tup = 0;	// only for DY MC
@@ -105,14 +105,14 @@ void AccEff(TString HLTname = "IsoMu20")
 
 		Int_t count_Zpeak = 0;
 		Int_t count_gen_M60to120 = 0;
-		Int_t count_gen_acc = 0;
+		Int_t count_gen_acc = 0; Int_t count_gen_acc2 = 0;
 		Int_t count_reco_sel = 0;
 		Double_t SumWeight = 0;
 		Double_t SumWeight_DYMuMu_M20to50 = 0;
 
 		Int_t NEvents = chain->GetEntries();
 		cout << "\t[Total Events: " << NEvents << "]" << endl;
-		for(Int_t i=0; i<10000; i++)
+		for(Int_t i=0; i<NEvents; i++)
 		{
 			loadBar(i+1, NEvents, 100, 100);
 
@@ -172,8 +172,7 @@ void AccEff(TString HLTname = "IsoMu20")
 							//cout << "genlapcollection size: " << GenLeptonCollection.size() << endl;
 
 							cout << count_gen_M60to120 << endl;
-							//if ((genmu1.Pt > 2.5 && genmu2.Pt > 2.5 && abs(genmu1.eta) < 2.4 && abs(genmu2.eta) < 2.4))
-							//count_gen_acc++;
+							
 							if (!(genmu1.Pt > 25 && genmu2.Pt > 25 && abs(genmu1.eta) < 2.4 && abs(genmu2.eta) < 2.4))
 							{
 								GenLeptonCollection.clear();
@@ -181,6 +180,8 @@ void AccEff(TString HLTname = "IsoMu20")
 							else
 							{
 								count_gen_acc += GenLeptonCollection.size()/2;
+								count_gen_acc2++;
+
 								if (ntuple->isTriggered (HLT))
 								{
 									vector<Muon> MuonCollection;
@@ -212,13 +213,16 @@ void AccEff(TString HLTname = "IsoMu20")
 										Double_t reco_M = (reco_v1 + reco_v2).M();
 
 										if (reco_M > 60 && reco_M < 120 && isPassDimuonVertexCut (ntuple, recolep1.cktpT, recolep2.cktpT))
+										{
+											Plots->FillHistograms(ntuple, HLT, recolep1, recolep2, GenWeight);
 											count_reco_sel++;
+										}
 									}
 
-								}
-							}
+								} // End of if (isTriggered)
+							} // End of gen pT, eta cut
 
-						}
+						} // End of gen_M 60to120
 						//break;
 					} // genlepton# = 2
 				} // end isMuon && fromHardProcessFinalState
@@ -228,7 +232,7 @@ void AccEff(TString HLTname = "IsoMu20")
 
 		//cout << "\tcount_Zpeak(" << Tag[i_tup] << "): " << count_Zpeak << endl;
 		cout << "\tcount_gen_M60to120: \t" << count_gen_M60to120 << endl;
-		cout << "\tcount_gen_acc: \t\t" << count_gen_acc << endl;
+		cout << "\tcount_gen_acc: \t\t" << count_gen_acc << " " << count_gen_acc2 << endl;
 		cout << "\tcount_reco_sel: \t" << count_reco_sel << endl;
 		cout << "\tAcceptance: \t\t" << ( (Double_t)count_gen_acc / (Double_t)count_gen_M60to120) << endl;
 		cout << "\tEfficiency: \t\t" << ( (Double_t)count_reco_sel / (Double_t)count_gen_acc) << endl;
@@ -241,7 +245,7 @@ void AccEff(TString HLTname = "IsoMu20")
 		//}
 
 
-		//Plots->WriteHistograms( f );
+		Plots->WriteHistograms( f );
 
 
 		if(isNLO == 1)
