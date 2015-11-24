@@ -4,12 +4,16 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
+AccEff	AccEff.C	/^void AccEff(TString HLTname = "IsoMu20")$/;"	f
+AssignAccThreshold	AccEff.C	/^void AssignAccThreshold(TString HLTname, TString *HLT, Double_t *LeadPtCut, Double_t *SubPtCut, Double_t *LeadEtaCut, Double_t *SubEtaCut)$/;"	f
 AssignAccThreshold	MuonPlots.C	/^void AssignAccThreshold(TString HLTname, TString *HLT, Double_t *LeadPtCut, Double_t *SubPtCut, Double_t *LeadEtaCut, Double_t *SubEtaCut)$/;"	f
 AssignAccThreshold	MuonPlots1.C	/^void AssignAccThreshold(TString HLTname, TString *HLT, Double_t *LeadPtCut, Double_t *SubPtCut, Double_t *LeadEtaCut, Double_t *SubEtaCut)$/;"	f
 AssignAccThreshold	MuonPlots2.C	/^void AssignAccThreshold(TString HLTname, TString *HLT, Double_t *LeadPtCut, Double_t *SubPtCut, Double_t *LeadEtaCut, Double_t *SubEtaCut)$/;"	f
+CompareGenLepton	AccEff.C	/^void CompareGenLepton(GenLepton *genlep1, GenLepton *genlep2, GenLepton *leadgenlep, GenLepton *subgenlep)$/;"	f
 CompareGenLepton	MuonPlots.C	/^void CompareGenLepton(GenLepton *genlep1, GenLepton *genlep2, GenLepton *leadgenlep, GenLepton *subgenlep)$/;"	f
 CompareGenLepton	MuonPlots1.C	/^void CompareGenLepton(GenLepton *genlep1, GenLepton *genlep2, GenLepton *leadgenlep, GenLepton *subgenlep)$/;"	f
 CompareGenLepton	MuonPlots2.C	/^void CompareGenLepton(GenLepton *genlep1, GenLepton *genlep2, GenLepton *leadgenlep, GenLepton *subgenlep)$/;"	f
+CompareMuon	AccEff.C	/^void CompareMuon(Muon *Mu1, Muon *Mu2, Muon *leadMu, Muon *subMu)$/;"	f
 CompareMuon	MuonPlots.C	/^void CompareMuon(Muon *Mu1, Muon *Mu2, Muon *leadMu, Muon *subMu)$/;"	f
 CompareMuon	MuonPlots1.C	/^void CompareMuon(Muon *Mu1, Muon *Mu2, Muon *leadMu, Muon *subMu)$/;"	f
 CompareMuon	MuonPlots2.C	/^void CompareMuon(Muon *Mu1, Muon *Mu2, Muon *leadMu, Muon *subMu)$/;"	f
@@ -64,6 +68,7 @@ GENLepton_isPromptFinalState	NtupleHandle.h	/^    Int_t GENLepton_isPromptFinalS
 GENLepton_isPromptTauDecayProduct	NtupleHandle.h	/^    Int_t GENLepton_isPromptTauDecayProduct[MaxN];$/;"	m	class:NtupleHandle
 GENLepton_isTauDecayProduct	NtupleHandle.h	/^    Int_t GENLepton_isTauDecayProduct[MaxN];$/;"	m	class:NtupleHandle
 GenLepton	Lepton.h	/^class GenLepton : public Lepton$/;"	c
+GenMatching	AccEff.C	/^void GenMatching(TString HLTname, TString MuonType, NtupleHandle* ntuple, vector<Muon>* MuonCollection)$/;"	f
 GenMatching	MuonPlots.C	/^void GenMatching(TString HLTname, TString MuonType, NtupleHandle* ntuple, vector<Muon>* MuonCollection)$/;"	f
 GenMatching	MuonPlots1.C	/^void GenMatching(TString HLTname, TString MuonType, NtupleHandle* ntuple, vector<Muon>* MuonCollection)$/;"	f
 GenMatching	MuonPlots2.C	/^void GenMatching(TString HLTname, TString MuonType, NtupleHandle* ntuple, vector<Muon>* MuonCollection)$/;"	f
@@ -84,7 +89,6 @@ MaxN	NtupleHandle.h	4;"	d
 Momentum	Lepton.h	/^	TLorentzVector Momentum;$/;"	m	class:Lepton
 Mother	Lepton.h	/^    Double_t Mother;$/;"	m	class:GenLepton
 Muon	Lepton.h	/^class Muon : public Lepton$/;"	c
-MuonPlots	AccEff.C	/^void MuonPlots(TString HLTname = "IsoMu20")$/;"	f
 MuonPlots	MuonPlots.C	/^void MuonPlots(TString HLTname = "IsoMu20")$/;"	f
 MuonPlots	MuonPlots2.C	/^void MuonPlots(TString HLTname = "IsoMu20")$/;"	f
 MuonPlots1	MuonPlots1.C	/^void MuonPlots1(TString HLTname = "IsoMu20")$/;"	f
@@ -124,7 +128,6 @@ Py	Lepton.h	/^    Double_t Py;$/;"	m	class:GenLepton
 Pz	Lepton.h	/^    Double_t Pz;$/;"	m	class:GenLepton
 SigmaIEtaIEta	Lepton.h	/^    Double_t SigmaIEtaIEta;$/;"	m	class:Electron
 Status	Lepton.h	/^    Int_t Status;$/;"	m	class:GenLepton
-TotalRunTime	AccEff.C	/^	Double_t TotalRunTime = totaltime.CpuTime();$/;"	v
 WriteHistograms	ControlPlots.h	/^	void WriteHistograms(TFile *fout)$/;"	f	class:ControlPlots
 chain	NtupleHandle.h	/^	TChain *chain;$/;"	m	class:NtupleHandle
 charge	Lepton.h	/^    Double_t charge;$/;"	m	class:GenLepton
@@ -141,7 +144,6 @@ dxycktVTX	Lepton.h	/^    Double_t dxycktVTX;$/;"	m	class:Muon
 dzVTX	Lepton.h	/^    Double_t dzVTX;$/;"	m	class:Electron
 dzVTX	Lepton.h	/^    Double_t dzVTX;$/;"	m	class:Muon
 dzcktVTX	Lepton.h	/^    Double_t dzcktVTX;$/;"	m	class:Muon
-endl	AccEff.C	/^	cout << "Total RunTime: " << TotalRunTime << " seconds" << endl;$/;"	v
 eta	Lepton.h	/^	Double_t eta;$/;"	m	class:Lepton
 etaSC	Lepton.h	/^    Double_t etaSC;$/;"	m	class:Electron
 fromHardProcessBeforeFSR	Lepton.h	/^    Int_t fromHardProcessBeforeFSR;$/;"	m	class:GenLepton
@@ -205,6 +207,7 @@ isMotherZ	Lepton.h	/^    Bool_t isMotherZ()$/;"	f	class:GenLepton
 isMuon	Lepton.h	/^    Bool_t isMuon()$/;"	f	class:GenLepton
 isPF	Lepton.h	/^    Int_t isPF;$/;"	m	class:Muon
 isPFmuon	NtupleHandle.h	/^    Int_t isPFmuon[MaxN];$/;"	m	class:NtupleHandle
+isPassDimuonVertexCut	AccEff.C	/^Bool_t isPassDimuonVertexCut(NtupleHandle *ntuple, Double_t Pt1, Double_t Pt2)$/;"	f
 isPassDimuonVertexCut	MuonPlots.C	/^Bool_t isPassDimuonVertexCut(NtupleHandle *ntuple, Double_t Pt1, Double_t Pt2)$/;"	f
 isPassDimuonVertexCut	MuonPlots1.C	/^Bool_t isPassDimuonVertexCut(NtupleHandle *ntuple, Double_t Pt1, Double_t Pt2)$/;"	f
 isPassDimuonVertexCut	MuonPlots2.C	/^Bool_t isPassDimuonVertexCut(NtupleHandle *ntuple, Double_t Pt1, Double_t Pt2)$/;"	f
@@ -228,6 +231,7 @@ isTightMuon_minus_trackerLayers	Lepton.h	/^    Bool_t isTightMuon_minus_trackerL
 isTightMuon_minus_trkiso	Lepton.h	/^    Bool_t isTightMuon_minus_trkiso()$/;"	f	class:Muon
 isTrigMatched	Lepton.h	/^  Bool_t isTrigMatched(NtupleHandle *nh, TString HLT)$/;"	f	class:Muon
 isTriggered	NtupleHandle.h	/^    Bool_t isTriggered(TString HLT)$/;"	f	class:NtupleHandle
+loadBar	AccEff.C	/^static inline void loadBar(int x, int n, int r, int w)$/;"	f	file:
 loadBar	MuonPlots.C	/^static inline void loadBar(int x, int n, int r, int w)$/;"	f	file:
 loadBar	MuonPlots1.C	/^static inline void loadBar(int x, int n, int r, int w)$/;"	f	file:
 loadBar	MuonPlots2.C	/^static inline void loadBar(int x, int n, int r, int w)$/;"	f	file:
@@ -246,7 +250,6 @@ relPFiso	Lepton.h	/^    Double_t relPFiso;$/;"	m	class:Muon
 runNum	NtupleHandle.h	/^    Int_t runNum;$/;"	m	class:NtupleHandle
 trackerLayers	Lepton.h	/^    Int_t trackerLayers;$/;"	m	class:Muon
 trkiso	Lepton.h	/^    Double_t trkiso;$/;"	m	class:Muon
-ts_end	AccEff.C	/^	TTimeStamp ts_end;$/;"	v
 vtxTrkChi2	NtupleHandle.h	/^    std::vector<double> *vtxTrkChi2;$/;"	m	class:NtupleHandle
 vtxTrkCkt1Pt	NtupleHandle.h	/^    std::vector<double> *vtxTrkCkt1Pt;$/;"	m	class:NtupleHandle
 vtxTrkCkt2Pt	NtupleHandle.h	/^    std::vector<double> *vtxTrkCkt2Pt;$/;"	m	class:NtupleHandle

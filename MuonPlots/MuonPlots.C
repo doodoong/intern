@@ -174,6 +174,23 @@ void MuonPlots(TString HLTname = "IsoMu20")
 			loadBar(i+1, NEvents, 100, 100);
 
 			ntuple->GetEvent(i);
+		
+			vector<GenLepton> GenLeptonCollection;
+			Int_t NGenLeptons = ntuple->gnpair;
+			for (Int_t i_gen = 0; i_gen < NGenLeptons; i_gen++)
+			{
+				GenLepton genlep;
+				genlep.FillFromNtuple (ntuple, i_gen);
+				
+				if (genlep.isMuon() && genlep.fromHardProcessFinalState)
+				{
+					GenLeptonCollection.push_back (genlep);
+
+					if (GenLeptonCollection.size() == 2)
+					{
+				
+
+			
 
 			//Bring weights for NLO MC events
 			Double_t GenWeight;
@@ -251,7 +268,7 @@ void MuonPlots(TString HLTname = "IsoMu20")
  */
 				GenMassFlag = 1; // -- other cases: pass
 
-
+				
 
 			if( ntuple->isTriggered( HLT ) && GenMassFlag)
 			{
@@ -266,8 +283,8 @@ void MuonPlots(TString HLTname = "IsoMu20")
 				}
 
 				//Select muons directly from Z/gamma by matching with gen-level final state muons from hard process
-				if( Tag[i_tup] == "DYMuMu" )
-					GenMatching(HLTname, "fromHardProcess", ntuple, &MuonCollection);
+				//if( Tag[i_tup] == "DYMuMu" )
+					//GenMatching(HLTname, "fromHardProcess", ntuple, &MuonCollection);
 /*
  *                //Select muons directly from tau by matching with gen-level final state muons from prompt tau
  *                else if( Tag[i_tup] == "DYTauTau" )
@@ -424,6 +441,9 @@ void MuonPlots(TString HLTname = "IsoMu20")
 
 			} //End of if( isTriggered )
 
+					}
+				}
+			}
 		} //End of event iteration
 
 		cout << "\tcount_Zpeak(" << Tag[i_tup] << "): " << count_Zpeak << endl;

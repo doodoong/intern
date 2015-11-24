@@ -1,8 +1,11 @@
+#include <iostream>
 #include <TFile.h>
 #include <TH1D.h>
 #include <TString.h>
 #include <TPad.h>
 #include <TCanvas.h>
+#include <TLegend.h>
+#include <TStyle.h>
 #include <TImage.h>
 #include <vector>
 
@@ -56,7 +59,7 @@ void ratioplot () {
 	// vector<TCanvas> c;
 	// c.push_back(c0);	c.push_back(c1);	c.push_back(c2);	c.push_back(c3);	c.push_back(c4);
 	//Int_t i = 0;
-	 Int_t j = 3;
+	 Int_t j = 2;
 	// for (Int_t i = 0; i < 10; i++)
 	{
 		f1 = new TFile ("MuonTightM60to120Pt25.root");
@@ -97,6 +100,7 @@ void ratioplot () {
 			h2->SetStats(0);
 			h1->SetStats(0); // No statistics on upper plot
 			// if (Type[j] == "Pt" || Type[j] == "diPt")
+			if (Type[j] != "mass")
 				pad1->SetLogy();
 
 			cout << "h1, h2 before draw" << endl;
