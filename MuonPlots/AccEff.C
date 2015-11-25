@@ -84,6 +84,10 @@ void AccEff(TString HLTname = "IsoMu20")
 
 		ControlPlots *Plots = new ControlPlots( Tag[i_tup] );
 
+		TH1D *h_Pt_genMu = new TH1D ("h_Pt_genMu", "", 250, 0, 500);
+		TH1D *h_eta_genMu = new TH1D ("h_eta_genMu", "",60, -3, 3);
+		TH1D *h_mass_genMu = new TH1D ("h_mass_genMu", "",250, 0 , 500);
+
 		TChain *chain = new TChain("recoTree/DYTree");
 		chain->Add(BaseLocation+"/"+ntupleDirectory[i_tup]+"/ntuple_*.root");
 		if( Tag[i_tup] == "Data" )
@@ -112,7 +116,7 @@ void AccEff(TString HLTname = "IsoMu20")
 
 		Int_t NEvents = chain->GetEntries();
 		cout << "\t[Total Events: " << NEvents << "]" << endl;
-		for(Int_t i=0; i<NEvents; i++)
+		for(Int_t i=0; i<10000; i++)
 		{
 			loadBar(i+1, NEvents, 100, 100);
 
@@ -159,6 +163,14 @@ void AccEff(TString HLTname = "IsoMu20")
 						TLorentzVector gen_v1 = genmu1.Momentum;
 						TLorentzVector gen_v2 = genmu2.Momentum;
 						Double_t gen_M = (gen_v1 + gen_v2).M();
+
+						h_Pt_genMu->Fill( genmu1.Pt, GenWeight);
+						h_Pt_genMu->Fill( genmu2.Pt, GenWeight);
+						h_eta_genMu->Fill( genmu1.eta, GenWeight);
+						h_eta_genMu->Fill( genmu2.eta, GenWeight);
+						h_mass_genMu->Fill( gen_M, GenWeight);
+
+
 
 						cout << "gen_M: " << gen_M << endl;
 

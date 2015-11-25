@@ -35,7 +35,7 @@ void ratioplot () {
 	vector<TString> Type;	vector<TString> XDim;								vector<TString> YDim;
 	Type.push_back("Pt");	XDim.push_back("p_{T}[GeV/c]");			YDim.push_back("Number of Muons");
 	Type.push_back("eta");	XDim.push_back("eta");						YDim.push_back("Number of Muons");
-	Type.push_back("mass");	XDim.push_back("M_{{mumu}[GeV/c^{2}]");	YDim.push_back("Number of Events");
+	Type.push_back("mass");	XDim.push_back("M_{mumu}[GeV/c^{2}]");	YDim.push_back("Number of Events");
 	Type.push_back("diPt");	XDim.push_back("Dimuon p_{T}[GeV/c]");				YDim.push_back("Number of Events");
 	Type.push_back("diRap");XDim.push_back("Dimuon Rapidity");					YDim.push_back("Number of Events");
 
@@ -59,12 +59,12 @@ void ratioplot () {
 	// vector<TCanvas> c;
 	// c.push_back(c0);	c.push_back(c1);	c.push_back(c2);	c.push_back(c3);	c.push_back(c4);
 	//Int_t i = 0;
-	 Int_t j = 2;
+	 //Int_t j = 0;
 	// for (Int_t i = 0; i < 10; i++)
 	{
 		f1 = new TFile ("MuonTightM60to120Pt25.root");
 
-		//for (Int_t j = 0; j < 5; j++)
+		for (Int_t j = 0; j < 5; j++)
 		{
 
 			 c = new TCanvas("c", "canvas", 900, 900);
@@ -91,8 +91,8 @@ void ratioplot () {
 				//c4->cd();
 			c->cd();
 			// Upper plot will be in pad1
-			pad1 = new TPad("pad1", "pad1", 0, 0.3, 1, 1.0);
-			pad1->SetBottomMargin(0); // Upper and lower plot are joined
+			pad1 = new TPad("pad1", "pad1", 0, 0.25, 1, 1.0);
+			pad1->SetBottomMargin(0.02); // Upper and lower plot are joined
 			pad1->SetGridx();         // Vertical grid
 			pad1->Draw();             // Draw the upper pad: pad1
 			pad1->cd();               // pad1 becomes the current pad
@@ -137,8 +137,8 @@ void ratioplot () {
 				//c4->cd();
 			
 			c->cd();
-			pad2 = new TPad("pad2", "pad2", 0, 0.1, 1, 0.3);
-			pad2->SetTopMargin(0.0001);
+			pad2 = new TPad("pad2", "pad2", 0, 0.02, 1, 0.25);
+			pad2->SetTopMargin(0.05);
 			pad2->SetBottomMargin(0.3);
 			pad2->SetGridx(); // vertical grid
 			pad2->SetGridy();
@@ -148,7 +148,7 @@ void ratioplot () {
 			// Define the ratio plot
 			h3 = (TH1F*)h1->Clone("h3");
 			h3->SetLineColor(kBlack);
-			h3->SetMinimum(0.7);  // Define Y ..
+			h3->SetMinimum(0.8);  // Define Y ..
 			h3->SetMaximum(1.2); // .. range
 			h3->Sumw2();
 			h3->SetStats(0);      // No statistics on lower plot
@@ -170,12 +170,16 @@ void ratioplot () {
 				h3->GetXaxis()->SetRangeUser(60,120);
 			}
 
+			h1->GetXaxis()->SetLabelSize(0);
+			h2->GetXaxis()->SetLabelSize(0);
 			// Y axis h1 plot settings
 			h1->GetYaxis()->SetTitle(YDim[j]);
 			h2->GetYaxis()->SetTitle(YDim[j]);
 			h1->GetYaxis()->SetTitleSize(20);
 			h1->GetYaxis()->SetTitleFont(43);
 			h1->GetYaxis()->SetTitleOffset(1.55);
+			//h1->GetYaxis()->SetLabelSize(10);
+			h2->GetYaxis()->SetLabelSize(0.030);
 
 			// h2 settings
 			h2->SetFillColor(kYellow);
@@ -216,8 +220,11 @@ void ratioplot () {
 			//if (j == 4)
 				//img->FromPad(c4);
 
-			//img->FromPad(c);
-			//img->WriteImage("./pictures/TightM60to120_"+Type[j]+"_log.png");
+			img->FromPad(c);
+			if (Type[j] == "mass")
+				img->WriteImage( "./pictures/TightM60to120_"+Type[j]+".png");
+			else
+				img->WriteImage("./pictures/TightM60to120_"+Type[j]+"_log.png");
 			cout << Type[j] << "_TightM60to120_log.png output" << endl;
 
 			// delete h3;
