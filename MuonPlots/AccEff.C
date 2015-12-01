@@ -85,7 +85,9 @@ void AccEff(TString HLTname = "IsoMu20")
 		ControlPlots *Plots = new ControlPlots( Tag[i_tup] );
 
 		TH1D *h_Pt_genMu = new TH1D ("h_Pt_genMu", "", 250, 0, 500);
+		TH1D *h_Pt_gen = new TH1D ("h_Pt_gen", "", 250, 0, 500);
 		TH1D *h_eta_genMu = new TH1D ("h_eta_genMu", "",60, -3, 3);
+		TH1D *h_eta_gen = new TH1D ("h_eta_gen", "",60, -3, 3);
 		TH1D *h_mass_genMu = new TH1D ("h_mass_genMu", "",250, 0 , 500);
 
 		TChain *chain = new TChain("recoTree/DYTree");
@@ -116,7 +118,8 @@ void AccEff(TString HLTname = "IsoMu20")
 
 		Int_t NEvents = chain->GetEntries();
 		cout << "\t[Total Events: " << NEvents << "]" << endl;
-		for(Int_t i=0; i<10000; i++)
+		//for(Int_t i=0; i<10000; i++)
+		for(Int_t i=0; i<NEvents; i++)
 		{
 			loadBar(i+1, NEvents, 100, 100);
 
@@ -146,6 +149,8 @@ void AccEff(TString HLTname = "IsoMu20")
 				genlep.FillFromNtuple (ntuple, i_gen);
 				//mu.FillFromNtuple (ntuple, i_gen); // NGenLeptons != Nmuons !!!
 
+				h_Pt_gen->Fill( genlep.Pt, GenWeight );
+				h_eta_genMu->Fill( genlep.eta, GenWeight );
 
 				//cout << "i_gen: " <<i_gen << " isMuon: " <<  genlep.isMuon() << " fromH: " << genlep.fromHardProcessFinalState << " ";
 				//cout << "Pt: " << genlep.Pt << " eta: " << genlep.eta << " " << endl;
@@ -172,7 +177,7 @@ void AccEff(TString HLTname = "IsoMu20")
 
 
 
-						cout << "gen_M: " << gen_M << endl;
+						//cout << "gen_M: " << gen_M << endl;
 
 						if (!(gen_M > 60 && gen_M < 120))
 						{
@@ -183,7 +188,7 @@ void AccEff(TString HLTname = "IsoMu20")
 							count_gen_M60to120 += GenLeptonCollection.size()/2;
 							//cout << "genlapcollection size: " << GenLeptonCollection.size() << endl;
 
-							cout << count_gen_M60to120 << endl;
+							//cout << count_gen_M60to120 << endl;
 							
 							if (!(genmu1.Pt > 25 && genmu2.Pt > 25 && abs(genmu1.eta) < 2.4 && abs(genmu2.eta) < 2.4))
 							{
@@ -258,6 +263,11 @@ void AccEff(TString HLTname = "IsoMu20")
 
 
 		Plots->WriteHistograms( f );
+		h_Pt_gen->Write();
+		h_eta_gen->Write();
+		h_Pt_genMu->Write();
+		h_eta_genMu->Write();
+		h_mass_genMu->Write();
 
 
 		if(isNLO == 1)

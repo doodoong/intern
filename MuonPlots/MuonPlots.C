@@ -63,38 +63,23 @@ void MuonPlots(TString HLTname = "IsoMu20")
 	vector< TString > ntupleDirectory; vector< TString > Tag;
 	//MC
 	// ntupleDirectory.push_back( "Spring15DR/25ns/DYLL_M10to50_v2_AddTauInfo" ); Tag.push_back( "DYMuMu_M20to50" );
-	ntupleDirectory.push_back( "Spring15DR/25ns/DYLL_M50_v1" ); Tag.push_back( "DYMuMu" );
+	//ntupleDirectory.push_back( "Spring15DR/25ns/DYLL_M50_v1" ); Tag.push_back( "DYMuMu" );
+	ntupleDirectory.push_back( "Spring15DR/25ns/v20151026_AddTauInfo_DYaMCNLO_M50_25ns" ); Tag.push_back( "DYMuMu" );
+	ntupleDirectory.push_back( "Spring15DR/25ns/v20151026_AddTauInfo_DYaMCNLO_M50_25ns" ); Tag.push_back( "DYTauTau" );
 	// ntupleDirectory.push_back( "Spring15DR/25ns/DYLL_M10to50_v2_AddTauInfo" ); Tag.push_back( "DYTauTau_M20to50" );
 	// ntupleDirectory.push_back( "Spring15DR/25ns/DYLL_M50_v1" ); Tag.push_back( "DYTauTau" );
-	// ntupleDirectory.push_back( "Spring15DR/25ns/ttbar_v1" );  Tag.push_back( "ttbar" );
-	// ntupleDirectory.push_back( "Spring15DR/25ns/WJets_v1" );  Tag.push_back( "WJets" );
-	// ntupleDirectory.push_back( "Spring15DR/25ns/WW_v1" );  Tag.push_back( "WW" );
-	// ntupleDirectory.push_back( "Spring15DR/25ns/WZ_v1" );  Tag.push_back( "WZ" );
-	// ntupleDirectory.push_back( "Spring15DR/25ns/ZZ_v1" );  Tag.push_back( "ZZ" );
+	ntupleDirectory.push_back( "Spring15DR/25ns/ttbar_v1" );  Tag.push_back( "ttbar" );
+	ntupleDirectory.push_back( "Spring15DR/25ns/WJets_v1" );  Tag.push_back( "WJets" );
+	ntupleDirectory.push_back( "Spring15DR/25ns/WW_v1" );  Tag.push_back( "WW" );
+	ntupleDirectory.push_back( "Spring15DR/25ns/WZ_v1" );  Tag.push_back( "WZ" );
+	ntupleDirectory.push_back( "Spring15DR/25ns/ZZ_v1" );  Tag.push_back( "ZZ" );
 
 	//Data
 	ntupleDirectory.push_back( "Run2015C/GoldenJSON/SingleMuon_v3_Run246908to256869" ); Tag.push_back( "Data" ); // -- Run2015C -- //
-/*
- *
- *    vector< TString > CutName;
- *    CutName.push_back( "isGLB" );
- *    CutName.push_back( "isPF" );
- *    CutName.push_back( "chi2dof" );
- *    CutName.push_back( "muonHits" );
- *    CutName.push_back( "nMatches" );
- *    CutName.push_back( "dxyVTX" );
- *    CutName.push_back( "dzVTX" );
- *    CutName.push_back( "pixelHits" );
- *    CutName.push_back( "trackerLayers" );
- *    CutName.push_back( "trkiso" );
- *
- */
-//for(Int_t i_cut = 0; i_cut < 10; i_cut++)
-{
-	//Cut = CutName[i_cut];
 	//TFile *f = new TFile("MuonTightM60to120Pt25.root", "RECREATE");
-	TFile *f = new TFile ("test.root", "RECREATE");
-	//cout << "TightMuon minus " << Cut << endl;
+	TFile *f = new TFile ("MuonIncludeBg.root", "RECREATE");
+	//TFile *f = new TFile ("test.root", "RECREATE");
+	
 	//Loop for all samples
 	const Int_t Ntup = ntupleDirectory.size();
 	for(Int_t i_tup = 0; i_tup<Ntup; i_tup++)
@@ -105,43 +90,6 @@ void MuonPlots(TString HLTname = "IsoMu20")
 		cout << "\t<" << Tag[i_tup] << ">" << endl;
 
 		ControlPlots *Plots = new ControlPlots( Tag[i_tup] );
-		//Histograms for cuts
-/*
- *        TH1D *h_isGLB_Pt = new TH1D("h_isGLB_Pt"+Tag[i_tup], "", 250, 0, 500);
- *        TH1D *h_isGLB_eta = new TH1D("h_isGLB_eta"+Tag[i_tup], "", 60, -3, 3);
- *        TH1D *h_isGLB_phi = new TH1D("h_isGLB_phi"+Tag[i_tup], "", 80, -4, 4);
- *        TH1D *h_isPF_Pt = new TH1D("h_isPF_Pt"+Tag[i_tup], "", 250, 0, 500);
- *        TH1D *h_isPF_eta = new TH1D("h_isPF_eta"+Tag[i_tup], "", 60, -3, 3);
- *        TH1D *h_isPF_phi = new TH1D("h_isPF_phi"+Tag[i_tup], "", 80, -4, 4);
- *        TH1D *h_chi2dof_Pt = new TH1D("h_chi2dof_Pt"+Tag[i_tup], "", 250, 0, 500);
- *        TH1D *h_chi2dof_eta = new TH1D("h_chi2dof_eta"+Tag[i_tup], "", 60, -3, 3);
- *        TH1D *h_chi2dof_phi = new TH1D("h_chi2dof_phi"+Tag[i_tup], "", 80, -4, 4);
- *        TH1D *h_muonHits_Pt = new TH1D("h_muonHits_Pt"+Tag[i_tup], "", 250, 0, 500);
- *        TH1D *h_muonHits_eta = new TH1D("h_muonHits_eta"+Tag[i_tup], "", 60, -3, 3);
- *        TH1D *h_muonHits_phi = new TH1D("h_muonHits_phi"+Tag[i_tup], "", 80, -4, 4);
- *        TH1D *h_nMatches_Pt = new TH1D("h_nMatches_Pt"+Tag[i_tup], "", 250, 0, 500);
- *        TH1D *h_nMatches_eta = new TH1D("h_nMatches_eta"+Tag[i_tup], "", 60, -3, 3);
- *        TH1D *h_nMatches_phi = new TH1D("h_nMatches_phi"+Tag[i_tup], "", 80, -4, 4);
- *        TH1D *h_dxyVTX_Pt = new TH1D("h_dxyVTX_Pt"+Tag[i_tup], "", 250, 0, 500);
- *        TH1D *h_dxyVTX_eta = new TH1D("h_dxyVTX_eta"+Tag[i_tup], "", 60, -3, 3);
- *        TH1D *h_dxyVTX_phi = new TH1D("h_dxyVTX_phi"+Tag[i_tup], "", 80, -4, 4);
- *        TH1D *h_dzVTX_Pt = new TH1D("h_dzVTX_Pt"+Tag[i_tup], "", 250, 0, 500);
- *        TH1D *h_dzVTX_eta = new TH1D("h_dzVTX_eta"+Tag[i_tup], "", 60, -3, 3);
- *        TH1D *h_dzVTX_phi = new TH1D("h_dzVTX_phi"+Tag[i_tup], "", 80, -4, 4);
- *        TH1D *h_pixelHits_Pt = new TH1D("h_pixelHits_Pt"+Tag[i_tup], "", 250, 0, 500);
- *        TH1D *h_pixelHits_eta = new TH1D("h_pixelHits_eta"+Tag[i_tup], "", 60, -3, 3);
- *        TH1D *h_pixelHits_phi = new TH1D("h_pixelHits_phi"+Tag[i_tup], "", 80, -4, 4);
- *        TH1D *h_trackerLayers_Pt = new TH1D("h_trackerLayers_Pt"+Tag[i_tup], "", 250, 0, 500);
- *        TH1D *h_trackerLayers_eta = new TH1D("h_trackerLayers_eta"+Tag[i_tup], "", 60, -3, 3);
- *        TH1D *h_trackerLayers_phi = new TH1D("h_trackerLayers_phi"+Tag[i_tup], "", 80, -4, 4);
- *
- *        TH1D *h_trkiso_Pt = new TH1D("h_trkiso_Pt"+Tag[i_tup], "", 250, 0, 500);
- *        TH1D *h_trkiso_eta = new TH1D("h_trkiso_eta"+Tag[i_tup], "", 60, -3, 3);
- *        TH1D *h_trkiso_phi = new TH1D("h_trkiso_phi"+Tag[i_tup], "", 80, -4, 4);
- */
-		//TH1D *h_cut_Pt = new TH1D("h_cut_Pt"+Tag[i_tup], "", 250, 0, 500);
-		//TH1D *h_cut_eta = new TH1D("h_cut_eta"+Tag[i_tup], "", 60, -3, 3);
-		//TH1D *h_cut_phi = new TH1D("h_cut_phi"+Tag[i_tup], "", 80, -4, 4);
 
 		TChain *chain = new TChain("recoTree/DYTree");
 		chain->Add(BaseLocation+"/"+ntupleDirectory[i_tup]+"/ntuple_*.root");
@@ -164,33 +112,48 @@ void MuonPlots(TString HLTname = "IsoMu20")
 
 		Int_t count_Zpeak = 0;
 		Double_t SumWeight = 0;
-		Double_t SumWeight_DYMuMu_M20to50 = 0;
+		//Double_t SumWeight_DYMuMu_M20to50 = 0;
 		//Double_t SumWeight_DYTauTau_M20to50 = 0;
 
 		Int_t NEvents = chain->GetEntries();
 		cout << "\t[Total Events: " << NEvents << "]" << endl;
+		//for(Int_t i=0; i<10000; i++)
 		for(Int_t i=0; i<NEvents; i++)
 		{
 			loadBar(i+1, NEvents, 100, 100);
 
 			ntuple->GetEvent(i);
-		
+			Bool_t genFlag = 0;
+
 			vector<GenLepton> GenLeptonCollection;
 			Int_t NGenLeptons = ntuple->gnpair;
 			for (Int_t i_gen = 0; i_gen < NGenLeptons; i_gen++)
 			{
 				GenLepton genlep;
 				genlep.FillFromNtuple (ntuple, i_gen);
-				
-				if (genlep.isMuon() && genlep.fromHardProcessFinalState)
+
+				//GenMatching
+				if( Tag[i_tup] == "DYMuMu" )
 				{
-					GenLeptonCollection.push_back (genlep);
-
-					if (GenLeptonCollection.size() == 2)
+					if (genlep.isMuon() && genlep.fromHardProcessFinalState)
 					{
-				
+						GenLeptonCollection.push_back (genlep);
 
-			
+						if (GenLeptonCollection.size() == 2)
+							genFlag = 1;
+					}
+				}
+				else if( Tag[i_tup] == "DYTauTau" )
+				{
+					if( fabs( genlep.ID) == 13 && genlep.fromHardProcessDecayed )
+					{
+						GenLeptonCollection.push_back( genlep );
+
+						if( GenLeptonCollection.size() == 2 )
+							genFlag = 1;;
+					}
+				}
+			}
 
 			//Bring weights for NLO MC events
 			Double_t GenWeight;
@@ -201,76 +164,7 @@ void MuonPlots(TString HLTname = "IsoMu20")
 			// cout << "Weight of " << i << "th Event: " << GenWeight << endl;
 			SumWeight += GenWeight;
 
-			Int_t GenMassFlag = -1;
-			//Take the events within 20<M<50 in gen-level
-/*
- *            if( Tag[i_tup] == "DYMuMu_M20to50" )
- *            {
- *                GenMassFlag = 0;
- *                vector<GenLepton> GenLeptonCollection;
- *                Int_t NGenLeptons = ntuple->gnpair;
- *                for(Int_t i_gen=0; i_gen<NGenLeptons; i_gen++)
- *                {
- *                    GenLepton genlep;
- *                    genlep.FillFromNtuple(ntuple, i_gen);
- *                    if( genlep.isMuon() && genlep.fromHardProcessFinalState )
- *                        GenLeptonCollection.push_back( genlep );
- *                }
- *
- *                if( GenLeptonCollection.size() == 2 )
- *                {
- *                    GenLepton genlep1 = GenLeptonCollection[0];
- *                    GenLepton genlep2 = GenLeptonCollection[1];
- *
- *                    TLorentzVector gen_v1 = genlep1.Momentum;
- *                    TLorentzVector gen_v2 = genlep2.Momentum;
- *                    TLorentzVector gen_vtot = gen_v1 + gen_v2;
- *                    Double_t gen_M = gen_vtot.M();
- *
- *                    if( gen_M > 20 && gen_M < 50 ) //Take the events within 20<M<50 in gen-level
- *                    {
- *                        GenMassFlag = 1;
- *                        SumWeight_DYMuMu_M20to50 += GenWeight;
- *                    }
- *                }
- *            }
- *            else if( Tag[i_tup] == "DYTauTau_M20to50" )
- *            {
- *                GenMassFlag = 0;
- *                vector<GenLepton> GenLeptonCollection;
- *                Int_t NGenLeptons = ntuple->gnpair;
- *                for(Int_t i_gen=0; i_gen<NGenLeptons; i_gen++)
- *                {
- *                    GenLepton genlep;
- *                    genlep.FillFromNtuple(ntuple, i_gen);
- *                    if( abs(genlep.ID) == 15 && genlep.fromHardProcessDecayed )
- *                        GenLeptonCollection.push_back( genlep );
- *                }
- *
- *                if( GenLeptonCollection.size() == 2 )
- *                {
- *                    GenLepton genlep1 = GenLeptonCollection[0];
- *                    GenLepton genlep2 = GenLeptonCollection[1];
- *
- *                    TLorentzVector gen_v1 = genlep1.Momentum;
- *                    TLorentzVector gen_v2 = genlep2.Momentum;
- *                    TLorentzVector gen_vtot = gen_v1 + gen_v2;
- *                    Double_t gen_M = gen_vtot.M();
- *
- *                    if( gen_M > 20 && gen_M < 50 ) //Take the events within 20<M<50 in gen-level
- *                    {
- *                        GenMassFlag = 1;
- *                        SumWeight_DYTauTau_M20to50 += GenWeight;
- *                    }
- *                }
- *            }
- *            else
- */
-				GenMassFlag = 1; // -- other cases: pass
-
-				
-
-			if( ntuple->isTriggered( HLT ) && GenMassFlag)
+			if( ntuple->isTriggered( HLT ) && genFlag)
 			{
 				//Collect Reconstruction level information
 				vector< Muon > MuonCollection;
@@ -279,137 +173,23 @@ void MuonPlots(TString HLTname = "IsoMu20")
 				{
 					Muon mu;
 					mu.FillFromNtuple(ntuple, i_reco);
-						MuonCollection.push_back( mu );
+					MuonCollection.push_back( mu );
 				}
 
 				//Select muons directly from Z/gamma by matching with gen-level final state muons from hard process
 				//if( Tag[i_tup] == "DYMuMu" )
-					//GenMatching(HLTname, "fromHardProcess", ntuple, &MuonCollection);
-/*
- *                //Select muons directly from tau by matching with gen-level final state muons from prompt tau
- *                else if( Tag[i_tup] == "DYTauTau" )
- *                    GenMatching(HLTname, "fromTau", ntuple, &MuonCollection);
- *
- */
+				//GenMatching(HLTname, "fromHardProcess", ntuple, &MuonCollection);
+				//Select muons directly from tau by matching with gen-level final state muons from prompt tau
+				//else if( Tag[i_tup] == "DYTauTau" )
+				//GenMatching(HLTname, "fromTau", ntuple, &MuonCollection);
+
 
 				//Collect qualified muons among muons
 				vector< Muon > QMuonCollection;
 				for(Int_t j=0; j<(int)MuonCollection.size(); j++)
 				{
-/*
- *                    if( MuonCollection[j].isGLB == 1)
- *                    {
- *                        h_isGLB_Pt->Fill( MuonCollection[j].Pt, GenWeight );
- *                        h_isGLB_eta->Fill( MuonCollection[j].eta, GenWeight);
- *                        h_isGLB_phi->Fill( MuonCollection[j].phi, GenWeight);
- *                    }
- *                    if( MuonCollection[j].isPF == 1)
- *                    {
- *                        h_isPF_Pt->Fill( MuonCollection[j].Pt, GenWeight );
- *                        h_isPF_eta->Fill( MuonCollection[j].eta, GenWeight);
- *                        h_isPF_phi->Fill( MuonCollection[j].phi, GenWeight);
- *                    }
- *                    if( MuonCollection[j].chi2dof < 10)
- *                    {
- *                        h_chi2dof_Pt->Fill( MuonCollection[j].Pt, GenWeight );
- *                        h_chi2dof_eta->Fill( MuonCollection[j].eta, GenWeight);
- *                        h_chi2dof_phi->Fill( MuonCollection[j].phi, GenWeight);
- *                    }
- *                    if( MuonCollection[j].muonHits > 0)
- *                    {
- *                        h_muonHits_Pt->Fill( MuonCollection[j].Pt, GenWeight );
- *                        h_muonHits_eta->Fill( MuonCollection[j].eta, GenWeight);
- *                        h_muonHits_phi->Fill( MuonCollection[j].phi, GenWeight);
- *                    }
- *                    if( MuonCollection[j].nMatches > 1)
- *                    {
- *                        h_nMatches_Pt->Fill( MuonCollection[j].Pt, GenWeight );
- *                        h_nMatches_eta->Fill( MuonCollection[j].eta, GenWeight);
- *                        h_nMatches_phi->Fill( MuonCollection[j].phi, GenWeight);
- *                    }
- *                    if( fabs(MuonCollection[j].dxyVTX) < 0.2)
- *                    {
- *                        h_dxyVTX_Pt->Fill( MuonCollection[j].Pt, GenWeight );
- *                        h_dxyVTX_eta->Fill( MuonCollection[j].eta, GenWeight);
- *                        h_dxyVTX_phi->Fill( MuonCollection[j].phi, GenWeight);
- *                    }
- *                    if( fabs(MuonCollection[j].dzVTX) < 0.5 )
- *                    {
- *                        h_dzVTX_Pt->Fill( MuonCollection[j].Pt, GenWeight );
- *                        h_dzVTX_eta->Fill( MuonCollection[j].eta, GenWeight);
- *                        h_dzVTX_phi->Fill( MuonCollection[j].phi, GenWeight);
- *                    }
- *                    if( MuonCollection[j].pixelHits > 0 )
- *                    {
- *                        h_pixelHits_Pt->Fill( MuonCollection[j].Pt, GenWeight );
- *                        h_pixelHits_eta->Fill( MuonCollection[j].eta, GenWeight);
- *                        h_pixelHits_phi->Fill( MuonCollection[j].phi, GenWeight);
- *                    }
- *                    if( MuonCollection[j].trackerLayers > 5)
- *                    {
- *                        h_trackerLayers_Pt->Fill( MuonCollection[j].Pt, GenWeight );
- *                        h_trackerLayers_eta->Fill( MuonCollection[j].eta, GenWeight);
- *                        h_trackerLayers_phi->Fill( MuonCollection[j].phi, GenWeight);
- *                    }
- *                    if( MuonCollection[j].trkiso < 0.10)
- *                    {
- *                        h_trkiso_Pt->Fill( MuonCollection[j].Pt, GenWeight );
- *                        h_trkiso_eta->Fill( MuonCollection[j].eta, GenWeight);
- *                        h_trkiso_phi->Fill( MuonCollection[j].phi, GenWeight);
- *
- *                    }
- */
-					/*
-					 *if ( MuonCollection[j].isTightMuon() && MuonCollection[j].trkiso < 0.10 )
-					 *{
-					 *    h_cut_Pt->Fill( MuonCollection[j].Pt, GenWeight );
-					 *    h_cut_eta->Fill( MuonCollection[j].Pt, GenWeight );
-					 *    h_cut_phi->Fill( MuonCollection[j].Pt, GenWeight );
-					 *}
-					 */
 					if( MuonCollection[j].isTightMuon() && MuonCollection[j].trkiso < 0.10)
 						QMuonCollection.push_back( MuonCollection[j] );
-					//if( Cut == "isGLB")
-					//{
-						//if( MuonCollection[j].isTightMuon_minus_isGLB())
-							//QMuonCollection.push_back( MuonCollection[j] );
-					//} else if( Cut == "isPF")
-					//{
-						//if( MuonCollection[j].isTightMuon_minus_isPF())
-							//QMuonCollection.push_back( MuonCollection[j] );
-					//} else if( Cut == "chi2dof")
-					//{
-						//if( MuonCollection[j].isTightMuon_minus_chi2dof())
-							//QMuonCollection.push_back( MuonCollection[j] );
-					//} else if( Cut == "muonHits")
-					//{
-						//if( MuonCollection[j].isTightMuon_minus_muonHits())
-							//QMuonCollection.push_back( MuonCollection[j] );
-					//} else if( Cut == "nMatches")
-					//{
-						//if( MuonCollection[j].isTightMuon_minus_nMatches())
-							//QMuonCollection.push_back( MuonCollection[j] );
-					//} else if( Cut == "dxyVTX")
-					//{
-						//if( MuonCollection[j].isTightMuon_minus_dxyVTX())
-							//QMuonCollection.push_back( MuonCollection[j] );
-					//} else if( Cut == "dzVTX")
-					//{
-						//if( MuonCollection[j].isTightMuon_minus_dzVTX())
-							//QMuonCollection.push_back( MuonCollection[j] );
-					//} else if( Cut == "pixelHits")
-					//{
-						//if( MuonCollection[j].isTightMuon_minus_pixelHits())
-							//QMuonCollection.push_back( MuonCollection[j] );
-					//} else if( Cut == "trackerLayers")
-					//{
-						//if( MuonCollection[j].isTightMuon_minus_trackerLayers())
-							//QMuonCollection.push_back( MuonCollection[j] );
-					//} else if( Cut == "trkiso")
-					//{
-						//if( MuonCollection[j].isTightMuon_minus_trkiso())
-							//QMuonCollection.push_back( MuonCollection[j] );
-					//}
 				}
 
 				//Give Acceptance cuts
@@ -435,24 +215,21 @@ void MuonPlots(TString HLTname = "IsoMu20")
 
 						//Count # events in the Z-peak region for each sample
 						//if( reco_M > 60 && reco_M < 120 )
-							count_Zpeak++;
+						count_Zpeak++;
 					}
 				}
 
 			} //End of if( isTriggered )
 
-					}
-				}
-			}
 		} //End of event iteration
 
 		cout << "\tcount_Zpeak(" << Tag[i_tup] << "): " << count_Zpeak << endl;
 
-		if (Tag[i_tup] == "DYMuMu")
-		{
-			for (Int_t i_hist = 0; i_hist < (Int_t)Plots->Histo.size(); i_hist++)
-				Plots->Histo[i_hist]->Scale (Factor);
-		}
+		//if (Tag[i_tup] == "DYMuMu")
+		//{
+		//for (Int_t i_hist = 0; i_hist < (Int_t)Plots->Histo.size(); i_hist++)
+		//Plots->Histo[i_hist]->Scale (Factor);
+		//}
 		// if( Tag[i_tup] == "DYTauTau_M20to50" )
 		// {
 		// 	for(Int_t i_hist=0; i_hist < (Int_t)Plots->Histo.size(); i_hist++)
@@ -463,61 +240,20 @@ void MuonPlots(TString HLTname = "IsoMu20")
 
 
 		Plots->WriteHistograms( f );
-		//fcut->cd();
-		//h_isGLB_Pt->Write();
-		//h_isGLB_eta->Write();
-		//h_isGLB_phi->Write();
-		//h_isPF_Pt->Write();
-		//h_isPF_eta->Write();
-		//h_isPF_phi->Write();
-		//h_chi2dof_Pt->Write();
-		//h_chi2dof_eta->Write();
-		//h_chi2dof_phi->Write();
-		//h_muonHits_Pt->Write();
-		//h_muonHits_eta->Write();
-		//h_muonHits_phi->Write();
-		//h_nMatches_Pt->Write();
-		//h_nMatches_eta->Write();
-		//h_nMatches_phi->Write();
-		//h_dxyVTX_Pt->Write();
-		//h_dxyVTX_eta->Write();
-		//h_dxyVTX_phi->Write();
-		//h_dzVTX_Pt->Write();
-		//h_dzVTX_eta->Write();
-		//h_dzVTX_phi->Write();
-		//h_pixelHits_Pt->Write();
-		//h_pixelHits_eta->Write();
-		//h_pixelHits_phi->Write();
-		//h_trackerLayers_Pt->Write();
-		//h_trackerLayers_eta->Write();
-		//h_trackerLayers_phi->Write();
-		//h_trkiso_Pt->Write();
-		//h_trkiso_eta->Write();
-		//h_trkiso_phi->Write();
-		//fallcut->cd();
-		//h_cut_Pt->Write();
-		//h_cut_eta->Write();
-		//h_cut_phi->Write();
-
 		if(isNLO == 1)
 			cout << "\tTotal sum of weights: " << SumWeight << endl;
 
-/*
- *        if( Tag[i_tup] == "DYMuMu_M20to50" )
- *            cout << "\tSum of weights in 20<M<50 for DYMuMu events: " << SumWeight_DYMuMu_M20to50 << endl;
- *
- *        if( Tag[i_tup] == "DYTauTau_M20to50" )
- *            cout << "\tSum of weights in 20<M<50 for DYTauTau events: " << SumWeight_DYTauTau_M20to50 << endl;
- *
- */
+		/*
+		 *        if( Tag[i_tup] == "DYMuMu_M20to50" )
+		 *            cout << "\tSum of weights in 20<M<50 for DYMuMu events: " << SumWeight_DYMuMu_M20to50 << endl;
+		 *
+		 *        if( Tag[i_tup] == "DYTauTau_M20to50" )
+		 *            cout << "\tSum of weights in 20<M<50 for DYTauTau events: " << SumWeight_DYTauTau_M20to50 << endl;
+		 *
+		 */
 		Double_t LoopRunTime = looptime.CpuTime();
 		cout << "\tLoop RunTime(" << Tag[i_tup] << "): " << LoopRunTime << " seconds\n" << endl;
 	} //end of i_tup iteration
-}//end of i_cut iteration
-
-//	TH1D *h_isGLB_Pt_Scaled = (TH1D *) h_isGLB_PtDYMuMu->Clone();
-//	h_isGLB_Pt_Scaled->Scale(1/Factor);
-//	h_isGLB_Pt_Scaled->Write();
 
 
 	Double_t TotalRunTime = totaltime.CpuTime();
@@ -555,16 +291,16 @@ void AssignAccThreshold(TString HLTname, TString *HLT, Double_t *LeadPtCut, Doub
 
 void CompareMuon(Muon *Mu1, Muon *Mu2, Muon *leadMu, Muon *subMu)
 {
-    if( Mu1->Pt > Mu2->Pt )
-    {
-        *leadMu = *Mu1;
-        *subMu = *Mu2;
-    }
-    else
-    {
-        *leadMu = *Mu2;
-        *subMu = *Mu1;
-    }
+	if( Mu1->Pt > Mu2->Pt )
+	{
+		*leadMu = *Mu1;
+		*subMu = *Mu2;
+	}
+	else
+	{
+		*leadMu = *Mu2;
+		*subMu = *Mu1;
+	}
 }
 
 void CompareGenLepton(GenLepton *genlep1, GenLepton *genlep2, GenLepton *leadgenlep, GenLepton *subgenlep)
@@ -721,27 +457,27 @@ Bool_t isPassDimuonVertexCut(NtupleHandle *ntuple, Double_t Pt1, Double_t Pt2)
 
 static inline void loadBar(int x, int n, int r, int w)
 {
-    // Only update r times.
-    if( x == n )
-    	cout << endl;
+	// Only update r times.
+	if( x == n )
+		cout << endl;
 
-    if ( x % (n/r +1) != 0 ) return;
+	if ( x % (n/r +1) != 0 ) return;
 
 
-    // Calculuate the ratio of complete-to-incomplete.
-    float ratio = x/(float)n;
-    int   c     = ratio * w;
+	// Calculuate the ratio of complete-to-incomplete.
+	float ratio = x/(float)n;
+	int   c     = ratio * w;
 
-    // Show the percentage complete.
-    printf("%3d%% [", (int)(ratio*100) );
+	// Show the percentage complete.
+	printf("%3d%% [", (int)(ratio*100) );
 
-    // Show the load bar.
-    for (int x=0; x<c; x++) cout << "=";
+	// Show the load bar.
+	for (int x=0; x<c; x++) cout << "=";
 
-    for (int x=c; x<w; x++) cout << " ";
+	for (int x=c; x<w; x++) cout << " ";
 
-    // ANSI Control codes to go back to the
-    // previous line and clear it.
+	// ANSI Control codes to go back to the
+	// previous line and clear it.
 	cout << "]\r" << flush;
 
 }
