@@ -77,12 +77,13 @@ void MuonPlots(TString HLTname = "IsoMu20")
 	//Data
 	ntupleDirectory.push_back( "Run2015C/GoldenJSON/SingleMuon_v3_Run246908to256869" ); Tag.push_back( "Data" ); // -- Run2015C -- //
 	//TFile *f = new TFile("MuonTightM60to120Pt25.root", "RECREATE");
-	TFile *f = new TFile ("MuonIncludeBg.root", "RECREATE");
-	//TFile *f = new TFile ("test.root", "RECREATE");
+	//TFile *f = new TFile ("MuonIncludeBg.root", "RECREATE");
+	TFile *f = new TFile ("test.root", "RECREATE");
 	
 	//Loop for all samples
 	const Int_t Ntup = ntupleDirectory.size();
-	for(Int_t i_tup = 0; i_tup<Ntup; i_tup++)
+	Int_t i_tup = 1;
+	//for(Int_t i_tup = 0; i_tup<Ntup; i_tup++)
 	{
 		TStopwatch looptime;
 		looptime.Start();
@@ -117,8 +118,8 @@ void MuonPlots(TString HLTname = "IsoMu20")
 
 		Int_t NEvents = chain->GetEntries();
 		cout << "\t[Total Events: " << NEvents << "]" << endl;
-		//for(Int_t i=0; i<10000; i++)
-		for(Int_t i=0; i<NEvents; i++)
+		for(Int_t i=0; i<10000; i++)
+		//for(Int_t i=0; i<NEvents; i++)
 		{
 			loadBar(i+1, NEvents, 100, 100);
 
@@ -127,6 +128,9 @@ void MuonPlots(TString HLTname = "IsoMu20")
 
 			vector<GenLepton> GenLeptonCollection;
 			Int_t NGenLeptons = ntuple->gnpair;
+
+			cout << "NEvent: " << i << "-------------------------" <<  endl;
+
 			for (Int_t i_gen = 0; i_gen < NGenLeptons; i_gen++)
 			{
 				GenLepton genlep;
@@ -145,14 +149,21 @@ void MuonPlots(TString HLTname = "IsoMu20")
 				}
 				else if( Tag[i_tup] == "DYTauTau" )
 				{
-					if( fabs( genlep.ID) == 13 && genlep.fromHardProcessDecayed )
+					cout << "genlep.ID: " << genlep.ID << "\tgenlep.fromHPD " << genlep.fromHardProcessDecayed << endl;
+					if( fabs( genlep.ID) == 15 && genlep.fromHardProcessDecayed )
 					{
 						GenLeptonCollection.push_back( genlep );
 
 						if( GenLeptonCollection.size() == 2 )
-							genFlag = 1;;
+							genFlag = 1;
+
+						cout << "genFlag: " << genFlag << endl;
 					}
 				}
+				//else if( Tag[i_tup] == "ttbar" || Tag[i_tup] == "WJets" || Tag[i_tup] == "WW" || Tag[i_tup] == "WZ" || Tag[i_tup] == "ZZ" )
+					//genFlag = 1;
+				else
+					genFlag = 1;
 			}
 
 			//Bring weights for NLO MC events
