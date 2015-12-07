@@ -50,8 +50,7 @@ void MuonPlots(TString HLTname = "IsoMu20")
 	cout << "sub-leading lepton Eta Cut: " << SubEtaCut << endl;
 	cout << "===========================================================" << endl;
 
-	//Double_t Factor = (((569.0171*2008.4)*3)/(4.5275*10**11));
-	Double_t Factor = ((569.0171*2008.4)*3)/(4.5275*(1e11));
+	//Double_t Factor = ((569.0171*2008.4)*3)/(4.5275*(1e11));
 
 	//TFile *f = new TFile("ROOTFile_Histogram_InvMass_"+HLTname+"_Data.root", "RECREATE");
 	//TFile *f = new TFile("ROOTFile_Histogram_InvMass_60to120_Data.root", "RECREATE");
@@ -77,13 +76,13 @@ void MuonPlots(TString HLTname = "IsoMu20")
 	//Data
 	ntupleDirectory.push_back( "Run2015C/GoldenJSON/SingleMuon_v3_Run246908to256869" ); Tag.push_back( "Data" ); // -- Run2015C -- //
 	//TFile *f = new TFile("MuonTightM60to120Pt25.root", "RECREATE");
-	//TFile *f = new TFile ("MuonIncludeBg.root", "RECREATE");
-	TFile *f = new TFile ("test.root", "RECREATE");
+	TFile *f = new TFile ("MuonIncludeBg.root", "RECREATE");
+	//TFile *f = new TFile ("test.root", "RECREATE");
 	
 	//Loop for all samples
 	const Int_t Ntup = ntupleDirectory.size();
-	Int_t i_tup = 1;
-	//for(Int_t i_tup = 0; i_tup<Ntup; i_tup++)
+	//Int_t i_tup = 1;
+	for(Int_t i_tup = 0; i_tup<Ntup; i_tup++)
 	{
 		TStopwatch looptime;
 		looptime.Start();
@@ -118,8 +117,8 @@ void MuonPlots(TString HLTname = "IsoMu20")
 
 		Int_t NEvents = chain->GetEntries();
 		cout << "\t[Total Events: " << NEvents << "]" << endl;
-		for(Int_t i=0; i<10000; i++)
-		//for(Int_t i=0; i<NEvents; i++)
+		//for(Int_t i=0; i<10000; i++)
+		for(Int_t i=0; i<NEvents; i++)
 		{
 			loadBar(i+1, NEvents, 100, 100);
 
@@ -129,7 +128,7 @@ void MuonPlots(TString HLTname = "IsoMu20")
 			vector<GenLepton> GenLeptonCollection;
 			Int_t NGenLeptons = ntuple->gnpair;
 
-			cout << "NEvent: " << i << "-------------------------" <<  endl;
+			//cout << "NEvent: " << i << "-------------------------" <<  endl;
 
 			for (Int_t i_gen = 0; i_gen < NGenLeptons; i_gen++)
 			{
@@ -149,7 +148,7 @@ void MuonPlots(TString HLTname = "IsoMu20")
 				}
 				else if( Tag[i_tup] == "DYTauTau" )
 				{
-					cout << "genlep.ID: " << genlep.ID << "\tgenlep.fromHPD " << genlep.fromHardProcessDecayed << endl;
+					//cout << "genlep.ID: " << genlep.ID << "\tgenlep.fromHPD " << genlep.fromHardProcessDecayed << endl;
 					if( fabs( genlep.ID) == 15 && genlep.fromHardProcessDecayed )
 					{
 						GenLeptonCollection.push_back( genlep );
@@ -157,7 +156,7 @@ void MuonPlots(TString HLTname = "IsoMu20")
 						if( GenLeptonCollection.size() == 2 )
 							genFlag = 1;
 
-						cout << "genFlag: " << genFlag << endl;
+						//cout << "genFlag: " << genFlag << endl;
 					}
 				}
 				//else if( Tag[i_tup] == "ttbar" || Tag[i_tup] == "WJets" || Tag[i_tup] == "WW" || Tag[i_tup] == "WZ" || Tag[i_tup] == "ZZ" )
@@ -165,6 +164,8 @@ void MuonPlots(TString HLTname = "IsoMu20")
 				else
 					genFlag = 1;
 			}
+			if( Tag[i_tup] == "Data" )
+				genFlag = 1;
 
 			//Bring weights for NLO MC events
 			Double_t GenWeight;
