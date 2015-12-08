@@ -34,8 +34,8 @@ void ratioplot () {
 
 	vector<TString> Type;		vector<TString> XDim;					vector<TString> YDim;
 	Type.push_back("Pt");		XDim.push_back("p_{T}[GeV/c]");			YDim.push_back("Number of Muons");
-	Type.push_back("eta");		XDim.push_back("eta");					YDim.push_back("Number of Muons");
-	Type.push_back("mass");		XDim.push_back("M_{mumu}[GeV/c^{2}]");	YDim.push_back("Number of Events");
+	Type.push_back("eta");		XDim.push_back("#eta");					YDim.push_back("Number of Muons");
+	Type.push_back("mass");		XDim.push_back("M_{#mu#mu}[GeV/c^{2}]");	YDim.push_back("Number of Events");
 	Type.push_back("diPt");		XDim.push_back("Dimuon p_{T}[GeV/c]");	YDim.push_back("Number of Events");
 	Type.push_back("diRap");	XDim.push_back("Dimuon Rapidity");		YDim.push_back("Number of Events");
 
@@ -68,7 +68,7 @@ void ratioplot () {
 	// vector<TCanvas> c;
 	// c.push_back(c0);	c.push_back(c1);	c.push_back(c2);	c.push_back(c3);	c.push_back(c4);
 	//Int_t i = 0;
-	Int_t j = 2;
+	Int_t j = 1;
 	 //for (Int_t i = 0; i < 10; i++)
 	{
 		f1 = new TFile ("MuonIncludeBg.root");
