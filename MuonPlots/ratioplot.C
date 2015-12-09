@@ -68,7 +68,7 @@ void ratioplot () {
 	// vector<TCanvas> c;
 	// c.push_back(c0);	c.push_back(c1);	c.push_back(c2);	c.push_back(c3);	c.push_back(c4);
 	//Int_t i = 0;
-	Int_t j = 1;
+	Int_t j = 2;
 	 //for (Int_t i = 0; i < 10; i++)
 	{
 		f1 = new TFile ("MuonIncludeBg.root");
@@ -154,26 +154,26 @@ void ratioplot () {
 			h5->SetFillColor(kBlue);
 			h5->SetLineWidth(0);
 			h7->SetFillColor(kGreen);
-			h7->SetLineWidth(0);
-			h8->SetFillColor(6);
-			h8->SetLineWidth(0);
-			h9->SetFillColor(7);
-			h9->SetLineWidth(0);
+			h7->SetLineColorAlpha(kGreen, 0);
+			h8->SetFillColor(kGreen);
+			h8->SetLineColorAlpha(kGreen, 0);
+			h9->SetFillColor(kGreen);
+			h9->SetLineColorAlpha(kGreen, 0);
 
 			if( Type[j] == "Pt")
 				hs->SetMinimum(0.01);
 			if( Type[j] == "eta")
 			{
 				hs->SetMaximum(1e5);
-				hs->SetMinimum(10);
+				hs->SetMinimum(20);
 			}
 
 			hs->Add(h9);
 			hs->Add(h8);
 			hs->Add(h7);
 			//hs->Add(h6);
-			hs->Add(h5);
 			hs->Add(h4);
+			hs->Add(h5);
 			hs->Add(h2);
 
 			//h1->Draw("E1");    // Draw Data
@@ -193,12 +193,12 @@ void ratioplot () {
 			leg = new TLegend (.70, .65, .90, .90);
 			leg->AddEntry(h1, "Data");
 			leg->AddEntry(h2, "DYMuMu");
-			leg->AddEntry(h4, "DYTauTau");
 			leg->AddEntry(h5, "ttbar");
+			leg->AddEntry(h4, "DYTauTau");
 			//leg->AddEntry(h6, "WJets");
-			leg->AddEntry(h7, "WW");
-			leg->AddEntry(h8, "WZ");
-			leg->AddEntry(h9, "ZZ");
+			leg->AddEntry(h7, "diboson");
+			//leg->AddEntry(h8, "WZ");
+			//leg->AddEntry(h9, "ZZ");
 
 			leg->Draw();
 
