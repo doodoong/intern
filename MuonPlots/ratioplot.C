@@ -68,7 +68,7 @@ void ratioplot () {
 	// vector<TCanvas> c;
 	// c.push_back(c0);	c.push_back(c1);	c.push_back(c2);	c.push_back(c3);	c.push_back(c4);
 	//Int_t i = 0;
-	Int_t j = 2;
+	Int_t j = 1;
 	 //for (Int_t i = 0; i < 10; i++)
 	{
 		f1 = new TFile ("MuonIncludeBg.root");
@@ -167,6 +167,8 @@ void ratioplot () {
 				hs->SetMaximum(1e5);
 				hs->SetMinimum(20);
 			}
+			if( Type[j] == "mass")
+				hs->SetMinimum(10);
 
 			hs->Add(h9);
 			hs->Add(h8);
@@ -273,6 +275,7 @@ void ratioplot () {
 
 			// Ratio plot (h3) settings
 			h3->SetTitle(""); // Remove the ratio title
+			h3->SetMarkerStyle(20);
 
 			// Y axis ratio plot settings
 			h3->GetYaxis()->SetTitle("Data/MC");
