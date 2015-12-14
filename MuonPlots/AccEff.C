@@ -50,7 +50,7 @@ void AccEff(TString HLTname = "IsoMu20")
 	cout << "sub-leading lepton Eta Cut: " << SubEtaCut << endl;
 	cout << "===========================================================" << endl;
 
-	Double_t Factor = ((569.0171*2008.4)*3)/(4.5275*(1e11));
+	Double_t Factor = ((592.563*2008.4)*3)/(4.5275*(1e11));
 
 
 	TString BaseLocation = "/data4/Users/kplee/DYntuple";
@@ -90,6 +90,10 @@ void AccEff(TString HLTname = "IsoMu20")
 		TH1D *h_eta_gen = new TH1D ("h_eta_gen", "",60, -3, 3);
 		TH1D *h_mass_genMu = new TH1D ("h_mass_genMu", "",250, 0 , 500);
 
+		TH1F *h_N_sel = new TH1F("h_N_sel", "", 50, 50, 150);
+		TH1F *h_N_acc = new TH1F("h_N_acc", "", 50, 50, 150);
+
+		
 		TChain *chain = new TChain("recoTree/DYTree");
 		chain->Add(BaseLocation+"/"+ntupleDirectory[i_tup]+"/ntuple_*.root");
 		if( Tag[i_tup] == "Data" )
@@ -198,6 +202,7 @@ void AccEff(TString HLTname = "IsoMu20")
 							{
 								count_gen_acc += GenLeptonCollection.size()/2;
 								count_gen_acc2++;
+								h_N_acc->Fill(gen_M);
 
 								if (ntuple->isTriggered (HLT))
 								{
@@ -231,11 +236,11 @@ void AccEff(TString HLTname = "IsoMu20")
 
 										if (reco_M > 60 && reco_M < 120 && isPassDimuonVertexCut (ntuple, recolep1.cktpT, recolep2.cktpT))
 										{
-											Plots->FillHistograms(ntuple, HLT, recolep1, recolep2, GenWeight);
+											//Plots->FillHistograms(ntuple, HLT, recolep1, recolep2, GenWeight);
 											count_reco_sel++;
+											h_N_sel->Fill(reco_M);
 										}
 									}
-
 								} // End of if (isTriggered)
 							} // End of gen pT, eta cut
 
@@ -268,7 +273,8 @@ void AccEff(TString HLTname = "IsoMu20")
 		h_Pt_genMu->Write();
 		h_eta_genMu->Write();
 		h_mass_genMu->Write();
-
+		h_N_acc->Write();
+		h_N_sel->Write();
 
 		if(isNLO == 1)
 			cout << "\tTotal sum of weights: " << SumWeight << endl;

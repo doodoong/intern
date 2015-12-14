@@ -50,7 +50,7 @@ void MuonPlots(TString HLTname = "IsoMu20")
 	cout << "sub-leading lepton Eta Cut: " << SubEtaCut << endl;
 	cout << "===========================================================" << endl;
 
-	//Double_t Factor = ((569.0171*2008.4)*3)/(4.5275*(1e11));
+	//Double_t Factor = ((592.563*2008.4)*3)/(4.5275*(1e11));
 
 	//TFile *f = new TFile("ROOTFile_Histogram_InvMass_"+HLTname+"_Data.root", "RECREATE");
 	//TFile *f = new TFile("ROOTFile_Histogram_InvMass_60to120_Data.root", "RECREATE");

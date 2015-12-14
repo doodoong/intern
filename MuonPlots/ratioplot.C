@@ -39,13 +39,13 @@ void ratioplot () {
 	Type.push_back("diPt");		XDim.push_back("Dimuon p_{T}[GeV/c]");	YDim.push_back("Number of Events");
 	Type.push_back("diRap");	XDim.push_back("Dimuon Rapidity");		YDim.push_back("Number of Events");
 
-	//Double_t Factor = 569.0171*2008.4*3/4.5275/10; // Wrong value;
-	Double_t FacDY = ((569.0171*2008.4)*3)/(4.5275*(1e11));
-	Double_t Facttbar = (569.0171*831.76)/(19900300);
-	//Double_t FacWJets = (569.0171*2008.4)/(24184766);
-	Double_t FacWW = (569.0171*118.7)/(994416);
-	Double_t FacWZ = (569.0171*66.1)/(999248);
-	Double_t FacZZ = (569.0171*15.4)/(996944);
+	//Double_t Factor = 592.563*2008.4*3/4.5275/10; // Wrong value;
+	Double_t FacDY = ((592.563*2008.4)*3)/(4.5275*(1e11));
+	Double_t Facttbar = (592.563*831.76)/(19900300);
+	//Double_t FacWJets = (592.563*2008.4)/(24184766);
+	Double_t FacWW = (592.563*118.7)/(994416);
+	Double_t FacWZ = (592.563*66.1)/(999248);
+	Double_t FacZZ = (592.563*15.4)/(996944);
 
 
 	
@@ -236,8 +236,8 @@ void ratioplot () {
 
 			// h1 settings
 			h1->SetLineColor(kBlack);
-			h1->SetTitle("CMS Preliminary L=569.017pb^{-1}");
-			hs->SetTitle("CMS Preliminary L=569.017pb^{-1}");
+			h1->SetTitle("CMS Preliminary L=593pb^{-1}");
+			hs->SetTitle("CMS Preliminary L=593pb^{-1}");
 			h1->SetMarkerStyle(20);
 			h1->SetLineWidth(2);
 
