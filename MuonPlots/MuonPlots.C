@@ -112,6 +112,7 @@ void MuonPlots(TString HLTname = "IsoMu20")
 
 		Int_t count_Zpeak = 0;
 		Double_t SumWeight = 0;
+		Double_t SumWeightSel = 0;
 		//Double_t SumWeight_DYMuMu_M20to50 = 0;
 		//Double_t SumWeight_DYTauTau_M20to50 = 0;
 
@@ -228,6 +229,7 @@ void MuonPlots(TString HLTname = "IsoMu20")
 						//Count # events in the Z-peak region for each sample
 						//if( reco_M > 60 && reco_M < 120 )
 						count_Zpeak++;
+						SumWeightSel += GenWeight;
 					}
 				}
 
@@ -236,6 +238,8 @@ void MuonPlots(TString HLTname = "IsoMu20")
 		} //End of event iteration
 
 		cout << "\tcount_Zpeak(" << Tag[i_tup] << "): " << count_Zpeak << endl;
+		cout << "\tSumWeightSel: " << SumWeightSel << endl; 
+
 
 		//if (Tag[i_tup] == "DYMuMu")
 		//{

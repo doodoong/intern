@@ -238,7 +238,7 @@ void AccEff(TString HLTname = "IsoMu20")
 										{
 											//Plots->FillHistograms(ntuple, HLT, recolep1, recolep2, GenWeight);
 											count_reco_sel++;
-											h_N_sel->Fill(reco_M);
+											h_N_sel->Fill(gen_M);
 										}
 									}
 								} // End of if (isTriggered)
