@@ -68,7 +68,7 @@ void ratioplot () {
 	// vector<TCanvas> c;
 	// c.push_back(c0);	c.push_back(c1);	c.push_back(c2);	c.push_back(c3);	c.push_back(c4);
 	//Int_t i = 0;
-	Int_t j = 1;
+	Int_t j = 2;
 	 //for (Int_t i = 0; i < 10; i++)
 	{
 		f1 = new TFile ("MuonIncludeBg.root");
@@ -170,11 +170,12 @@ void ratioplot () {
 			if( Type[j] == "mass")
 				hs->SetMinimum(10);
 
+			hs->Add(h4);
 			hs->Add(h9);
 			hs->Add(h8);
 			hs->Add(h7);
 			//hs->Add(h6);
-			hs->Add(h4);
+			//hs->Add(h4);
 			hs->Add(h5);
 			hs->Add(h2);
 
@@ -194,11 +195,11 @@ void ratioplot () {
 
 			leg = new TLegend (.70, .65, .90, .90);
 			leg->AddEntry(h1, "Data");
-			leg->AddEntry(h2, "DYMuMu");
+			leg->AddEntry(h2, "Z/#gamma^{*}#rightarrow#mu^{+}#mu^{-}");
 			leg->AddEntry(h5, "ttbar");
-			leg->AddEntry(h4, "DYTauTau");
+			leg->AddEntry(h7, "Diboson");
 			//leg->AddEntry(h6, "WJets");
-			leg->AddEntry(h7, "diboson");
+			leg->AddEntry(h4, "Z/#gamma^{*}#rightarrow#tau^{+}#tau^{-}");
 			//leg->AddEntry(h8, "WZ");
 			//leg->AddEntry(h9, "ZZ");
 
